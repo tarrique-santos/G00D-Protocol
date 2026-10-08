@@ -1,0 +1,102 @@
+[gd_scene load_steps=7 format=3 uid="uid://crev1u1fg86ma"]
+
+[ext_resource type="Script" uid="uid://b8n328f0sqbet" path="res://scripts/mecha_2.gd" id="1_yiirs"]
+[ext_resource type="PackedScene" path="res://scenes/bullet.tscn" id="2_g447s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_xa6xj"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_pulsa"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_txf7o"]
+size = Vector3(1.5, 1, 1.5)
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ugely"]
+height = 2.5014648
+radius = 0.98046875
+
+[node name="Mecha" type="CharacterBody3D"]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+script = ExtResource("1_yiirs")
+bullet_scene = ExtResource("2_g447s")
+
+[node name="Torso" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5090828, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Torso"]
+transform = Transform3D(0.77, 0, 0, 0, 0.77, 0, 0, 0, 0.77, 0, 0, 0)
+mesh = SubResource("BoxMesh_xa6xj")
+skeleton = NodePath("../..")
+
+[node name="Marker3D" type="Marker3D" parent="Torso"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2847542, -0.5354944, -1.1010649)
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Torso"]
+transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 1.2984563, -0.54142994, -0.582541)
+mesh = SubResource("CylinderMesh_pulsa")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Torso"]
+transform = Transform3D(0.08231566, -0.3729029, -0.23249325, -0.029498398, 0.5142232, -0.18346441, 0.2869738, 0.15982127, 0.047829904, 0.9775286, -0.0406878, -0.07976973)
+mesh = SubResource("CylinderMesh_pulsa")
+skeleton = NodePath("../..")
+
+[node name="Legs" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Legs"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.93341005, 0)
+mesh = SubResource("BoxMesh_txf7o")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23579264, 0)
+shape = SubResource("CylinderShape3D_ugely")
+
+[node name="CameraPivot" type="Node3D" parent="."]
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 6)
+
+[node name="Crosshair" type="CanvasLayer" parent="."]
+
+[node name="Label" type="Label" parent="Crosshair"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 552.0
+offset_top = 304.0
+offset_right = -552.0
+offset_bottom = -312.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="Crosshair"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 904.0
+offset_top = 544.0
+offset_right = -64.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "// Jetpack: 100% (WIP) //"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="Crosshair"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 544.0
+offset_right = -871.0
+offset_bottom = -72.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "\\\\ Integridade: 100% (WIP) \\\\"
+vertical_alignment = 1
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+volume_db = -6.302
+pitch_scale = 2.65

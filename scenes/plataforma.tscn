@@ -1,0 +1,25 @@
+[gd_scene load_steps=6 format=3 uid="uid://g8fwqg0ntdyq"]
+
+[ext_resource type="Script" uid="uid://bny668w1yxpdv" path="res://Scripts/plataforma.gd" id="1_s235e"]
+[ext_resource type="Script" uid="uid://7i4o63yttss4" path="res://Scripts/ativa_plat.gd" id="2_q0b27"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_m5ri2"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_s235e"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q0b27"]
+
+[node name="Plataforma" type="StaticBody3D" groups=["alvo_ativavel"]]
+script = ExtResource("1_s235e")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_m5ri2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_s235e")
+
+[node name="Area3D" type="Area3D" parent="."]
+script = ExtResource("2_q0b27")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_q0b27")
