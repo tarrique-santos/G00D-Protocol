@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bat515yxqba34"]
+
+[ext_resource type="Script" uid="uid://dnivqfhloqjv7" path="res://scripts/enemy.gd" id="1_7p1mj"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
+
+[node name="Enemy" type="CharacterBody3D" unique_id=2109094078]
+transform = Transform3D(1, 0, 0, 0, 1.9606404, 0, 0, 0, 1, 0, 0.51573837, 0)
+script = ExtResource("1_7p1mj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=585030331]
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=147330515]
+mesh = SubResource("BoxMesh_yf5fn")
