@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://bek026mka8o18"]
+
+[ext_resource type="Texture2D" uid="uid://xnc3ohj4d2aa" path="res://models/tijolos/GBA Bowser Castle 3/kpa_blockA.png" id="1_wykyb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_2ktk7"]
+size = Vector3(1.8210487, 1.3208008, 0.22949219)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yf5fn"]
+albedo_texture = ExtResource("1_wykyb")
+uv1_scale = Vector3(4, 4, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_yf5fn")
+size = Vector3(3.6446533, 2.6572266, 0.60632324)
+
+[node name="Wall" type="StaticBody3D" unique_id=135947961]
+transform = Transform3D(3.5088944, 0, 0, 0, 3.5088944, 0, 0, 0, 1.6771603, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1136317318]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.91103554, 0.6647949, -0.05029297)
+shape = SubResource("BoxShape3D_2ktk7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1774930879]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 0.91116333, 0.66430664, -0.09841919)
+mesh = SubResource("BoxMesh_g4v7s")

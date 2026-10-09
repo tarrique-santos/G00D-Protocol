@@ -1,12 +1,52 @@
 [gd_scene format=3 uid="uid://bubhmq8hx6o8"]
 
-[ext_resource type="PackedScene" uid="uid://bat515yxqba34" path="res://scenes/enemy.tscn" id="1_0wfyh"]
-[ext_resource type="PackedScene" uid="uid://by4c6ogshg07r" path="res://scenes/player.tscn" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://crev1u1fg86ma" path="res://scenes/mecha.tscn" id="2_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://cj7r0nxfodyeh" path="res://models/floot/Bowser Castle/New_YukaRock.png" id="2_sugp2"]
+[ext_resource type="PackedScene" uid="uid://bek026mka8o18" path="res://scenes/wall.tscn" id="3_sugp2"]
+[ext_resource type="ArrayMesh" uid="uid://dqvaswrlgliw3" path="res://models/minion/MM-AC_AND_HERO_Andy_Mecha_Boy/MM-AC_AND_HERO_Andy_Mecha_Boy.obj" id="4_jyhfs"]
+
+[sub_resource type="Environment" id="Environment_g4v7s"]
+ambient_light_energy = 2.7
+fog_enabled = true
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o5qli"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0wfyh"]
+albedo_texture = ExtResource("2_sugp2")
+uv1_scale = Vector3(16, 16, 16)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_g4v7s"]
+material = SubResource("StandardMaterial3D_0wfyh")
+size = Vector2(50, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
+size = Vector3(50, 1, 50)
 
 [node name="Main" type="Node3D" unique_id=71965245]
 
-[node name="Enemy" parent="." unique_id=2109094078 instance=ExtResource("1_0wfyh")]
-transform = Transform3D(1, 0, 0, 0, 1.9606404, 0, 0, 0, 1, 0, 0.51573837, -4.1318655)
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=990177592]
+environment = SubResource("Environment_g4v7s")
 
-[node name="Player" parent="." unique_id=562250689 instance=ExtResource("2_sugp2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.2768667)
+[node name="Mecha" parent="." unique_id=1242589072 instance=ExtResource("2_0wfyh")]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.18009281, 3.420425, -61.751316)
+
+[node name="Wall" parent="." unique_id=135947961 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, 0, 0, -73.51171)
+
+[node name="Wall2" parent="." unique_id=805111843 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, -19.213223, 0, -73.51171)
+
+[node name="floor" type="StaticBody3D" parent="." unique_id=1331485261]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_o5qli")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor" unique_id=234524514]
+mesh = SubResource("PlaneMesh_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor" unique_id=2128415008]
+shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="robot" type="MeshInstance3D" parent="." unique_id=303971736]
+transform = Transform3D(2.1476388, 0, 0, 0, 2.1476388, 0, 0, 0, 1, -2.2527933, 2.4675434, -55.593052)
+visible = false
+mesh = ExtResource("4_jyhfs")
