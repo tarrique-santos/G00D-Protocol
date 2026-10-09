@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://crev1u1fg86ma"]
+[gd_scene format=3 uid="uid://crev1u1fg86ma"]
 
-[ext_resource type="Script" uid="uid://b8n328f0sqbet" path="res://scripts/mecha_2.gd" id="1_yiirs"]
-[ext_resource type="PackedScene" path="res://scenes/bullet.tscn" id="2_g447s"]
+[ext_resource type="Script" uid="uid://b8n328f0sqbet" path="res://scripts/mecha.gd" id="1_yiirs"]
+[ext_resource type="PackedScene" uid="uid://0eerau7u3cvu" path="res://scenes/bullet.tscn" id="2_g447s"]
+[ext_resource type="AudioStream" uid="uid://d3bq6sg6y3jmo" path="res://sounds/tiro.mp3" id="3_lli5t"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_xa6xj"]
 
@@ -14,49 +15,48 @@ size = Vector3(1.5, 1, 1.5)
 height = 2.5014648
 radius = 0.98046875
 
-[node name="Mecha" type="CharacterBody3D"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0, 0)
+[node name="Mecha" type="CharacterBody3D" unique_id=1329893884]
 script = ExtResource("1_yiirs")
 bullet_scene = ExtResource("2_g447s")
 
-[node name="Torso" type="Node3D" parent="."]
+[node name="Torso" type="Node3D" parent="." unique_id=183819454]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5090828, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Torso"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Torso" unique_id=1259436508]
 transform = Transform3D(0.77, 0, 0, 0, 0.77, 0, 0, 0, 0.77, 0, 0, 0)
 mesh = SubResource("BoxMesh_xa6xj")
 skeleton = NodePath("../..")
 
-[node name="Marker3D" type="Marker3D" parent="Torso"]
+[node name="Marker3D" type="Marker3D" parent="Torso" unique_id=1144281931]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.2847542, -0.5354944, -1.1010649)
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="Torso"]
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Torso" unique_id=2099981427]
 transform = Transform3D(0.5, 0, 0, 0, -2.1855694e-08, -0.5, 0, 0.5, -2.1855694e-08, 1.2984563, -0.54142994, -0.582541)
 mesh = SubResource("CylinderMesh_pulsa")
 
-[node name="MeshInstance3D3" type="MeshInstance3D" parent="Torso"]
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Torso" unique_id=1205598323]
 transform = Transform3D(0.08231566, -0.3729029, -0.23249325, -0.029498398, 0.5142232, -0.18346441, 0.2869738, 0.15982127, 0.047829904, 0.9775286, -0.0406878, -0.07976973)
 mesh = SubResource("CylinderMesh_pulsa")
 skeleton = NodePath("../..")
 
-[node name="Legs" type="Node3D" parent="."]
+[node name="Legs" type="Node3D" parent="." unique_id=1090053367]
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Legs"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Legs" unique_id=1246904067]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.93341005, 0)
 mesh = SubResource("BoxMesh_txf7o")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1954323251]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.23579264, 0)
 shape = SubResource("CylinderShape3D_ugely")
 
-[node name="CameraPivot" type="Node3D" parent="."]
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1337704679]
 
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
+[node name="Camera3D" type="Camera3D" parent="CameraPivot" unique_id=1849165394]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 6)
 
-[node name="Crosshair" type="CanvasLayer" parent="."]
+[node name="Crosshair" type="CanvasLayer" parent="." unique_id=805921610]
 
-[node name="Label" type="Label" parent="Crosshair"]
+[node name="Label" type="Label" parent="Crosshair" unique_id=585776654]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -70,7 +70,7 @@ text = "+"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label2" type="Label" parent="Crosshair"]
+[node name="Label2" type="Label" parent="Crosshair" unique_id=1386996511]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -84,7 +84,7 @@ text = "// Jetpack: 100% (WIP) //"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Label3" type="Label" parent="Crosshair"]
+[node name="Label3" type="Label" parent="Crosshair" unique_id=1631421439]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -97,6 +97,7 @@ grow_vertical = 2
 text = "\\\\ Integridade: 100% (WIP) \\\\"
 vertical_alignment = 1
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1681458015]
+stream = ExtResource("3_lli5t")
 volume_db = -6.302
 pitch_scale = 2.65

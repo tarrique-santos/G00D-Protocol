@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://g8fwqg0ntdyq"]
+[gd_scene format=3 uid="uid://g8fwqg0ntdyq"]
 
 [ext_resource type="Script" uid="uid://bny668w1yxpdv" path="res://Scripts/plataforma.gd" id="1_s235e"]
 [ext_resource type="Script" uid="uid://7i4o63yttss4" path="res://Scripts/ativa_plat.gd" id="2_q0b27"]
