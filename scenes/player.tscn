@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://by4c6ogshg07r"]
 
 [ext_resource type="Script" uid="uid://dua7iq5t3wsqd" path="res://scripts/player.gd" id="1_3vyb7"]
+[ext_resource type="ArrayMesh" uid="uid://dqrfsjixn0y8o" path="res://models/robo_arma/Future Robot.obj" id="2_g2els"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_g4v7s"]
 
@@ -10,6 +11,7 @@
 script = ExtResource("1_3vyb7")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1496320388]
+visible = false
 mesh = SubResource("CylinderMesh_g4v7s")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1930599030]
@@ -17,3 +19,6 @@ shape = SubResource("CylinderShape3D_yf5fn")
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=1316511317]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5744772, 2.7259898)
+
+[node name="FutureRobot" type="MeshInstance3D" parent="." unique_id=1170048805]
+mesh = ExtResource("2_g2els")

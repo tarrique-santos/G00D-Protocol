@@ -1,10 +1,30 @@
 [gd_scene format=3 uid="uid://bat515yxqba34"]
 
 [ext_resource type="Script" uid="uid://dnivqfhloqjv7" path="res://scripts/enemy.gd" id="1_7p1mj"]
+[ext_resource type="Texture2D" uid="uid://5fa07wlnijwu" path="res://models/robo_espada/roboa/TEXBSI_484_E84002.png" id="2_4ra3w"]
+[ext_resource type="ArrayMesh" uid="uid://ckjhjdc8b0rd6" path="res://models/robo_espada/roboa/ROBOA001.obj" id="3_5uy6h"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4w8v"]
+albedo_texture = ExtResource("2_4ra3w")
+
 [sub_resource type="BoxMesh" id="BoxMesh_yf5fn"]
+
+[sub_resource type="Animation" id="Animation_xwavj"]
+resource_name = "teste"
+tracks/0/type = "position_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array()
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nenq2"]
+_data = {
+&"teste": SubResource("Animation_xwavj")
+}
 
 [node name="Enemy" type="CharacterBody3D" unique_id=2109094078]
 transform = Transform3D(1, 0, 0, 0, 1.9606404, 0, 0, 0, 1, 0, 0.51573837, 0)
@@ -14,4 +34,13 @@ script = ExtResource("1_7p1mj")
 shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=147330515]
+visible = false
+material_override = SubResource("StandardMaterial3D_c4w8v")
 mesh = SubResource("BoxMesh_yf5fn")
+
+[node name="Roboa001" type="MeshInstance3D" parent="." unique_id=960379079]
+transform = Transform3D(0.01, 0, 0, 0, 0.005, 0, 0, 0, 0.01, 0, 0, -0.5974482)
+mesh = ExtResource("3_5uy6h")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Roboa001" unique_id=1926653109]
+libraries/ = SubResource("AnimationLibrary_nenq2")
