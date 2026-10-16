@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bat515yxqba34"]
 
-[ext_resource type="Script" uid="uid://dnivqfhloqjv7" path="res://scripts/enemy.gd" id="1_7p1mj"]
+[ext_resource type="Script" uid="uid://bx08mxlovnux4" path="res://scripts/minion_Flyer.gd" id="1_4ra3w"]
 [ext_resource type="Texture2D" uid="uid://5fa07wlnijwu" path="res://models/robo_espada/roboa/TEXBSI_484_E84002.png" id="2_4ra3w"]
 [ext_resource type="ArrayMesh" uid="uid://ckjhjdc8b0rd6" path="res://models/robo_espada/roboa/ROBOA001.obj" id="3_5uy6h"]
 
@@ -27,8 +27,8 @@ _data = {
 }
 
 [node name="Enemy" type="CharacterBody3D" unique_id=2109094078]
-transform = Transform3D(1, 0, 0, 0, 1.9606404, 0, 0, 0, 1, 0, 0.51573837, 0)
-script = ExtResource("1_7p1mj")
+transform = Transform3D(5, 0, 0, 0, 9.805, 0, 0, 0, 5, 0, 0.51573837, 0)
+script = ExtResource("1_4ra3w")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=585030331]
 shape = SubResource("BoxShape3D_g4v7s")
@@ -39,7 +39,7 @@ material_override = SubResource("StandardMaterial3D_c4w8v")
 mesh = SubResource("BoxMesh_yf5fn")
 
 [node name="Roboa001" type="MeshInstance3D" parent="." unique_id=960379079]
-transform = Transform3D(0.01, 0, 0, 0, 0.005, 0, 0, 0, 0.01, 0, 0, -0.5974482)
+transform = Transform3D(0.01, 0, 0, 0, 0.005, 0, 0, 0, 0.01, 0, 0, 0)
 mesh = ExtResource("3_5uy6h")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Roboa001" unique_id=1926653109]
