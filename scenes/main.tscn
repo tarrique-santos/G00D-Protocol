@@ -1,14 +1,29 @@
-[gd_scene load_steps=11 format=3 uid="uid://bubhmq8hx6o8"]
+[gd_scene format=3 uid="uid://bubhmq8hx6o8"]
 
+[ext_resource type="Shader" uid="uid://b4pu0lnjyttem" path="res://scripts/main.gdshader" id="1_tefeu"]
 [ext_resource type="PackedScene" uid="uid://crev1u1fg86ma" path="res://scenes/mecha.tscn" id="2_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://cj7r0nxfodyeh" path="res://models/floot/Bowser Castle/New_YukaRock.png" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bek026mka8o18" path="res://scenes/wall.tscn" id="3_sugp2"]
-[ext_resource type="ArrayMesh" uid="uid://dqvaswrlgliw3" path="res://models/minion/MM-AC_AND_HERO_Andy_Mecha_Boy/MM-AC_AND_HERO_Andy_Mecha_Boy.obj" id="4_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://b563g54ci23hu" path="res://scripts/minion_flyer.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://b563g54ci23hu" path="res://scenes/minion_flyer.tscn" id="5_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://0eerau7u3cvu" path="res://scenes/bullet.tscn" id="5_tefeu"]
 
-[sub_resource type="Environment" id="Environment_g4v7s"]
-ambient_light_energy = 2.7
-fog_enabled = true
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
+shader = ExtResource("1_tefeu")
+shader_parameter/star_color = Color(1, 1, 1, 1)
+shader_parameter/star_density = 180.0
+shader_parameter/star_brightness = 1.5
+
+[sub_resource type="Sky" id="Sky_d0u6y"]
+sky_material = SubResource("ShaderMaterial_3gngh")
+
+[sub_resource type="Environment" id="Environment_choun"]
+background_mode = 2
+background_color = Color(0.9297146, 0.9297147, 0.9297146, 1)
+sky = SubResource("Sky_d0u6y")
+ambient_light_source = 2
+ambient_light_color = Color(0.02284729, 6.016344e-08, 0.24355921, 1)
+ambient_light_energy = 1.2
+tonemap_mode = 1
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_o5qli"]
 
@@ -23,34 +38,79 @@ size = Vector2(50, 50)
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
 size = Vector3(50, 1, 50)
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=1477212385]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_g4v7s")
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=455135919]
+environment = SubResource("Environment_choun")
 
-[node name="Mecha" parent="." groups=["player"] instance=ExtResource("2_0wfyh")]
+[node name="Mecha" parent="." unique_id=1398347663 groups=["player"] instance=ExtResource("2_0wfyh")]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.18009281, 3.420425, -61.751316)
 
-[node name="Wall" parent="." instance=ExtResource("3_sugp2")]
-transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, 0, 0, -73.51171)
+[node name="Wall" parent="." unique_id=230349178 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, -1.6245651, 0, -73.51171)
 
-[node name="Wall2" parent="." instance=ExtResource("3_sugp2")]
-transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, -19.213223, 0, -73.51171)
+[node name="Wall2" parent="." unique_id=148128950 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, -20.837788, 0, -73.51171)
 
-[node name="floor" type="StaticBody3D" parent="."]
+[node name="Wall3" parent="." unique_id=135947961 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, 36.758896, 0, -73.51171)
+
+[node name="Wall5" parent="." unique_id=1201531931 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, 55.928127, 0, -73.51171)
+
+[node name="Wall4" parent="." unique_id=1140073069 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, 17.545673, 0, -73.51171)
+
+[node name="Wall6" parent="." unique_id=1739461656 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, -59.036526, 0, -73.51171)
+
+[node name="Wall7" parent="." unique_id=1238248365 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, -78.24975, 0, -73.51171)
+
+[node name="Wall9" parent="." unique_id=708313649 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-4.6013596e-07, 0, 5.031481, 0, 10.526683, 0, -10.526684, 0, -2.1993301e-07, -73.74206, 0, -54.15913)
+
+[node name="Wall10" parent="." unique_id=974762391 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-4.6013596e-07, 0, 5.031481, 0, 10.526683, 0, -10.526684, 0, -2.1993301e-07, -73.74206, 0, -35.10575)
+
+[node name="Wall11" parent="." unique_id=427884976 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-4.6013596e-07, 0, 5.031481, 0, 10.526683, 0, -10.526684, 0, -2.1993301e-07, -73.74206, 0, -16.240597)
+
+[node name="Wall12" parent="." unique_id=2132393010 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-4.6013596e-07, 0, 5.031481, 0, 10.526683, 0, -10.526684, 0, -2.1993301e-07, -73.74206, 0, 2.8127823)
+
+[node name="Wall13" parent="." unique_id=994723912 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-4.6013596e-07, 0, 5.031481, 0, 10.526683, 0, -10.526684, 0, -2.1993301e-07, -73.74206, 0, 22.000156)
+
+[node name="Wall14" parent="." unique_id=1218281020 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-4.6013596e-07, 0, 5.031481, 0, 10.526683, 0, -10.526684, 0, -2.1993301e-07, -73.74206, 0, 41.053535)
+
+[node name="Wall15" parent="." unique_id=1878292737 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-4.6013596e-07, 0, 5.031481, 0, 10.526683, 0, -10.526684, 0, -2.1993301e-07, -73.74206, 0, 59.91869)
+
+[node name="Wall16" parent="." unique_id=2062682073 instance=ExtResource("3_sugp2")]
+transform = Transform3D(-4.6013596e-07, 0, 5.031481, 0, 10.526683, 0, -10.526684, 0, -2.1993301e-07, -73.74206, 0, 78.97207)
+
+[node name="Wall8" parent="." unique_id=28449516 instance=ExtResource("3_sugp2")]
+transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, -39.866287, 0, -73.51171)
+
+[node name="floor" type="StaticBody3D" parent="." unique_id=511253692]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 physics_material_override = SubResource("PhysicsMaterial_o5qli")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="floor" unique_id=710982983]
 mesh = SubResource("PlaneMesh_g4v7s")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="floor" unique_id=1194240775]
 shape = SubResource("BoxShape3D_yf5fn")
 
-[node name="robot" type="MeshInstance3D" parent="."]
-transform = Transform3D(2.1476388, 0, 0, 0, 2.1476388, 0, 0, 0, 1, -2.2527933, 2.4675434, -55.593052)
-visible = false
-mesh = ExtResource("4_jyhfs")
-
-[node name="CharacterBody3D" parent="." instance=ExtResource("5_tbgi4")]
+[node name="Minion" parent="." unique_id=817197246 instance=ExtResource("5_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.046082, 5.045615, -28.17388)
+cena_projetil = ExtResource("5_tefeu")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1277972780]
+transform = Transform3D(0.45600632, 0.88019496, 0.13158707, -0.4580649, 0.10535708, 0.88265306, 0.7630431, -0.4627708, 0.4512299, 0, 25.883207, -3.5493736)
+light_energy = 1.2
+light_indirect_energy = 100.0
+light_volumetric_fog_energy = 10.0
+light_angular_distance = 10.0
