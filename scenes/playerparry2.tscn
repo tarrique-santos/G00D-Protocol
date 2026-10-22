@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://bk8ia73kauef0"]
+
+[ext_resource type="Script" uid="uid://dmianaemhduh4" path="res://scenes/playerparry_2.gd" id="1_wpm2o"]
+[ext_resource type="PackedScene" uid="uid://0eerau7u3cvu" path="res://scenes/bullet.tscn" id="2_kmwn8"]
+[ext_resource type="PackedScene" uid="uid://btdbg4tthverf" path="res://testes/Gun_Revolver.fbx" id="3_x71xt"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_hpv61"]
+
+[node name="CharacterBody2D" type="CharacterBody3D"]
+script = ExtResource("1_wpm2o")
+cena_tiro = ExtResource("2_kmwn8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_hpv61")
+
+[node name="Head" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9241005, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head"]
+
+[node name="Gun_Revolver" parent="Head/Camera3D" instance=ExtResource("3_x71xt")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.33107412, -0.16444254, -0.25137526)
+
+[node name="PontoDisparo" type="Marker3D" parent="Head/Camera3D/Gun_Revolver"]
+transform = Transform3D(-0.086773254, 0, 0.9962281, 0, 1, 0, -0.9962281, 0, -0.086773254, -0.44669777, 0.09914297, -0.00015214086)
+gizmo_extents = 0.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Mira" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Mira"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://bubhmq8hx6o8"]
 
 [ext_resource type="Shader" uid="uid://b4pu0lnjyttem" path="res://scripts/main.gdshader" id="1_tefeu"]
-[ext_resource type="PackedScene" uid="uid://crev1u1fg86ma" path="res://scenes/mecha.tscn" id="2_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://cj7r0nxfodyeh" path="res://models/floot/Bowser Castle/New_YukaRock.png" id="2_sugp2"]
 [ext_resource type="PackedScene" uid="uid://bek026mka8o18" path="res://scenes/wall.tscn" id="3_sugp2"]
 [ext_resource type="PackedScene" uid="uid://b563g54ci23hu" path="res://scenes/minion_flyer.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://0eerau7u3cvu" path="res://scenes/bullet.tscn" id="5_tefeu"]
+[ext_resource type="PackedScene" uid="uid://bk8ia73kauef0" path="res://scenes/playerparry2.tscn" id="6_tefeu"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
 shader = ExtResource("1_tefeu")
@@ -42,9 +42,6 @@ size = Vector3(50, 1, 50)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=455135919]
 environment = SubResource("Environment_choun")
-
-[node name="Mecha" parent="." unique_id=1398347663 groups=["player"] instance=ExtResource("2_0wfyh")]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, -0.18009281, 3.420425, -61.751316)
 
 [node name="Wall" parent="." unique_id=230349178 instance=ExtResource("3_sugp2")]
 transform = Transform3D(10.526684, 0, 0, 0, 10.526684, 0, 0, 0, 5.031481, -1.6245651, 0, -73.51171)
@@ -114,3 +111,6 @@ light_energy = 1.2
 light_indirect_energy = 100.0
 light_volumetric_fog_energy = 10.0
 light_angular_distance = 10.0
+
+[node name="CharacterBody2D" parent="." unique_id=1435911528 groups=["player"] instance=ExtResource("6_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.6049933, 0)
