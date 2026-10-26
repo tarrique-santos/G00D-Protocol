@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bk8ia73kauef0"]
+[gd_scene format=3 uid="uid://bk8ia73kauef0"]
 
 [ext_resource type="Script" uid="uid://dmianaemhduh4" path="res://scripts/playerparry_2.gd" id="1_wpm2o"]
 [ext_resource type="PackedScene" uid="uid://btdbg4tthverf" path="res://testes/Gun_Revolver.fbx" id="3_x71xt"]
