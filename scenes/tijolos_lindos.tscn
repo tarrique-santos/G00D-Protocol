@@ -1,0 +1,22 @@
+[gd_scene load_steps=5 format=3 uid="uid://cx4m2gjroybcm"]
+
+[ext_resource type="Texture2D" uid="uid://xnc3ohj4d2aa" path="res://models/tijolos/GBA Bowser Castle 3/kpa_blockA.png" id="1_cpvuo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qs5p0"]
+albedo_texture = ExtResource("1_cpvuo")
+uv1_scale = Vector3(0.1, 0.1, 0.1)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_t5bd1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xefue"]
+
+[node name="TijolosLindos" type="StaticBody3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_qs5p0")
+mesh = SubResource("BoxMesh_t5bd1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_xefue")

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://onojopveasec"]
+
+[ext_resource type="Texture2D" uid="uid://cj7r0nxfodyeh" path="res://models/floot/Bowser Castle/New_YukaRock.png" id="1_u33h5"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jhfpx"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3725h"]
+albedo_texture = ExtResource("1_u33h5")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_mlrbg"]
+material = SubResource("StandardMaterial3D_3725h")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pkhmt"]
+
+[node name="Chão" type="StaticBody3D"]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
+physics_material_override = SubResource("PhysicsMaterial_jhfpx")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_mlrbg")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_pkhmt")
