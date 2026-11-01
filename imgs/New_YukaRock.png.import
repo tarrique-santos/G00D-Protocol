@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cxkb61kd8q1tr"
-path.s3tc="res://.godot/imported/TEXBSI_484_E84006.png-170d7827dba9589076f33eda9fd2510d.s3tc.ctex"
+uid="uid://cj7r0nxfodyeh"
+path.s3tc="res://.godot/imported/New_YukaRock.png-727338676c95adda047d64699b3fd2f7.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://models/robo_espada/roboa/TEXBSI_484_E84006.png"
-dest_files=["res://.godot/imported/TEXBSI_484_E84006.png-170d7827dba9589076f33eda9fd2510d.s3tc.ctex"]
+source_file="res://imgs/New_YukaRock.png"
+dest_files=["res://.godot/imported/New_YukaRock.png-727338676c95adda047d64699b3fd2f7.s3tc.ctex"]
 
 [params]
 

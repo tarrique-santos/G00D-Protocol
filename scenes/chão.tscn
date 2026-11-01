@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://onojopveasec"]
+[gd_scene format=3 uid="uid://onojopveasec"]
 
-[ext_resource type="Texture2D" uid="uid://cj7r0nxfodyeh" path="res://models/floot/Bowser Castle/New_YukaRock.png" id="1_u33h5"]
+[ext_resource type="Texture2D" uid="uid://cj7r0nxfodyeh" path="res://imgs/New_YukaRock.png" id="1_u33h5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jhfpx"]
 
@@ -15,12 +15,12 @@ material = SubResource("StandardMaterial3D_3725h")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_pkhmt"]
 
-[node name="Chão" type="StaticBody3D"]
+[node name="Chão" type="StaticBody3D" unique_id=1639929931]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 physics_material_override = SubResource("PhysicsMaterial_jhfpx")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=43859976]
 mesh = SubResource("BoxMesh_mlrbg")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=703973013]
 shape = SubResource("BoxShape3D_pkhmt")
