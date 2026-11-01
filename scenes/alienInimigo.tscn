@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://q3mpvx24qoh7"]
+
+[ext_resource type="Script" uid="uid://b00qwi8qd3a17" path="res://scripts/alien.gd" id="1_1plbo"]
+[ext_resource type="PackedScene" uid="uid://buonga0y04y24" path="res://alien.tscn" id="1_5axr7"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_1plbo"]
+height = 3.4655762
+radius = 0.3095703
+
+[node name="AlienInimigo" type="CharacterBody3D" unique_id=1533967044]
+script = ExtResource("1_1plbo")
+
+[node name="Alien" parent="." unique_id=1424358570 instance=ExtResource("1_5axr7")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00040757656, 0.010298252, -0.0018928051)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1202946498]
+transform = Transform3D(1.1919123, 0, 0, 0, 1, 0, 0, 0, 1.6384828, 0, 1.558814, 0.0741086)
+shape = SubResource("CylinderShape3D_1plbo")

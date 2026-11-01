@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bubhmq8hx6o8"]
+[gd_scene format=3 uid="uid://bubhmq8hx6o8"]
 
 [ext_resource type="Shader" uid="uid://b4pu0lnjyttem" path="res://scripts/main.gdshader" id="1_tefeu"]
 [ext_resource type="PackedScene" uid="uid://cx4m2gjroybcm" path="res://scenes/tijolos_lindos.tscn" id="3_o6xl0"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://bk8ia73kauef0" path="res://scenes/playerparry2.tscn" id="6_tefeu"]
 [ext_resource type="PackedScene" uid="uid://bgdvawo25nmqd" path="res://scenes/terrain.tscn" id="7_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://onojopveasec" path="res://scenes/chão.tscn" id="8_tipki"]
+[ext_resource type="PackedScene" uid="uid://q3mpvx24qoh7" path="res://scenes/alienInimigo.tscn" id="9_85g3d"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
 shader = ExtResource("1_tefeu")
@@ -26,62 +27,65 @@ ambient_light_color = Color(0.02284729, 6.016344e-08, 0.24355921, 1)
 ambient_light_energy = 1.2
 tonemap_mode = 1
 
-[node name="Main" type="Node3D"]
+[node name="Main" type="Node3D" unique_id=669742024]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 124.12348, 0)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=927146068]
 environment = SubResource("Environment_choun")
 
-[node name="Spawn" type="Node" parent="."]
+[node name="Spawn" type="Node" parent="." unique_id=66250082]
 
-[node name="TijolosLindos" parent="Spawn" instance=ExtResource("3_o6xl0")]
+[node name="TijolosLindos" parent="Spawn" unique_id=739769170 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 101.99776, -33.356083, 143.64436, 1.969018)
 
-[node name="TijolosLindos2" parent="Spawn" instance=ExtResource("3_o6xl0")]
+[node name="TijolosLindos2" parent="Spawn" unique_id=1643701834 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 101.99776, 43.45888, 143.64436, 1.969018)
 
-[node name="TijolosLindos3" parent="Spawn" instance=ExtResource("3_o6xl0")]
+[node name="TijolosLindos3" parent="Spawn" unique_id=502607782 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(-4.371139e-08, 0, 101.99776, 0, 22.971989, 0, -1, 0, -4.4584635e-06, 5.7057457, 143.64436, -42.524498)
 
-[node name="TijolosLindos6" parent="Spawn" instance=ExtResource("3_o6xl0")]
+[node name="TijolosLindos6" parent="Spawn" unique_id=1097395034 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(-4.371139e-08, 0, 33.077507, 0, 22.971989, 0, -1, 0, -1.4458639e-06, 29.059704, 143.64436, 50.624226)
 
-[node name="TijolosLindos7" parent="Spawn" instance=ExtResource("3_o6xl0")]
+[node name="TijolosLindos7" parent="Spawn" unique_id=146717605 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(-4.371139e-08, 0, 31.86072, 0, 22.971989, 0, -1, 0, -1.3926764e-06, -19.061707, 143.64436, 50.624226)
 
-[node name="Chão" parent="Spawn" instance=ExtResource("8_tipki")]
+[node name="Chão" parent="Spawn" unique_id=73716863 instance=ExtResource("8_tipki")]
 transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 250.85158, 0, 132.3557, 52.494057)
 
-[node name="teto" parent="Spawn" instance=ExtResource("8_tipki")]
+[node name="teto" parent="Spawn" unique_id=1198169410 instance=ExtResource("8_tipki")]
 transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 120.22709, 1.9819603, 156.0735, 0)
 
-[node name="OmniLight3D" type="OmniLight3D" parent="Spawn/teto"]
+[node name="OmniLight3D" type="OmniLight3D" parent="Spawn/teto" unique_id=632481124]
 transform = Transform3D(0.01043217, 0, 0, 0, 0.33333334, 0, 0, 0, 0.0083175935, 4.1040416e-09, -2.183651, 0)
 light_energy = 16.0
 omni_range = 281.377
 
-[node name="TijolosLindos8" parent="Spawn" instance=ExtResource("3_o6xl0")]
+[node name="TijolosLindos8" parent="Spawn" unique_id=1866324499 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(-4.371139e-08, 0, 28.751743, 0, 15.209678, 0, -1, 0, -1.2567787e-06, 5.328354, 153.52824, 50.62422)
 
-[node name="TijolosLindos4" parent="Spawn" instance=ExtResource("3_o6xl0")]
+[node name="TijolosLindos4" parent="Spawn" unique_id=1271970336 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 62.583855, -4.792557, 142.8572, 81.577644)
 
-[node name="Minion" parent="." instance=ExtResource("5_tbgi4")]
+[node name="Minion" parent="." unique_id=1576257422 instance=ExtResource("5_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.046082, 14.7912445, -28.17388)
 cena_projetil = ExtResource("5_tefeu")
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1798892686]
 transform = Transform3D(0.4306094, 0.8776404, 0.21052958, -0.3242519, -0.06725418, 0.943577, 0.84228045, -0.47457784, 0.2556163, 0, 25.883202, -3.5493736)
 light_indirect_energy = 100.0
 light_volumetric_fog_energy = 10.0
 light_angular_distance = 10.0
 
-[node name="Player" parent="." instance=ExtResource("6_tefeu")]
+[node name="Player" parent="." unique_id=1131978176 instance=ExtResource("6_tefeu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 13.477404, 0)
-velocidade_dash = 40.0
-max_dashes_no_ar = 3
 
-[node name="Terrain3D" parent="." instance=ExtResource("7_o6xl0")]
+[node name="Terrain3D" parent="." unique_id=587083289 instance=ExtResource("7_o6xl0")]
+debug_level = 1
 data_directory = "res://terrain_data"
 save_16_bit = true
 collision_mode = 3
+visible = false
+
+[node name="AlienInimigo" parent="." unique_id=1533967044 instance=ExtResource("9_85g3d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30587, 9.714928, 0)

@@ -35,6 +35,14 @@ var vida_atual: int
 var morto: bool = false
 
 
+# --- SISTEMA DE IMUNIDADE ---
+
+@export var tempo_imunidade: float = 2.0
+
+var imune: bool = false
+var timer_imunidade: Timer
+
+
 # --- SISTEMA DE TIRO ---
 
 @export var alcance_tiro: float = 1000.0
@@ -51,9 +59,23 @@ var morto: bool = false
 
 
 func _ready() -> void:
+	add_to_group("player")
+
 	vida_atual = vida_maxima
 	pulos_restantes = quantidade_pulos
+
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
+	# Criar timer de imunidade
+	timer_imunidade = Timer.new()
+	timer_imunidade.one_shot = true
+	timer_imunidade.wait_time = tempo_imunidade
+	timer_imunidade.timeout.connect(_fim_imunidade)
+	add_child(timer_imunidade)
+
+	# Imunidade inicial
+	iniciar_imunidade()
+
 	print("Vida do jogador: ", vida_atual, "/", vida_maxima)
 
 
@@ -64,7 +86,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
 		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 			rotate_y(-event.relative.x * sensibilidade_mouse)
+
 			head.rotate_x(-event.relative.y * sensibilidade_mouse)
+
 			head.rotation.x = clamp(
 				head.rotation.x,
 				deg_to_rad(-85.0),
@@ -120,14 +144,14 @@ func _physics_process(delta: float) -> void:
 
 	# --- DIREÇÃO DO MOVIMENTO ---
 
-	var input_dir := Input.get_vector(
+	var input_dir: Vector2 = Input.get_vector(
 		"move_left",
 		"move_right",
 		"move_forward",
 		"move_backward"
 	)
 
-	var direcao_movimento := transform.basis * Vector3(
+	var direcao_movimento: Vector3 = transform.basis * Vector3(
 		input_dir.x,
 		0.0,
 		input_dir.y
@@ -148,7 +172,7 @@ func _physics_process(delta: float) -> void:
 		and tempo_recarga <= 0.0
 		and tempo_dash <= 0.0
 	):
-		var esta_no_ar := not is_on_floor() or velocity.y > 0.0
+		var esta_no_ar: bool = not is_on_floor() or velocity.y > 0.0
 
 		if not esta_no_ar or dashes_usados_no_ar < max_dashes_no_ar:
 			if direcao_movimento != Vector3.ZERO:
@@ -177,10 +201,15 @@ func _physics_process(delta: float) -> void:
 			velocity.z = direcao_movimento.z * velocidade
 		else:
 			velocity.x = move_toward(
-				velocity.x, 0.0, velocidade
+				velocity.x,
+				0.0,
+				velocidade
 			)
+
 			velocity.z = move_toward(
-				velocity.z, 0.0, velocidade
+				velocity.z,
+				0.0,
+				velocidade
 			)
 
 	move_and_slide()
@@ -189,7 +218,7 @@ func _physics_process(delta: float) -> void:
 # --- RECEBER DANO ---
 
 func receber_dano(quantidade: int) -> void:
-	if morto or quantidade <= 0:
+	if morto or imune or quantidade <= 0:
 		return
 
 	vida_atual = max(vida_atual - quantidade, 0)
@@ -199,6 +228,27 @@ func receber_dano(quantidade: int) -> void:
 
 	if vida_atual <= 0:
 		morrer()
+		return
+
+	# Ativa imunidade após receber dano
+	iniciar_imunidade()
+
+
+# --- INICIAR IMUNIDADE ---
+
+func iniciar_imunidade() -> void:
+	imune = true
+	timer_imunidade.start()
+
+	print("Jogador está imune por ", tempo_imunidade, " segundos!")
+
+
+# --- FINALIZAR IMUNIDADE ---
+
+func _fim_imunidade() -> void:
+	imune = false
+
+	print("Imunidade encerrada! Jogador vulnerável novamente.")
 
 
 # --- MORTE ---
@@ -209,8 +259,17 @@ func morrer() -> void:
 
 	morto = true
 	velocity = Vector3.ZERO
+
 	print("O jogador morreu!")
+
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+	get_tree().paused = true
+
+	var tela_gameover = preload("res://scenes/gameOver.tscn").instantiate()
+	tela_gameover.process_mode = Node.PROCESS_MODE_ALWAYS
+
+	get_tree().root.add_child(tela_gameover)
 
 
 # --- ATIRAR ---
@@ -228,25 +287,26 @@ func atirar() -> void:
 		som_tiro.play()
 
 	# Calcula a trajetória do tiro
-	var origem = camera.global_position
-	var direcao_tiro = -camera.global_transform.basis.z.normalized()
-	var destino = origem + direcao_tiro * alcance_tiro
+	var origem: Vector3 = camera.global_position
+	var direcao_tiro: Vector3 = -camera.global_transform.basis.z.normalized()
+	var destino: Vector3 = origem + direcao_tiro * alcance_tiro
 
-	var consulta = PhysicsRayQueryParameters3D.create(
+	var consulta := PhysicsRayQueryParameters3D.create(
 		origem,
 		destino
 	)
 
 	consulta.exclude = [get_rid()]
 
-	var espaco = get_world_3d().direct_space_state
-	var resultado = espaco.intersect_ray(consulta)
+	var espaco := get_world_3d().direct_space_state
+	var resultado := espaco.intersect_ray(consulta)
 
 	if resultado.is_empty():
 		print("Tiro: não acertou nada!")
 		return
 
 	var alvo = resultado["collider"]
+
 	print("Tiro acertou: ", alvo.name)
 
 	# Ativa plataformas

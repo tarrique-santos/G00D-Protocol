@@ -25,6 +25,9 @@ func _process(_delta: float) -> void:
 
 
 func atualizar_vida() -> void:
+	if jogador == null:
+		return
+
 	barra.max_value = jogador.vida_maxima
 	barra.value = jogador.vida_atual
 
@@ -32,6 +35,9 @@ func atualizar_vida() -> void:
 
 
 func atualizar_dash() -> void:
+	if jogador == null:
+		return
+
 	var maximo: int = jogador.max_dashes_no_ar
 	var usados: int = jogador.dashes_usados_no_ar
 	var restantes: int = maximo - usados

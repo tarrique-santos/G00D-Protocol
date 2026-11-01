@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://c276fulvpmivy"]
+
+[ext_resource type="Script" uid="uid://6c4d7b3nkuev" path="res://scripts/laser.gd" id="1_fbxy8"]
+[ext_resource type="PackedScene" uid="uid://bh5bc7b1wm5vm" path="res://models/alien/lasergun.fbx" id="2_n4ijd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(0.33929443, 0.9482422, 0.042175293)
+
+[node name="LaserVermelho" type="Area3D" unique_id=1458273348]
+
+[node name="lasergun" parent="." unique_id=565854594 instance=ExtResource("2_n4ijd")]
+transform = Transform3D(-0.02120309, 0.33101928, 0.11169894, -0.060231395, 0.106765114, -0.3278313, -0.34412605, -0.039082352, 0.050497167, 0.06071627, 0.3226325, 0.17821237)
+script = ExtResource("1_fbxy8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1060306008]
+transform = Transform3D(1, 0, 0, 0, 0.95744485, -0.2886163, 0, 0.2886163, 0.95744485, 0.06893921, 0.19399817, 0.04176403)
+shape = SubResource("BoxShape3D_g4v7s")

@@ -1,4 +1,3 @@
-
 extends CharacterBody3D
 
 const SPEED := 6.0
@@ -9,13 +8,20 @@ const GRAVITY := 18.0
 const MAX_FUEL := 1.5
 const JETPACK_FORCE := 12.0
 
+const MAX_HEALTH := 100.0
+
 var fuel := MAX_FUEL
 var jetpack_active := false
+var health := MAX_HEALTH
+var morto := false
 
 @onready var camera_pivot: Node3D = $CameraPivot
 
+
 func _ready() -> void:
+	add_to_group("player")
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -34,7 +40,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		if event.pressed:
 			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
+
 func _physics_process(delta: float) -> void:
+	if morto:
+		return
+
 	if not is_on_floor():
 		velocity.y -= GRAVITY * delta
 	elif velocity.y < 0.0:
@@ -84,3 +94,26 @@ func _physics_process(delta: float) -> void:
 		velocity.z = move_toward(velocity.z, 0.0, SPEED * 5.0 * delta)
 
 	move_and_slide()
+
+
+func receber_dano(valor: float) -> void:
+	if morto:
+		return
+
+	health -= valor
+	print("Jogador recebeu dano! Vida: ", health, "/", MAX_HEALTH)
+
+	if health <= 0.0:
+		morrer()
+
+func morrer() -> void:
+	if morto:
+		return
+
+	morto = true
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
+	get_tree().paused = true
+	
+	var tela = preload("res://scenes/gameOver.tscn").instantiate()
+	get_tree().root.add_child(tela)
