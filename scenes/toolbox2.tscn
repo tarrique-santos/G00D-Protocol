@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://c83gi8cccb1n6"]
+
+[ext_resource type="PackedScene" uid="uid://dwb8qd6toyc6u" path="res://models/toolbox.fbx" id="1_fag3d"]
+[ext_resource type="Texture2D" uid="uid://065ybtevo85a" path="res://models/others/textures/Red Case_BaseColor.png" id="2_74sa2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8u56d"]
+albedo_texture = ExtResource("2_74sa2")
+
+[node name="toolbox" unique_id=1452698325 instance=ExtResource("1_fag3d")]
+
+[node name="Cube_026" parent="." index="0" unique_id=631898405]
+material_override = SubResource("StandardMaterial3D_8u56d")

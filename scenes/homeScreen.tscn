@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b5di4qwpr22vg"]
 
 [ext_resource type="Texture2D" uid="uid://cpxc5vosca4xc" path="res://imgs/g00d_protocol_fundo.svg" id="1_4g05u"]
+[ext_resource type="Texture2D" uid="uid://ceo6cmongs51a" path="res://imgs/g00d_protocol_titulo.png" id="2_cdg8b"]
 
 [node name="HomeScreen" type="Control" unique_id=1997479243]
 layout_mode = 3
@@ -22,3 +23,8 @@ offset_top = 289.0
 offset_right = 585.0
 offset_bottom = 348.0
 text = "Jogar"
+
+[node name="G00dProtocolTitulo" type="Sprite2D" parent="." unique_id=247700760]
+position = Vector2(586.00006, 138)
+scale = Vector2(0.5409836, 0.5409836)
+texture = ExtResource("2_cdg8b")

@@ -148,7 +148,7 @@ func _physics_process(delta: float) -> void:
 		"move_left",
 		"move_right",
 		"move_forward",
-		"move_backward"
+        "move_backward"
 	)
 
 	var direcao_movimento: Vector3 = transform.basis * Vector3(
@@ -232,6 +232,25 @@ func receber_dano(quantidade: int) -> void:
 
 	# Ativa imunidade após receber dano
 	iniciar_imunidade()
+
+
+# --- CURAR ---
+
+func curar(quantidade: int) -> void:
+	if morto or quantidade <= 0:
+		return
+
+	var vida_anterior = vida_atual
+
+	vida_atual = min(vida_atual + quantidade, vida_maxima)
+
+	var vida_recuperada = vida_atual - vida_anterior
+
+	if vida_recuperada > 0:
+		print("Jogador recuperou ", vida_recuperada, " pontos de vida!")
+		print("Vida atual: ", vida_atual, "/", vida_maxima)
+	else:
+		print("Vida já está completa!")
 
 
 # --- INICIAR IMUNIDADE ---

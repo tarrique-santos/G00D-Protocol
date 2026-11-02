@@ -2,9 +2,11 @@
 class_name AlienInimigo
 extends CharacterBody3D
 
+
 @export_group("Atributos")
 @export var vida_maxima: float = 100.0
 @export var dano: float = 25.0
+
 
 @export_group("Movimentacao")
 @export var velocidade_corrida: float = 8.5
@@ -15,10 +17,12 @@ extends CharacterBody3D
 @export var desaceleracao: float = 12.0
 @export var gravidade: float = 20.0
 
+
 @export_group("Combate")
 @export var alcance_tiro: float = 35.0
 @export var intervalo_tiro: float = 1.5
 @export var velocidade_laser: float = 25.0
+
 
 @export_group("Animacoes")
 @export var animacao_parado: String = "idle"
@@ -28,17 +32,31 @@ extends CharacterBody3D
 @export var remover_movimento_raiz: bool = true
 @export var nome_osso_raiz: String = "Hips"
 
+
 @export_group("Referencias")
 @export var jogador: Node3D
 @export var animation_player: AnimationPlayer
 
+
 @export_group("Orientacao")
 @export_range(-360.0, 360.0) var rotacao_modelo: float = 180.0
+
+
+@export_group("Barra de Vida")
+@export var altura_barra_vida: float = 5.8
+@export var largura_barra_vida: float = 2.0
+@export var espessura_barra_vida: float = 0.32
+
 
 var vida: float
 var tempo_tiro: float = 0.0
 var morto: bool = false
 var animacao_atual: String = ""
+
+# Referencias da barra de vida
+var barra_vida: Node3D
+var barra_preenchimento: MeshInstance3D
+var material_barra: StandardMaterial3D
 
 
 func _ready():
@@ -52,9 +70,79 @@ func _ready():
 
 	$Alien.rotation.y = deg_to_rad(rotacao_modelo)
 
+	criar_barra_vida()
+
 	configurar_animacoes()
 	trocar_animacao(animacao_parado)
 
+
+# ==========================================
+# BARRA DE VIDA
+# ==========================================
+
+func criar_barra_vida():
+	# No principal
+	barra_vida = Node3D.new()
+	barra_vida.name = "BarraVida"
+	barra_vida.position.y = altura_barra_vida
+
+	add_child(barra_vida)
+
+	# Barra colorida, sem fundo
+	barra_preenchimento = MeshInstance3D.new()
+	barra_preenchimento.name = "Preenchimento"
+
+	var mesh_preenchimento = QuadMesh.new()
+	mesh_preenchimento.size = Vector2(
+		largura_barra_vida,
+		espessura_barra_vida
+	)
+
+	barra_preenchimento.mesh = mesh_preenchimento
+
+	material_barra = StandardMaterial3D.new()
+	material_barra.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	material_barra.albedo_color = Color.GREEN
+	material_barra.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
+
+	barra_preenchimento.material_override = material_barra
+
+	barra_vida.add_child(barra_preenchimento)
+
+	atualizar_barra_vida()
+
+
+func atualizar_barra_vida():
+	if barra_preenchimento == null:
+		return
+
+	var porcentagem = 0.0
+
+	if vida_maxima > 0.0:
+		porcentagem = clampf(vida / vida_maxima, 0.0, 1.0)
+
+	# Diminuir preenchimento
+	barra_preenchimento.scale.x = porcentagem
+
+	# Manter alinhamento a esquerda
+	barra_preenchimento.position.x = (
+		-(largura_barra_vida / 2.0) * (1.0 - porcentagem)
+	)
+
+	# Alterar cor conforme a vida
+	if porcentagem > 0.5:
+		material_barra.albedo_color = Color.GREEN
+
+	elif porcentagem > 0.25:
+		material_barra.albedo_color = Color.YELLOW
+
+	else:
+		material_barra.albedo_color = Color.RED
+
+
+# ==========================================
+# ANIMACOES
+# ==========================================
 
 func configurar_animacoes():
 	if animation_player == null:
@@ -62,22 +150,31 @@ func configurar_animacoes():
 
 	for nome in [animacao_parado, animacao_andar, animacao_correr]:
 		var anim = obter_animacao(nome)
+
 		if anim:
 			anim.loop_mode = Animation.LOOP_LINEAR
 
 	var anim_morte = obter_animacao(animacao_morte)
+
 	if anim_morte:
 		anim_morte.loop_mode = Animation.LOOP_NONE
 
 	if remover_movimento_raiz:
-		for nome in [animacao_parado, animacao_andar, animacao_correr, animacao_morte]:
+		for nome in [
+			animacao_parado,
+			animacao_andar,
+			animacao_correr,
+			animacao_morte
+		]:
 			var anim = obter_animacao(nome)
+
 			if anim:
 				remover_posicao_raiz(anim)
 
 
 func remover_posicao_raiz(anim: Animation):
 	for i in range(anim.get_track_count()):
+
 		if anim.track_get_type(i) != Animation.TYPE_POSITION_3D:
 			continue
 
@@ -123,6 +220,7 @@ func obter_nome_animacao(nome: String) -> String:
 			return anim
 
 	print("Animacao nao encontrada: ", nome)
+
 	return ""
 
 
@@ -144,6 +242,11 @@ func trocar_animacao(nome: String):
 	if nome_real != "":
 		animation_player.play(nome_real, 0.2)
 		animacao_atual = nome
+
+
+# ==========================================
+# MOVIMENTACAO
+# ==========================================
 
 func _physics_process(delta):
 	if morto:
@@ -176,20 +279,25 @@ func _physics_process(delta):
 	var esta_parado = false
 
 	if distancia > distancia_parada:
-		# Sempre corre em direcao ao jogador
 		movimento = direcao
 		velocidade_desejada = velocidade_corrida
+
 		trocar_animacao(animacao_correr)
 
 	else:
-		# Para e atira quando chega perto
 		movimento = Vector3.ZERO
 		velocidade_desejada = 0.0
 		esta_parado = true
+
 		trocar_animacao(animacao_parado)
 
 	# Movimento horizontal
-	var velocidade_atual = Vector3(velocity.x, 0, velocity.z)
+	var velocidade_atual = Vector3(
+		velocity.x,
+		0,
+		velocity.z
+	)
+
 	var velocidade_alvo = movimento * velocidade_desejada
 
 	var taxa = aceleracao if velocidade_desejada > 0.0 else desaceleracao
@@ -210,10 +318,15 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-	# Atira somente quando estiver parado
+	# Atirar quando estiver parado
 	if esta_parado and distancia <= alcance_tiro and tempo_tiro <= 0.0:
 		atirar()
-		
+
+
+# ==========================================
+# COMBATE
+# ==========================================
+
 func atirar():
 	if jogador == null or morto:
 		return
@@ -222,6 +335,7 @@ func atirar():
 
 	var origem = global_position + Vector3(0, 3.8, 0)
 	var destino = jogador.global_position + Vector3(0, 1.0, 0)
+
 	var direcao = (destino - origem).normalized()
 
 	var laser = LaserVermelho.new()
@@ -236,13 +350,19 @@ func receber_dano(valor: float):
 	if morto:
 		return
 
-	vida -= valor
+	vida = maxf(vida - valor, 0.0)
+
+	atualizar_barra_vida()
 
 	print("Alien recebeu dano! Vida: ", vida, "/", vida_maxima)
 
 	if vida <= 0:
 		morrer()
 
+
+# ==========================================
+# MORTE
+# ==========================================
 
 func morrer():
 	if morto:
@@ -251,6 +371,7 @@ func morrer():
 	morto = true
 	velocity = Vector3.ZERO
 
+	# Desabilitar colisoes
 	collision_layer = 0
 	collision_mask = 0
 
@@ -259,6 +380,11 @@ func morrer():
 	if colisao:
 		colisao.set_deferred("disabled", true)
 
+	# Esconder barra de vida
+	if barra_vida:
+		barra_vida.visible = false
+
+	# Executar animacao de morte
 	if animation_player:
 		animacao_atual = ""
 
