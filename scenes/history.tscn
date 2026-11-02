@@ -1,0 +1,46 @@
+[gd_scene format=3 uid="uid://cmwhmmcf6llrr"]
+
+[ext_resource type="Script" uid="uid://due3u3ic0dsce" path="res://scripts/history.gd" id="1_3neif"]
+
+[node name="History" type="Control" unique_id=53604581]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_3neif")
+
+[node name="Imagem" type="TextureRect" parent="." unique_id=875463735]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Indicador" type="Label" parent="." unique_id=618665182]
+visible = false
+layout_mode = 0
+offset_top = 540.0
+offset_right = 1153.0
+offset_bottom = 650.0
+
+[node name="Avancar" type="Button" parent="." unique_id=876772074]
+layout_mode = 0
+offset_left = 1023.0
+offset_top = 562.0
+offset_right = 1115.0
+offset_bottom = 618.0
+
+[node name="Voltar" type="Button" parent="." unique_id=1886340583]
+visible = false
+layout_mode = 0
+offset_left = 31.0
+offset_top = 562.0
+offset_right = 123.0
+offset_bottom = 618.0
+
+[node name="PainelInfo" type="Panel" parent="." unique_id=712719962]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

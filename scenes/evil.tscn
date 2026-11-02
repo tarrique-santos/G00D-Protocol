@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://ctd1cjsitj58b"]
+
+[ext_resource type="PackedScene" uid="uid://b705tb4u5n38o" path="res://scenes/robot.tscn" id="1_t4s5b"]
+
+[node name="Evil" type="CharacterBody3D" unique_id=1004992135]
+
+[node name="robo" parent="." unique_id=317771891 instance=ExtResource("1_t4s5b")]

@@ -1,0 +1,102 @@
+[gd_scene format=3 uid="uid://b705tb4u5n38o"]
+
+[ext_resource type="PackedScene" uid="uid://dtvha765obspw" path="res://models/others/Stable Sword Outward Slash (1).fbx" id="1_ykvnc"]
+[ext_resource type="Texture2D" uid="uid://bdew7swdjxyrn" path="res://models/colors/Robot_Base_color 3.png" id="2_i42o3"]
+[ext_resource type="PackedScene" uid="uid://c0tnjt62tjok7" path="res://models/others/Kylo's+saber.blend" id="2_rcrfe"]
+[ext_resource type="Animation" uid="uid://nchawdqgks3b" path="res://animations/attack.anim" id="4_xwnim"]
+[ext_resource type="Animation" uid="uid://d14ug52qs1vkh" path="res://models/alien/die.anim" id="5_q5kvo"]
+[ext_resource type="Animation" uid="uid://wk4n7r1vtgt3" path="res://animations/run.anim" id="6_q5kvo"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_g4v7s"]
+height = 78.04146
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rcrfe"]
+albedo_texture = ExtResource("2_i42o3")
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_e20l1"]
+_data = {
+&"attack": ExtResource("4_xwnim"),
+&"die": ExtResource("5_q5kvo"),
+&"run": ExtResource("6_q5kvo")
+}
+
+[node name="robo" unique_id=317771891 instance=ExtResource("1_ykvnc")]
+
+[node name="Skeleton" parent="." index="0" unique_id=254198333]
+bones/0/position = Vector3(-0.0021012162, 3.931674, -0.06415881)
+bones/0/rotation = Quaternion(0.05657154, -0.5555048, -0.05354971, 0.8278566)
+bones/1/rotation = Quaternion(0.08242949, -0.057717975, 0.00090202154, 0.9949237)
+bones/2/rotation = Quaternion(0.07968971, -0.049151413, -0.018768055, 0.9954303)
+bones/3/rotation = Quaternion(0.07903641, -0.050162356, -0.018696882, 0.99543333)
+bones/4/rotation = Quaternion(0.041339375, 0.09390669, -0.013747642, 0.9946274)
+bones/5/rotation = Quaternion(0.04133928, 0.09390663, -0.01374767, 0.9946275)
+bones/7/rotation = Quaternion(0.42981142, 0.55135447, 0.50519484, -0.5060125)
+bones/8/rotation = Quaternion(-0.046645563, 0.9515043, 0.30259338, -0.030017909)
+bones/9/rotation = Quaternion(0.042451948, -0.8279788, 0.07247797, 0.55443305)
+bones/10/rotation = Quaternion(-0.3746297, 0.6089472, 0.14428073, 0.68411905)
+bones/11/rotation = Quaternion(-0.2939244, 0.75783783, 0.28969103, 0.5053408)
+bones/12/rotation = Quaternion(0.041651443, -0.055572245, 0.17863935, 0.9814606)
+bones/12/scale = Vector3(1.0003836, 0.9996232, 0.9999934)
+bones/13/rotation = Quaternion(-0.009225415, 0.0051844283, -0.0018923287, 0.9999423)
+bones/13/scale = Vector3(1.0004733, 0.99975467, 0.99977267)
+bones/15/rotation = Quaternion(0.23054904, -0.023344219, 0.0972445, 0.9679079)
+bones/16/rotation = Quaternion(0.24115604, 0.048145138, 0.1065488, 0.9634174)
+bones/17/rotation = Quaternion(0.20669383, 0.032676756, 0.09539932, 0.9731952)
+bones/19/rotation = Quaternion(0.23496214, -0.029392067, 0.098554626, 0.9665485)
+bones/20/rotation = Quaternion(0.18887642, 0.03431497, 0.06313876, 0.97936803)
+bones/21/rotation = Quaternion(0.22759272, 0.029654905, 0.08086912, 0.96993935)
+bones/23/rotation = Quaternion(0.2550924, -0.057465144, 0.1044742, 0.9595368)
+bones/24/rotation = Quaternion(0.22837389, 0.034314036, 0.059057057, 0.97117466)
+bones/25/rotation = Quaternion(0.32537666, 0.03627235, 0.09051233, 0.94054335)
+bones/27/rotation = Quaternion(0.28200528, -0.006387069, 0.11691365, 0.95224124)
+bones/28/rotation = Quaternion(0.27072537, 0.0029847764, 0.07014389, 0.960093)
+bones/29/rotation = Quaternion(0.36120018, 0.03502813, 0.07642445, 0.9286909)
+bones/31/rotation = Quaternion(0.43561837, -0.55077136, -0.4118047, -0.58077925)
+bones/32/rotation = Quaternion(-0.041257832, 0.95846, 0.08537821, 0.26900393)
+bones/33/rotation = Quaternion(0.12684403, 0.9360648, -0.1513158, 0.29119903)
+bones/34/rotation = Quaternion(-0.024519583, -0.62782323, -0.33309606, 0.70305336)
+bones/35/rotation = Quaternion(-0.21985209, -0.64515346, -0.52530646, 0.50940686)
+bones/36/rotation = Quaternion(-0.042527873, -0.20917329, -0.13252631, 0.96792287)
+bones/36/scale = Vector3(1.0003836, 0.999921, 0.99969554)
+bones/37/rotation = Quaternion(0.16929503, -0.36272743, -0.31364426, 0.8610431)
+bones/37/scale = Vector3(1.0005847, 0.9997972, 0.999619)
+bones/39/rotation = Quaternion(0.52216, -0.087417856, -0.22866817, 0.8169565)
+bones/40/rotation = Quaternion(0.47532764, -0.08437636, -0.21178694, 0.8497591)
+bones/41/rotation = Quaternion(0.3722336, -0.07197238, -0.17774339, 0.9081131)
+bones/43/rotation = Quaternion(0.54333085, -0.0405621, -0.2166514, 0.810067)
+bones/44/rotation = Quaternion(0.56711036, -0.081138745, -0.19315392, 0.7965512)
+bones/45/rotation = Quaternion(0.22699875, -0.038255103, -0.082962416, 0.9696007)
+bones/47/rotation = Quaternion(0.5502413, -0.00013617799, -0.20189331, 0.81023055)
+bones/48/rotation = Quaternion(0.5804392, -0.07039765, -0.15277182, 0.7967405)
+bones/49/rotation = Quaternion(0.27201417, -0.037127186, -0.07772618, 0.95843023)
+bones/51/rotation = Quaternion(0.5231187, 0.046561297, -0.17818594, 0.83212304)
+bones/52/rotation = Quaternion(0.59029555, -0.060754053, -0.11553125, 0.796563)
+bones/53/rotation = Quaternion(0.23959836, -0.02618422, -0.051227547, 0.9691661)
+bones/55/rotation = Quaternion(0.04025828, 0.52089894, 0.76670295, -0.3731088)
+bones/56/rotation = Quaternion(-0.03238865, 0.72772545, -0.6713979, 0.13635081)
+bones/57/rotation = Quaternion(-0.06991689, 0.65570605, -0.7276641, 0.18885516)
+bones/58/rotation = Quaternion(3.336755e-08, 0.99777424, 0.06668351, 4.34941e-08)
+bones/60/rotation = Quaternion(0.03373427, 0.56275564, 0.82587814, -0.009659826)
+bones/61/rotation = Quaternion(-0.005986158, 0.72978437, -0.6827363, -0.035359263)
+bones/62/rotation = Quaternion(0.05262919, 0.57441777, -0.8158695, -0.040390145)
+bones/63/rotation = Quaternion(1.2245609e-07, 1, 1.4901163e-07, -8.637159e-08)
+
+[node name="BoneAttachment3D" type="BoneAttachment3D" parent="Skeleton" index="0" unique_id=1439934663]
+transform = Transform3D(-0.39951777, -0.81314313, -0.42330107, -0.47951353, 0.5789108, -0.65949136, 0.78131473, -0.06049992, -0.6211983, -0.730909, 5.3718596, -3.0084484)
+bone_name = "RightHand"
+bone_idx = 34
+
+[node name="Kylo\'s+saber" parent="Skeleton/BoneAttachment3D" index="0" unique_id=909786152 instance=ExtResource("2_rcrfe")]
+transform = Transform3D(-0.021591663, 0.044219732, -0.008855272, 0.020239396, 0.00072784326, -0.045714747, -0.040301036, -0.023325648, -0.018213902, 0.13100433, -0.009070873, 0.5238322)
+
+[node name="Area3D" type="Area3D" parent="Skeleton/BoneAttachment3D/Kylo\'s+saber" index="25" unique_id=1149850330]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Skeleton/BoneAttachment3D/Kylo\'s+saber/Area3D" index="0" unique_id=1166001076]
+transform = Transform3D(1.0000015, 3.7252903e-09, -5.9604645e-08, 5.9604645e-08, 1.0000002, 1.4901161e-08, -8.940697e-07, 7.450581e-09, 1, 0.13964272, 51.957962, 0.09620094)
+shape = SubResource("CylinderShape3D_g4v7s")
+
+[node name="Robot" parent="Skeleton" index="2" unique_id=164262550]
+material_override = SubResource("StandardMaterial3D_rcrfe")
+
+[node name="AnimationPlayer" parent="." index="1" unique_id=421899805]
+libraries/custom = SubResource("AnimationLibrary_e20l1")

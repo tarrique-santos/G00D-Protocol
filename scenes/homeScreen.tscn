@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://b5di4qwpr22vg"]
+
+[ext_resource type="Texture2D" uid="uid://cpxc5vosca4xc" path="res://imgs/g00d_protocol_fundo.svg" id="1_4g05u"]
+
+[node name="HomeScreen" type="Control" unique_id=1997479243]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="G00dProtocolFundo" type="Sprite2D" parent="." unique_id=863161944]
+position = Vector2(577, 324.5)
+scale = Vector2(0.600926, 0.6009259)
+texture = ExtResource("1_4g05u")
+
+[node name="Button" type="Button" parent="." unique_id=2011614919]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 289.0
+offset_right = 585.0
+offset_bottom = 348.0
+text = "Jogar"
