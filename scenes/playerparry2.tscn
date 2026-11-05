@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bk8ia73kauef0"]
 
 [ext_resource type="Script" uid="uid://dmianaemhduh4" path="res://scripts/playerparry_2.gd" id="1_wpm2o"]
+[ext_resource type="AudioStream" uid="uid://d3brdblhhy0iw" path="res://sounds/soundtracks/Deep_Space_Travel_LOOP.wav" id="2_2lcld"]
 [ext_resource type="PackedScene" uid="uid://btdbg4tthverf" path="res://testes/Gun_Revolver.fbx" id="3_x71xt"]
 [ext_resource type="Script" uid="uid://bb5cfgyqgye6l" path="res://scripts/control.gd" id="4_kijgq"]
 [ext_resource type="AudioStream" uid="uid://d3bq6sg6y3jmo" path="res://sounds/tiro.mp3" id="5_2lcld"]
@@ -33,6 +34,10 @@ bg_color = Color(0.30588236, 0.6901961, 0.9372549, 1)
 
 [node name="PlayerTrue" type="CharacterBody3D" unique_id=61202322 groups=["player"]]
 script = ExtResource("1_wpm2o")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1171450681]
+stream = ExtResource("2_2lcld")
+autoplay = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=213092385]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5337219, 0)

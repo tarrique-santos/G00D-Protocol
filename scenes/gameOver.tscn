@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cjx20a30n0tjq"]
 
 [ext_resource type="Script" uid="uid://ru2qp1f3qi8t" path="res://scripts/gameOver.gd" id="1_ouftm"]
+[ext_resource type="AudioStream" uid="uid://urqj8suovyn7" path="res://sounds/soundtracks/Ocean_Planet_Exploration_LOOP.wav" id="2_dh54o"]
 
 [node name="GameOver" type="CanvasLayer" unique_id=1819194596]
 script = ExtResource("1_ouftm")
@@ -32,3 +33,7 @@ text = "Reviver"
 [node name="Sair" type="Button" parent="ColorRect/CenterContainer/VBoxContainer" unique_id=1098860448]
 layout_mode = 2
 text = "Sair"
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=732771546]
+stream = ExtResource("2_dh54o")
+autoplay = true

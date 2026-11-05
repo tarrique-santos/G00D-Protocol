@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://b563g54ci23hu" path="res://scenes/minion_flyer.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://0eerau7u3cvu" path="res://scenes/bullet.tscn" id="5_tefeu"]
 [ext_resource type="PackedScene" uid="uid://bk8ia73kauef0" path="res://scenes/playerparry2.tscn" id="6_tefeu"]
+[ext_resource type="PackedScene" uid="uid://j15a5gugdspd" path="res://scenes/asteroid.tscn" id="7_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://dovt0g3lpkjrv" path="res://scenes/plataform2.tscn" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://onojopveasec" path="res://scenes/chão.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://q3mpvx24qoh7" path="res://scenes/alienInimigo.tscn" id="9_85g3d"]
@@ -14,6 +15,7 @@
 [ext_resource type="Script" uid="uid://dyj0rf32exito" path="res://addons/unibuilder/core/ub_face.gd" id="11_trceg"]
 [ext_resource type="Script" uid="uid://dnaqomcyqdloo" path="res://addons/unibuilder/core/ub_mesh_data.gd" id="12_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://xnc3ohj4d2aa" path="res://models/tijolos/GBA Bowser Castle 3/kpa_blockA.png" id="13_trceg"]
+[ext_resource type="PackedScene" uid="uid://b7iygpymapwco" path="res://scenes/nave.tscn" id="16_jbj1t"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
 shader = ExtResource("1_tefeu")
@@ -536,6 +538,9 @@ faces = Array[ExtResource("11_trceg")]([SubResource("Resource_152kg"), SubResour
 [node name="Main" type="Node3D" unique_id=669742024]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 124.12348, 0)
 
+[node name="asteroide" parent="." unique_id=1987587255 instance=ExtResource("7_jkv2x")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0775003, 45.256615, 149.1149)
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=927146068]
 environment = SubResource("Environment_choun")
 
@@ -590,9 +595,6 @@ light_indirect_energy = 100.0
 light_volumetric_fog_energy = 10.0
 light_angular_distance = 10.0
 
-[node name="Player" parent="." unique_id=1131978176 instance=ExtResource("6_tefeu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0775003, -120.98181, 6.032505)
-
 [node name="AlienInimigo" parent="." unique_id=1533967044 instance=ExtResource("9_85g3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30587, 9.714928, 0)
 
@@ -606,7 +608,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.36368, 9.714928, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.36368, 9.714928, 29.561527)
 
 [node name="AlienInimigo2" parent="." unique_id=543903787 instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.364098, 10.010048, 121.2239)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.967762, 10.846657, 115.58152)
 
 [node name="Plataform2" parent="." unique_id=1047266936 instance=ExtResource("8_85g3d")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 56.753242, 9.011055, 120.192986)
@@ -682,3 +684,9 @@ collision_mode = 1
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3338684e-09, -112.24285, -40.395107)
 light_energy = 5.0
 omni_range = 50.0
+
+[node name="Nave" parent="." unique_id=1183964640 instance=ExtResource("16_jbj1t")]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 8.971123, 199.25536)
+
+[node name="Player" parent="Nave" unique_id=1131978176 instance=ExtResource("6_tefeu")]
+transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.18164818, 1.1930237, 0.17038727)
