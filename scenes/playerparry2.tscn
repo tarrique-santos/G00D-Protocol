@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://btdbg4tthverf" path="res://testes/Gun_Revolver.fbx" id="3_x71xt"]
 [ext_resource type="Script" uid="uid://bb5cfgyqgye6l" path="res://scripts/control.gd" id="4_kijgq"]
 [ext_resource type="AudioStream" uid="uid://d3bq6sg6y3jmo" path="res://sounds/tiro.mp3" id="5_2lcld"]
+[ext_resource type="PackedScene" uid="uid://bq4b55mak3d5g" path="res://scenes/arm.tscn" id="6_snwb8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_hpv61"]
 size = Vector3(1, 2.0674438, 1)
@@ -136,3 +137,7 @@ vertical_alignment = 1
 [node name="SomTiro" type="AudioStreamPlayer" parent="." unique_id=1302678690]
 stream = ExtResource("5_2lcld")
 pitch_scale = 2.5
+
+[node name="braço" parent="." unique_id=1934113885 instance=ExtResource("6_snwb8")]
+transform = Transform3D(0.08, 0, 0, 0, -0.07988816, 0.0042287684, 0, -0.0042287684, -0.07988816, 0.14658564, 0.84271264, 0.42096245)
+visible = false

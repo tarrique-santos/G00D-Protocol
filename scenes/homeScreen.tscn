@@ -12,14 +12,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="." unique_id=2011614919]
-layout_mode = 0
-offset_left = 484.0
-offset_top = 289.0
-offset_right = 585.0
-offset_bottom = 348.0
-text = "Jogar"
-
 [node name="G00dProtocolFundo" type="Sprite2D" parent="." unique_id=863161944]
 position = Vector2(577, 324.5)
 scale = Vector2(0.600926, 0.6009259)
@@ -33,3 +25,10 @@ texture = ExtResource("2_cdg8b")
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=905519443]
 stream = ExtResource("3_3v8c1")
 autoplay = true
+
+[node name="Button" type="Button" parent="AudioStreamPlayer2D" unique_id=2011614919]
+offset_left = 484.0
+offset_top = 289.0
+offset_right = 585.0
+offset_bottom = 348.0
+text = "Jogar"
