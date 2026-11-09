@@ -1,0 +1,8 @@
+# Normalize EOL for all files that Git considers text files.
+* text=auto eol=lf
+.fbx !text !filter !merge !diff
+.FBX !text !filter !merge !diff
+.glb !text !filter !merge !diff
+.png
+git[[:space:]]lfs[[:space:]]migrate[[:space:]]export[[:space:]]--everything[[:space:]]--include=.fbx !text !filter !merge !diff
+.png !text !filter !merge !diff

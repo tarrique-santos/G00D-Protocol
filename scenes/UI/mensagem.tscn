@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://da3476xrqavig"]
+
+[ext_resource type="Script" uid="uid://bf3iviiapdnem" path="res://scripts/mensagem.gd" id="1_piar6"]
+
+[node name="MensagemMissao" type="CanvasLayer" unique_id=784810346]
+layer = 2
+script = ExtResource("1_piar6")

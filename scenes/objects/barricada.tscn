@@ -1,0 +1,29 @@
+[gd_scene format=3 uid="uid://ciu5gcjpjq4m4"]
+
+[ext_resource type="ArrayMesh" uid="uid://vv1aemfw8wuu" path="res://models/trench bags .obj" id="1_nef6o"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_g4v7s"]
+albedo_color = Color(0.4, 0.19600001, 0.04000001, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(2.7880688, 3.4763794, 1.5961914)
+
+[node name="Barricada" type="Node3D" unique_id=240634252]
+
+[node name="TrenchBags" type="MeshInstance3D" parent="." unique_id=1184536542]
+material_override = SubResource("StandardMaterial3D_g4v7s")
+mesh = ExtResource("1_nef6o")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="TrenchBags" unique_id=333211129]
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="TrenchBags/StaticBody3D" unique_id=214310305]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.861246, 1.1321745, -0.6188717)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TrenchBags/StaticBody3D" unique_id=318627946]
+transform = Transform3D(0.881115, 0, 0.47290206, 0, 1, 0, -0.47290206, 0, 0.881115, 0.61427087, 1.0839193, -0.094243914)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="TrenchBags/StaticBody3D" unique_id=1144188544]
+transform = Transform3D(0.5410829, 0, 0.84096926, 0, 1, 0, -0.84096926, 0, 0.5410829, -1.3345741, 1.0317953, 1.4358228)
+shape = SubResource("BoxShape3D_g4v7s")

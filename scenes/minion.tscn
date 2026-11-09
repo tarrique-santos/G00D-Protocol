@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://gdqa0pn0py5i"]
+
+[ext_resource type="Script" uid="uid://bx08mxlovnux4" path="res://scripts/minion_Flyer.gd" id="1_y8etf"]
+[ext_resource type="ArrayMesh" uid="uid://dqvaswrlgliw3" path="res://models/minion/MM-AC_AND_HERO_Andy_Mecha_Boy/MM-AC_AND_HERO_Andy_Mecha_Boy.obj" id="2_b4arb"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7o0mq"]
+size = Vector3(1, 1.0234375, 1)
+
+[node name="MinionRobo" type="CharacterBody3D" unique_id=1009962077]
+script = ExtResource("1_y8etf")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1961050339]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, -0.26731288)
+mesh = ExtResource("2_b4arb")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1597217355]
+transform = Transform3D(2.0854678, 0, 0, 0, 1.8299718, 0, 0, 0, 0.82901657, 0, 0.9705853, -0.13420278)
+shape = SubResource("BoxShape3D_7o0mq")
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=473188751]
+
+[node name="Timer" type="Timer" parent="." unique_id=347956408]

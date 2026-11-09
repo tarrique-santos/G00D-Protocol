@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://n1p687ghpno1"]
+
+[ext_resource type="PackedScene" uid="uid://dcy5qkp0yl3xe" path="res://scenes/objects/nave/sci fi .glb" id="1_h4xug"]
+
+[node name="sci fi " unique_id=703403683 instance=ExtResource("1_h4xug")]
+
+[node name="Plane" parent="." index="22" unique_id=516798700]
+visible = false
+
+[node name="down ground support iron " parent="." index="24" unique_id=1019806761]
+visible = false

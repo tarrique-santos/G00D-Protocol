@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://3ayoynyt72m"]
+
+[ext_resource type="PackedScene" uid="uid://dh6blmto1q4xf" path="res://scenes/objects/plataform/Sci-Fi_Floor_Vol_1_Free.fbx.fbx" id="1_w4u0t"]
+
+[node name="Plataform3" type="Node3D" unique_id=1734368114]
+
+[node name="Sci-Fi_Floor_Vol_1_Free_fbx" parent="." unique_id=362849374 instance=ExtResource("1_w4u0t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.09003651, 0, 0.06146574)

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://b5di4qwpr22vg"]
+
+[ext_resource type="Script" uid="uid://dxpdepfaxa5x0" path="res://scripts/home.gd" id="1_wcxig"]
+[ext_resource type="AudioStream" uid="uid://cbtksh5kgeajh" path="res://sounds/soundtracks/Chasm_Exploration_LOOP.wav" id="3_3v8c1"]
+
+[node name="HomeScreen" type="Control" unique_id=1997479243]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_wcxig")
+
+[node name="Soudtrack" type="AudioStreamPlayer2D" parent="." unique_id=905519443]
+stream = ExtResource("3_3v8c1")
+autoplay = true

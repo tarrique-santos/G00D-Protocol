@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://hnpw0try2fi1"]
+
+[ext_resource type="PackedScene" uid="uid://c83gi8cccb1n6" path="res://scenes/toolbox2.tscn" id="1_i4si1"]
+[ext_resource type="Script" uid="uid://cf3h1vr541ydu" path="res://scripts/toolbox.gd" id="1_ys8or"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(5.2976074, 2.37854, 2.4241943)
+
+[node name="Toolbox" type="Node3D" unique_id=1516620327]
+script = ExtResource("1_ys8or")
+
+[node name="toolbox" parent="." unique_id=1452698325 instance=ExtResource("1_i4si1")]
+
+[node name="Area3D" type="Area3D" parent="." unique_id=1440461706]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.336975, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=635985858]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014770508, -1.0270386, 0.023010254)
+shape = SubResource("BoxShape3D_g4v7s")

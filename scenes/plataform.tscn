@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://3b4l6k25kmws"]
+
+[ext_resource type="PackedScene" uid="uid://c8bb2v8ejpgk0" path="res://models/plataform2/G.FBX" id="1_r1aq5"]
+[ext_resource type="Texture2D" uid="uid://p5ictaj0my1n" path="res://models/plataform2/Preview/G_0000.jpg" id="2_rvsqb"]
+[ext_resource type="Texture2D" uid="uid://bs4cqqqjn2q3h" path="res://models/plataform2/Preview/G_0001.jpg" id="3_ebqfj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_acotm"]
+albedo_texture = ExtResource("2_rvsqb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s4pxl"]
+albedo_texture = ExtResource("3_ebqfj")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8xnqv"]
+albedo_texture = ExtResource("2_rvsqb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxxws"]
+albedo_texture = ExtResource("2_rvsqb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rfqi1"]
+albedo_texture = ExtResource("2_rvsqb")
+
+[node name="G" unique_id=1369232163 instance=ExtResource("1_r1aq5")]
+
+[node name="G_02" parent="." index="0" unique_id=910253386]
+material_override = SubResource("StandardMaterial3D_acotm")
+
+[node name="G_05" parent="." index="1" unique_id=2062039655]
+material_override = SubResource("StandardMaterial3D_s4pxl")
+
+[node name="G_04" parent="." index="2" unique_id=1808289805]
+material_override = SubResource("StandardMaterial3D_8xnqv")
+
+[node name="G_01" parent="." index="3" unique_id=1755897216]
+transform = Transform3D(1, 0, 0, 0, 0, 1, 0, -1, 0, 0.0022996068, 0.060374714, -0.00055775006)
+material_override = SubResource("StandardMaterial3D_dxxws")
+
+[node name="G_03" parent="." index="4" unique_id=1792558162]
+material_override = SubResource("StandardMaterial3D_rfqi1")
