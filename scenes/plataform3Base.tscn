@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://jvh253efaarv"]
+
+[ext_resource type="PackedScene" uid="uid://dh6blmto1q4xf" path="res://scenes/objects/plataform/Sci-Fi_Floor_Vol_1_Free.fbx.fbx" id="1_2jb16"]
+[ext_resource type="Texture2D" uid="uid://b1etuqokkc7wg" path="res://scenes/objects/plataform/Textures (1)/Textures/T_SciFiWall_Roughness.png" id="2_f75iv"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_afkns"]
+albedo_texture = ExtResource("2_f75iv")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(1, 0.001, 1)
+
+[node name="plataformaQuadrada" unique_id=362849374 instance=ExtResource("1_2jb16")]
+
+[node name="SM_Sci-Fi_Floor_01" parent="." index="0" unique_id=369882270]
+material_override = SubResource("StandardMaterial3D_afkns")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="6" unique_id=848725676]
+transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 0, 0.001021713, 0)
+shape = SubResource("BoxShape3D_g4v7s")

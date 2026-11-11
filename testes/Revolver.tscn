@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://diuxolnvpplt4"]
+
+[ext_resource type="PackedScene" uid="uid://btdbg4tthverf" path="res://testes/Gun_Revolver.fbx" id="1_jp21k"]
+
+[node name="Gun_Revolver" unique_id=859515230 instance=ExtResource("1_jp21k")]

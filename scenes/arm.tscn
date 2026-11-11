@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://bq4b55mak3d5g"]
+
+[ext_resource type="PackedScene" uid="uid://bns6b0q8tkgl1" path="res://models/arm/fbx format.fbx" id="1_muf2m"]
+[ext_resource type="Material" uid="uid://d0hyi5n6ng25w" path="res://demo/assets/materials/M_rock23_black_tp.tres" id="2_dy6di"]
+
+[node name="fbx format" unique_id=1934113885 instance=ExtResource("1_muf2m")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="robot hand" parent="test fbx" parent_id_path=PackedInt32Array(886240608) index="0" unique_id=2028479526]
+transform = Transform3D(20.70395, -77.53024, -59.66739, -56.684696, -59.214375, 57.274227, -79.7375, 21.964138, -56.208485, -0.51696736, 4.0994425, 3.149222)
+material_override = ExtResource("2_dy6di")

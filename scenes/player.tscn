@@ -1,0 +1,149 @@
+[gd_scene format=3 uid="uid://bk8ia73kauef0"]
+
+[ext_resource type="Script" uid="uid://dmianaemhduh4" path="res://scripts/playerparry_2.gd" id="1_wpm2o"]
+[ext_resource type="AudioStream" uid="uid://d3brdblhhy0iw" path="res://sounds/soundtracks/Deep_Space_Travel_LOOP.wav" id="2_2lcld"]
+[ext_resource type="PackedScene" uid="uid://diuxolnvpplt4" path="res://testes/Revolver.tscn" id="3_snwb8"]
+[ext_resource type="Texture2D" uid="uid://cberyi07tqft7" path="res://testes/Mão robótica futurista estendida.png" id="4_4dwdy"]
+[ext_resource type="Script" uid="uid://bb5cfgyqgye6l" path="res://scripts/control.gd" id="4_kijgq"]
+[ext_resource type="AudioStream" uid="uid://d3bq6sg6y3jmo" path="res://sounds/tiro.mp3" id="5_2lcld"]
+[ext_resource type="Script" uid="uid://bsjjg3jbw26qg" path="res://scripts/hud.gd" id="5_4dwdy"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_w78q6"]
+radius = 0.6152344
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kijgq"]
+direction = Vector3(0, 0, -1)
+spread = 25.0
+initial_velocity_min = 2.0
+initial_velocity_max = 2.0
+gravity = Vector3(0, 0, 0)
+color = Color(1, 0.5372549, 0.20784314, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2lcld"]
+transparency = 1
+albedo_color = Color(1, 0.5372549, 0.20784314, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_snwb8"]
+material = SubResource("StandardMaterial3D_2lcld")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_kijgq"]
+bg_color = Color(0.96862745, 0.078431375, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lcld"]
+bg_color = Color(0.30588236, 0.6901961, 0.9372549, 1)
+
+[node name="PlayerTrue" type="CharacterBody3D" unique_id=61202322 groups=["player"]]
+script = ExtResource("1_wpm2o")
+alcance_soco = 5.0
+largura_soco = 2.0
+altura_soco = 2.0
+inclinacao_recuo = 5.0
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1171450681]
+stream = ExtResource("2_2lcld")
+autoplay = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=213092385]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5337219, 0)
+shape = SubResource("CylinderShape3D_w78q6")
+
+[node name="Head" type="Node3D" parent="." unique_id=567617020]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9241005, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Head" unique_id=1697254148]
+cull_mask = 1047553
+
+[node name="viewmodelMotion" type="Node3D" parent="Head/Camera3D" unique_id=1650847245]
+
+[node name="Mão" type="Sprite3D" parent="Head/Camera3D/viewmodelMotion" unique_id=1133298709]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.36041588, -0.19492769, -0.39938426)
+pixel_size = 0.0003
+texture = ExtResource("4_4dwdy")
+
+[node name="Gun_Revolver" parent="Head/Camera3D/viewmodelMotion" unique_id=859515230 instance=ExtResource("3_snwb8")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.28378975, -0.2405495, -0.16451705)
+
+[node name="PontoDisparo" type="Marker3D" parent="Head/Camera3D/viewmodelMotion/Gun_Revolver" unique_id=665604125]
+transform = Transform3D(-0.086773254, 0, 0.9962281, 0, 1, 0, -0.9962281, 0, -0.086773254, -0.44669777, 0.09914297, -0.00015214086)
+gizmo_extents = 0.0
+
+[node name="FogoDisparo" type="GPUParticles3D" parent="Head/Camera3D/viewmodelMotion/Gun_Revolver/PontoDisparo" unique_id=586065444]
+emitting = false
+amount = 12
+lifetime = 0.08
+one_shot = true
+explosiveness = 1.0
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_kijgq")
+draw_pass_1 = SubResource("SphereMesh_snwb8")
+
+[node name="HUD" type="CanvasLayer" parent="." unique_id=1756950687 groups=["hud"]]
+script = ExtResource("5_4dwdy")
+
+[node name="Control" type="Control" parent="HUD" unique_id=922732313]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("4_kijgq")
+
+[node name="MiraMesmo" type="Label" parent="HUD/Control" unique_id=675506686]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "+"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HPBar" type="ProgressBar" parent="HUD/Control" unique_id=1896921381]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 560.0
+offset_right = 256.0
+offset_bottom = 584.0
+mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_kijgq")
+show_percentage = false
+
+[node name="HP" type="Label" parent="HUD/Control" unique_id=729027926]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 560.0
+offset_right = 256.0
+offset_bottom = 583.0
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="BarraDash" type="ProgressBar" parent="HUD/Control" unique_id=437077919]
+layout_mode = 0
+offset_left = 544.0
+offset_top = 344.0
+offset_right = 608.0
+offset_bottom = 352.0
+mouse_filter = 2
+theme_override_styles/fill = SubResource("StyleBoxFlat_2lcld")
+show_percentage = false
+
+[node name="TextoDash" type="Label" parent="HUD/Control" unique_id=1063257891]
+layout_mode = 0
+offset_left = 560.0
+offset_top = 336.0
+offset_right = 592.0
+offset_bottom = 359.0
+theme_override_font_sizes/font_size = 10
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SomTiro" type="AudioStreamPlayer" parent="." unique_id=1302678690]
+stream = ExtResource("5_2lcld")
+pitch_scale = 2.5

@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://ctd1cjsitj58b"]
+
+[ext_resource type="Script" uid="uid://biyo7kqdyjpk5" path="res://scripts/evil.gd" id="1_7mqv5"]
+[ext_resource type="PackedScene" uid="uid://b705tb4u5n38o" path="res://scenes/robot.tscn" id="1_t4s5b"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_3ate8"]
+height = 3.1261597
+radius = 1.9106445
+
+[node name="Evil" type="CharacterBody3D" unique_id=1004992135]
+script = ExtResource("1_7mqv5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1903429409]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.731781, 0)
+shape = SubResource("CylinderShape3D_3ate8")
+
+[node name="robo" parent="." unique_id=317771891 instance=ExtResource("1_t4s5b")]

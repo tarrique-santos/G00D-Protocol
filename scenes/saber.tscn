@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://bdyprdkufdne1"]
+
+[ext_resource type="PackedScene" uid="uid://c0tnjt62tjok7" path="res://models/others/Kylo's+saber.blend" id="1_7p3vi"]
+
+[node name="Kylo\'s+saber" unique_id=909786152 instance=ExtResource("1_7p3vi")]
+
+[node name="Area3D" type="Area3D" parent="." index="25" unique_id=1336207262]
