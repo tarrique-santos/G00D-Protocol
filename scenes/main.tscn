@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cx4m2gjroybcm" path="res://scenes/tijolos.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b563g54ci23hu" path="res://scenes/minion_flyer.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bk8ia73kauef0" path="res://scenes/player.tscn" id="6_tefeu"]
-[ext_resource type="PackedScene" uid="uid://j15a5gugdspd" path="res://scenes/asteroid.tscn" id="7_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://j15a5gugdspd" path="res://scenes/objects/asteroid.tscn" id="7_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://dovt0g3lpkjrv" path="res://scenes/plataform2.tscn" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://onojopveasec" path="res://scenes/chão.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://q3mpvx24qoh7" path="res://scenes/alienInimigo.tscn" id="9_85g3d"]

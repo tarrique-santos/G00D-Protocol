@@ -599,7 +599,7 @@ func abrir_creditos() -> void:
 
 	titulo_extra.text = "CRÉDITOS"
 
-	texto_extra.text = "G00D-PROTOCOL\n\nDesenvolvimento por: Tarrique Santos(Tanque), Ataliba(Anibal) e
+	texto_extra.text = "G00D-PROTOCOL\n\nDesenvolvimento por:\n\n Tarrique Santos(Tanque), Ataliba(Anibal) e
 	 Victória(Vitrola)\n"
 
 	painel_extra.visible = true

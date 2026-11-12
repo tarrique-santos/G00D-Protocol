@@ -468,8 +468,9 @@ func criar_secao_controles(container: VBoxContainer) -> void:
 		["ESPAÇO", "Pular / Pulo duplo"],
 		["SHIFT", "Dash"],
 		["BOTÃO ESQUERDO", "Atirar"],
+		["BOTÃO DIREITO", "Parry / Ataque físico"],
 		["MOUSE", "Movimentar câmera"],
-		["ESC", "Pausar jogo"]
+		["ESC", "Pausar jogo"],
 	]
 
 	for comando in comandos:
