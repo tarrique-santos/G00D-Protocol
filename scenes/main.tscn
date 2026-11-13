@@ -5,7 +5,6 @@
 [ext_resource type="PackedScene" uid="uid://cx4m2gjroybcm" path="res://scenes/tijolos.tscn" id="3_o6xl0"]
 [ext_resource type="PackedScene" uid="uid://b563g54ci23hu" path="res://scenes/minion_flyer.tscn" id="5_tbgi4"]
 [ext_resource type="PackedScene" uid="uid://bk8ia73kauef0" path="res://scenes/player.tscn" id="6_tefeu"]
-[ext_resource type="PackedScene" uid="uid://j15a5gugdspd" path="res://scenes/objects/asteroid.tscn" id="7_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://dovt0g3lpkjrv" path="res://scenes/plataform2.tscn" id="8_85g3d"]
 [ext_resource type="PackedScene" uid="uid://onojopveasec" path="res://scenes/chão.tscn" id="8_tipki"]
 [ext_resource type="PackedScene" uid="uid://q3mpvx24qoh7" path="res://scenes/alienInimigo.tscn" id="9_85g3d"]
@@ -17,13 +16,30 @@
 [ext_resource type="Texture2D" uid="uid://xnc3ohj4d2aa" path="res://models/tijolos/GBA Bowser Castle 3/kpa_blockA.png" id="13_trceg"]
 [ext_resource type="PackedScene" uid="uid://b7iygpymapwco" path="res://scenes/nave.tscn" id="16_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://da3476xrqavig" path="res://scenes/UI/mensagem.tscn" id="17_muem4"]
+[ext_resource type="PackedScene" uid="uid://u58ym3pxao74" path="res://scenes/BossZoio.tscn" id="18_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://ciu5gcjpjq4m4" path="res://scenes/objects/barricada.tscn" id="19_0ld40"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
 shader = ExtResource("1_tefeu")
+shader_parameter/space_color = Vector3(0.015, 0.025, 0.07)
 shader_parameter/star_color = Color(1, 1, 1, 1)
 shader_parameter/star_density = 180.0
 shader_parameter/star_brightness = 1.5
+shader_parameter/star_twinkle = 0.5
+shader_parameter/mw_normal = Vector3(0.35, 0.9, 0.25)
+shader_parameter/mw_center_angle = 1.0
+shader_parameter/mw_intensity = 0.45
+shader_parameter/mw_width = 0.2
+shader_parameter/mw_dust = 0.7
+shader_parameter/mw_stars = 0.6
+shader_parameter/mw_color_core = Color(1, 0.82, 0.6, 1)
+shader_parameter/mw_color_edge = Color(0.45, 0.55, 0.95, 1)
+shader_parameter/nebula_intensity = 0.3
+shader_parameter/nebula_scale = 2.0
+shader_parameter/nebula_color_a = Color(0.35, 0.1, 0.55, 1)
+shader_parameter/nebula_color_b = Color(0.05, 0.3, 0.5, 1)
+shader_parameter/planet_amount = 0.02
+shader_parameter/planet_brightness = 0.7
 
 [sub_resource type="Sky" id="Sky_d0u6y"]
 sky_material = SubResource("ShaderMaterial_3gngh")
@@ -541,9 +557,6 @@ faces = Array[ExtResource("11_trceg")]([SubResource("Resource_152kg"), SubResour
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 124.12348, 0)
 script = ExtResource("1_dp3eg")
 
-[node name="asteroide" parent="." unique_id=1987587255 instance=ExtResource("7_jkv2x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.0775003, 45.256615, 149.1149)
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=927146068]
 environment = SubResource("Environment_choun")
 
@@ -706,3 +719,6 @@ transform = Transform3D(0.8219393, 0, -0.5695751, 0, 1, 0, 0.5695751, 0, 0.82193
 
 [node name="Barricada4" parent="." unique_id=1273047241 instance=ExtResource("19_0ld40")]
 transform = Transform3D(0.5068451, 0, -0.86203706, 0, 1, 0, 0.86203706, 0, 0.5068451, 32.938362, 10.0744705, 163.79947)
+
+[node name="Zoio" parent="." unique_id=2093689191 instance=ExtResource("18_dp3eg")]
+transform = Transform3D(5.9999995, 0, 0, 0, 6, 0, 0, 0, 5.9999995, 0, 15.900688, 8.751119)

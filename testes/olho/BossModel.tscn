@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://u3hndr3wn25q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gjamc"]
+albedo_color = Color(0.26293245, 0.26293245, 0.26293245, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tvbd"]
+albedo_color = Color(0.7607843, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2tn7q"]
+transparency = 1
+albedo_color = Color(0, 0, 0, 0.9647059)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ulnuc"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c7ii0"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o2d4q"]
+albedo_color = Color(18.892157, 0.9696924, 0, 1)
+
+[node name="Boss" unique_id=1366569983]
+
+[node name="armor" parent="." index="0" unique_id=454414576]
+surface_material_override/0 = SubResource("StandardMaterial3D_gjamc")
+surface_material_override/1 = SubResource("StandardMaterial3D_5tvbd")
+
+[node name="glass" parent="." index="1" unique_id=796768441]
+material_override = SubResource("StandardMaterial3D_2tn7q")
+
+[node name="body" parent="." index="2" unique_id=1056257181]
+surface_material_override/0 = SubResource("StandardMaterial3D_ulnuc")
+surface_material_override/1 = SubResource("StandardMaterial3D_c7ii0")
+
+[node name="eye" parent="." index="3" unique_id=428940925]
+material_override = SubResource("StandardMaterial3D_o2d4q")

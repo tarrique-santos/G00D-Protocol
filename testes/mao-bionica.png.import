@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://vrtrwoangdju"
-path.s3tc="res://.godot/imported/00_Normal_Merged.jpg-0929b5cf35ad399665e440043e0fdf0c.s3tc.ctex"
+uid="uid://cberyi07tqft7"
+path.s3tc="res://.godot/imported/mao-bionica.png-9ce27d752e64a6259c1dcce2fe4aed4f.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://scenes/objects/asteroid/texture/00_Normal_Merged.jpg"
-dest_files=["res://.godot/imported/00_Normal_Merged.jpg-0929b5cf35ad399665e440043e0fdf0c.s3tc.ctex"]
+source_file="res://testes/mao-bionica.png"
+dest_files=["res://.godot/imported/mao-bionica.png-9ce27d752e64a6259c1dcce2fe4aed4f.s3tc.ctex"]
 
 [params]
 
@@ -22,12 +22,12 @@ compress/lossy_quality=0.7
 compress/uastc_level=0
 compress/rdo_quality_loss=0.0
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://scenes/objects/asteroid/texture/00_Normal_Merged.jpg"
+roughness/mode=0
+roughness/src_normal=""
 process/channel_remap/red=0
 process/channel_remap/green=1
 process/channel_remap/blue=2

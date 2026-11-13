@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dmianaemhduh4" path="res://scripts/playerparry_2.gd" id="1_wpm2o"]
 [ext_resource type="AudioStream" uid="uid://d3brdblhhy0iw" path="res://sounds/soundtracks/Deep_Space_Travel_LOOP.wav" id="2_2lcld"]
 [ext_resource type="PackedScene" uid="uid://diuxolnvpplt4" path="res://testes/Revolver.tscn" id="3_snwb8"]
-[ext_resource type="Texture2D" uid="uid://cberyi07tqft7" path="res://testes/Mão robótica futurista estendida.png" id="4_4dwdy"]
+[ext_resource type="Texture2D" uid="uid://cberyi07tqft7" path="res://testes/mao-bionica.png" id="4_4dwdy"]
 [ext_resource type="Script" uid="uid://bb5cfgyqgye6l" path="res://scripts/control.gd" id="4_kijgq"]
 [ext_resource type="AudioStream" uid="uid://d3bq6sg6y3jmo" path="res://sounds/tiro.mp3" id="5_2lcld"]
 [ext_resource type="Script" uid="uid://bsjjg3jbw26qg" path="res://scripts/hud.gd" id="5_4dwdy"]
