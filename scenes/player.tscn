@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bk8ia73kauef0"]
 
-[ext_resource type="Script" uid="uid://dmianaemhduh4" path="res://scripts/playerparry_2.gd" id="1_wpm2o"]
+[ext_resource type="Script" uid="uid://dmianaemhduh4" path="res://scripts/player.gd" id="1_wpm2o"]
 [ext_resource type="AudioStream" uid="uid://d3brdblhhy0iw" path="res://sounds/soundtracks/Deep_Space_Travel_LOOP.wav" id="2_2lcld"]
 [ext_resource type="PackedScene" uid="uid://diuxolnvpplt4" path="res://testes/Revolver.tscn" id="3_snwb8"]
 [ext_resource type="Texture2D" uid="uid://cberyi07tqft7" path="res://testes/mao-bionica.png" id="4_4dwdy"]

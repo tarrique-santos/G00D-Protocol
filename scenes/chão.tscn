@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://onojopveasec"]
 
-[ext_resource type="Texture2D" uid="uid://cj7r0nxfodyeh" path="res://imgs/New_YukaRock.png" id="1_u33h5"]
+[ext_resource type="Texture2D" uid="uid://due1lrqrmglnf" path="res://imgs/metal/Rust_Metal_ambientOcclusion.jpg" id="1_u33h5"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_jhfpx"]
 

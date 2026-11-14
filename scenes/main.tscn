@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://xnc3ohj4d2aa" path="res://models/tijolos/GBA Bowser Castle 3/kpa_blockA.png" id="13_trceg"]
 [ext_resource type="PackedScene" uid="uid://b7iygpymapwco" path="res://scenes/nave.tscn" id="16_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://da3476xrqavig" path="res://scenes/UI/mensagem.tscn" id="17_muem4"]
-[ext_resource type="PackedScene" uid="uid://u58ym3pxao74" path="res://scenes/BossZoio.tscn" id="18_dp3eg"]
+[ext_resource type="PackedScene" uid="uid://u58ym3pxao74" path="res://scenes/BossOlho.tscn" id="18_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://ciu5gcjpjq4m4" path="res://scenes/objects/barricada.tscn" id="19_0ld40"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
@@ -599,10 +599,13 @@ transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 62.583855, -4.792557, 14
 
 [node name="Minion" parent="." unique_id=1576257422 instance=ExtResource("5_tbgi4")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.987604, 14.675835, -28.098635)
+raio_perseguicao = 45.0
+velocidade_perseguicao = 12.0
 
-[node name="Minion2" parent="." unique_id=365685142 instance=ExtResource("5_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.987604, 14.675835, 57.19509)
-tamanho_laser = 2.0
+[node name="Minion2" parent="." unique_id=1909309758 instance=ExtResource("5_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.987604, 14.675835, 138.53886)
+raio_perseguicao = 45.0
+velocidade_perseguicao = 12.0
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1798892686]
 transform = Transform3D(0.4306094, 0.8776404, 0.21052958, -0.3242519, -0.06725418, 0.943577, 0.84228045, -0.47457784, 0.2556163, 0, 25.883202, -3.5493736)
@@ -720,5 +723,5 @@ transform = Transform3D(0.8219393, 0, -0.5695751, 0, 1, 0, 0.5695751, 0, 0.82193
 [node name="Barricada4" parent="." unique_id=1273047241 instance=ExtResource("19_0ld40")]
 transform = Transform3D(0.5068451, 0, -0.86203706, 0, 1, 0, 0.86203706, 0, 0.5068451, 32.938362, 10.0744705, 163.79947)
 
-[node name="Zoio" parent="." unique_id=2093689191 instance=ExtResource("18_dp3eg")]
-transform = Transform3D(5.9999995, 0, 0, 0, 6, 0, 0, 0, 5.9999995, 0, 15.900688, 8.751119)
+[node name="Olho" parent="." unique_id=2093689191 instance=ExtResource("18_dp3eg")]
+transform = Transform3D(4.9059105, 0, -0.9654282, 0, 5.0000005, 0, 0.9654282, 0, 4.9059105, 14.946295, 17.970482, 158.44933)

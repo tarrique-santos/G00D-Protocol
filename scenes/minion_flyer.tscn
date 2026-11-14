@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b563g54ci23hu"]
 
-[ext_resource type="Script" uid="uid://bx08mxlovnux4" path="res://scripts/minion_Flyer.gd" id="1_dof2r"]
+[ext_resource type="Script" uid="uid://bx08mxlovnux4" path="res://scripts/minion.gd" id="1_dof2r"]
 [ext_resource type="ArrayMesh" uid="uid://dqvaswrlgliw3" path="res://models/minion/MM-AC_AND_HERO_Andy_Mecha_Boy/MM-AC_AND_HERO_Andy_Mecha_Boy.obj" id="2_8w5l0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7o0mq"]
