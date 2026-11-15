@@ -99,10 +99,10 @@ const W_POINTS: Array[Vector2] = [
 @export var sweep_rotations := 1.0
 ## Ângulo (graus) entre o ponto de partida e o jogador. Menor = chega mais rápido.
 @export var sweep_start_offset := 120.0
-## Distância do centro do chefe até onde o feixe começa.
-@export var sweep_inner_radius := 3.0
+## Distância, a partir do ponto embaixo da pupila, onde o feixe rasteiro começa.
+@export var sweep_inner_radius := 0.0
 @export var sweep_damage := 25
-@export var sweep_color := Color(1.0, 0.55, 0.1)
+@export var sweep_color := Color(1.0, 0.1, 0.1)
 
 @export_group("Proximidade")
 @export var contact_radius := 6.0
@@ -411,7 +411,7 @@ func _attack_sweep() -> void:
 		return
 
 	var chao_y := _floor_y(p)
-	var centro := Vector3(global_position.x, chao_y + sweep_height, global_position.z)
+	var altura := chao_y + sweep_height
 
 	var para_jogador := p.global_position - global_position
 	var ang_jogador := atan2(para_jogador.x, para_jogador.z)
@@ -420,12 +420,24 @@ func _attack_sweep() -> void:
 	var sentido := 1.0 if randf() < 0.5 else -1.0
 	var inicio := ang_jogador - sentido * deg_to_rad(sweep_start_offset)
 
-	var pose := func(t: float, _sweeping: bool) -> Array:
+	# Raio que cai da pupila até o chão (só visual): dele nasce o feixe rasteiro
+	var queda := _create_beam(sweep_color)
+
+	var pose := func(t: float, varrendo: bool) -> Array:
+		var topo := muzzle.global_position
+		var base := Vector3(topo.x, altura, topo.z)
+
+		var espessura := 0.7 if varrendo else 0.14
+		_update_beam(queda, topo, Vector3.DOWN, maxf(topo.y - altura, 0.1), espessura)
+
 		var yaw := inicio + sentido * TAU * sweep_rotations * t
 		var dir := Vector3(sin(yaw), 0.0, cos(yaw))
-		return [centro + dir * sweep_inner_radius, dir]
+		return [base + dir * sweep_inner_radius, dir]
 
 	await _beam_loop(sweep_windup, sweep_duration, sweep_damage, pose, sweep_color, 0.7)
+
+	if is_instance_valid(queda):
+		queda.queue_free()
 
 
 ## Altura do chão embaixo do jogador (para o feixe rente ao chão).

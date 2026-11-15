@@ -18,6 +18,8 @@
 [ext_resource type="PackedScene" uid="uid://da3476xrqavig" path="res://scenes/UI/mensagem.tscn" id="17_muem4"]
 [ext_resource type="PackedScene" uid="uid://u58ym3pxao74" path="res://scenes/BossOlho.tscn" id="18_dp3eg"]
 [ext_resource type="PackedScene" uid="uid://ciu5gcjpjq4m4" path="res://scenes/objects/barricada.tscn" id="19_0ld40"]
+[ext_resource type="PackedScene" uid="uid://byjkn24m3v83" path="res://scenes/objects/caixote.tscn" id="19_gqmmt"]
+[ext_resource type="PackedScene" uid="uid://bl71yfp6ew4oc" path="res://scenes/objects/nave/interior/mercadorias.tscn" id="20_gqmmt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
 shader = ExtResource("1_tefeu")
@@ -578,7 +580,7 @@ transform = Transform3D(-4.371139e-08, 0, 23.066687, 0, 22.971989, 0, -1, 0, -1.
 transform = Transform3D(-4.371139e-08, 0, 31.86072, 0, 22.971989, 0, -1, 0, -1.3926764e-06, -19.061707, 143.64436, 50.624226)
 
 [node name="Chão" parent="Spawn" unique_id=73716863 instance=ExtResource("8_tipki")]
-transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 250.85158, 0, 132.3557, 52.494057)
+transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 254.52193, 0, 132.3557, 52.494057)
 
 [node name="teto" parent="Spawn" unique_id=1198169410 instance=ExtResource("8_tipki")]
 transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 120.22709, 1.9819603, 156.0735, 0)
@@ -602,11 +604,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.987604, 14.675835, -28.098
 raio_perseguicao = 45.0
 velocidade_perseguicao = 12.0
 
-[node name="Minion2" parent="." unique_id=1909309758 instance=ExtResource("5_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.987604, 14.675835, 138.53886)
-raio_perseguicao = 45.0
-velocidade_perseguicao = 12.0
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1798892686]
 transform = Transform3D(0.4306094, 0.8776404, 0.21052958, -0.3242519, -0.06725418, 0.943577, 0.84228045, -0.47457784, 0.2556163, 0, 25.883202, -3.5493736)
 light_indirect_energy = 100.0
@@ -615,18 +612,6 @@ light_angular_distance = 10.0
 
 [node name="AlienInimigo" parent="." unique_id=1533967044 instance=ExtResource("9_85g3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30587, 9.714928, 0)
-
-[node name="AlienInimigo5" parent="." unique_id=2037712514 instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.30587, 9.714928, 28.286625)
-
-[node name="AlienInimigo3" parent="." unique_id=770507421 instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.36368, 9.714928, 0)
-
-[node name="AlienInimigo4" parent="." unique_id=1627582607 instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.36368, 9.714928, 29.561527)
-
-[node name="AlienInimigo2" parent="." unique_id=543903787 instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.967762, 10.846657, 115.58152)
 
 [node name="Plataform2" parent="." unique_id=1047266936 instance=ExtResource("8_85g3d")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 56.753242, 9.011055, 120.192986)
@@ -706,9 +691,6 @@ omni_range = 50.0
 [node name="Nave" parent="." unique_id=1183964640 instance=ExtResource("16_jbj1t")]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 8.971123, 199.25536)
 
-[node name="Player" parent="Nave" unique_id=1131978176 instance=ExtResource("6_tefeu")]
-transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.18164818, 1.1930237, 0.17038727)
-
 [node name="MensagemMissao" parent="." unique_id=784810346 instance=ExtResource("17_muem4")]
 
 [node name="Barricada" parent="." unique_id=240634252 instance=ExtResource("19_0ld40")]
@@ -724,4 +706,22 @@ transform = Transform3D(0.8219393, 0, -0.5695751, 0, 1, 0, 0.5695751, 0, 0.82193
 transform = Transform3D(0.5068451, 0, -0.86203706, 0, 1, 0, 0.86203706, 0, 0.5068451, 32.938362, 10.0744705, 163.79947)
 
 [node name="Olho" parent="." unique_id=2093689191 instance=ExtResource("18_dp3eg")]
-transform = Transform3D(4.9059105, 0, -0.9654282, 0, 5.0000005, 0, 0.9654282, 0, 4.9059105, 14.946295, 17.970482, 158.44933)
+transform = Transform3D(4.9059105, 0, -0.9654282, 0, 5.0000005, 0, 0.9654282, 0, 4.9059105, 14.946295, 15.000267, 149.19446)
+
+[node name="caixote" parent="." unique_id=1945269093 instance=ExtResource("19_gqmmt")]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -17.518452, 10.802635, 151.38991)
+
+[node name="caixote2" parent="." unique_id=1924190494 instance=ExtResource("19_gqmmt")]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -14.978916, 10.802635, 151.38991)
+
+[node name="caixote4" parent="." unique_id=1744312944 instance=ExtResource("19_gqmmt")]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -16.218658, 12.788002, 151.38991)
+
+[node name="caixote3" parent="." unique_id=973911982 instance=ExtResource("19_gqmmt")]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -12.401046, 10.802635, 151.38991)
+
+[node name="PlayerTrue" parent="." unique_id=61202322 instance=ExtResource("6_tefeu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.5592575, 179.86394)
+
+[node name="Mercadorias" parent="." unique_id=1211368670 instance=ExtResource("20_gqmmt")]
+transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, 0, 11.402504, -30.624859)

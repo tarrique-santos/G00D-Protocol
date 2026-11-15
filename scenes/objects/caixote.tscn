@@ -108,6 +108,9 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 mesh = SubResource("ArrayMesh_2shnv")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=323634652]
-transform = Transform3D(2.0000002, 0, 0, 0, 2.0000002, -5.684342e-14, 0, 5.684342e-14, 2.0000002, 0.00015566678, 0, 0)
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1053456082]
+transform = Transform3D(0.0071223495, 0, 0, 0, 0.009551156, 4.440892e-16, 0, 3.330669e-16, -0.01049562, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=323634652]
+transform = Transform3D(-2.0748146, 0, 0, 0, 2.0000012, 8.526513e-14, 0, 5.684342e-14, -2.0748146, 0.00015566681, 0, 0)
 shape = SubResource("BoxShape3D_g4v7s")
