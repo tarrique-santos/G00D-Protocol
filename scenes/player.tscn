@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://bsjjg3jbw26qg" path="res://scripts/hud.gd" id="5_4dwdy"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_w78q6"]
-radius = 0.6152344
+radius = 0.5419922
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kijgq"]
 direction = Vector3(0, 0, -1)
@@ -39,6 +39,10 @@ script = ExtResource("1_wpm2o")
 alcance_soco = 5.0
 largura_soco = 2.0
 altura_soco = 2.0
+alcance_parry = 1.5
+alcance_parry_perfeito = 1.0
+largura_parry_perfeito = 1.0
+altura_parry_perfeito = 1.0
 inclinacao_recuo = 5.0
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1171450681]

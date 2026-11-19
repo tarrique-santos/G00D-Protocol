@@ -56,19 +56,16 @@ var timer_imunidade: Timer
 var tempo_ate_proximo_tiro: float = 0.0
 
 
-# --- SOCO / PARRY ---
+# --- SOCO (MELEE) ---
 
-@export_group("Soco e Parry")
+@export_group("Soco (Melee)")
 
 @export var dano_soco: int = 40
-@export var alcance_soco: float = 1.8
+@export var alcance_soco: float = 3.0
 @export var largura_soco: float = 1.5
 @export var altura_soco: float = 1.5
 @export var recarga_soco: float = 0.5
 @export var atraso_impacto_soco: float = 0.08
-## Tempo (em segundos) desde o início do soco em que o parry é possível.
-@export var janela_parry: float = 0.2
-@export var duracao_hitstop: float = 0.07
 @export var cura_ao_matar: int = 25
 
 var soco_ativo: bool = false
@@ -76,6 +73,37 @@ var tempo_desde_soco: float = 0.0
 var recarga_soco_atual: float = 0.0
 var soco_impactou: bool = false
 var forma_soco := BoxShape3D.new()
+
+
+# --- PARRY NORMAL ---
+
+@export_group("Parry Normal")
+
+## Tempo (em segundos) desde o início do soco em que o parry é possível.
+@export var janela_parry: float = 0.2
+@export var alcance_parry: float = 1.2
+@export var largura_parry: float = 1.0
+@export var altura_parry: float = 1.0
+@export var duracao_hitstop: float = 0.07
+
+var forma_parry := BoxShape3D.new()
+
+
+# --- PARRY PERFEITO ("CHAN") ---
+
+@export_group("Parry Perfeito")
+
+## Só conta como perfeito se o clique acontecer nesse tempo inicial do soco.
+@export var janela_parry_perfeito: float = 0.08
+## Caixa do perfeito: o laser precisa estar dentro dela. Menor = mais perto.
+@export var alcance_parry_perfeito: float = 0.6
+@export var largura_parry_perfeito: float = 0.6
+@export var altura_parry_perfeito: float = 0.6
+@export var duracao_hitstop_perfeito: float = 0.15
+@export var duracao_flash: float = 0.06
+
+var forma_parry_perfeito := BoxShape3D.new()
+var flash_rect: ColorRect
 
 
 # --- VISUAL DO SOCO (MÃO) ---
@@ -217,8 +245,17 @@ func _ready() -> void:
 	posicao_original_mao = mao.position
 	escala_original_mao = mao.scale
 
-	# Área de detecção do soco
+	# Caixas de detecção (soco, parry e parry perfeito)
 	forma_soco.size = Vector3(largura_soco, altura_soco, alcance_soco)
+	forma_parry.size = Vector3(largura_parry, altura_parry, alcance_parry)
+	forma_parry_perfeito.size = Vector3(
+		largura_parry_perfeito,
+		altura_parry_perfeito,
+		alcance_parry_perfeito
+	)
+
+	# Flash branco do parry perfeito
+	criar_flash()
 
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -407,29 +444,38 @@ func atualizar_soco(delta: float) -> void:
 
 	tempo_desde_soco += delta
 
-	var alvos := _consultar_area_soco()
-
-	# Parry: só dentro da janela de tempo
+	# Parry: caixa própria, só dentro da janela de tempo
 	if tempo_desde_soco <= janela_parry:
 		var parry_feito := false
+		var algum_perfeito := false
 
-		for resultado in alvos:
+		# Projéteis que estão dentro da caixa do parry perfeito
+		var alvos_perfeitos: Array = []
+
+		if tempo_desde_soco <= janela_parry_perfeito:
+			for resultado in _consultar_area(forma_parry_perfeito, alcance_parry_perfeito):
+				alvos_perfeitos.append(resultado["collider"])
+
+		for resultado in _consultar_area(forma_parry, alcance_parry):
 			var alvo = resultado["collider"]
 
 			if alvo.is_in_group("projetil") and alvo.has_method("parry"):
 				alvo.parry(-camera.global_transform.basis.z)
 				parry_feito = true
 
-		if parry_feito:
-			_efeito_parry()
+				if alvo in alvos_perfeitos:
+					algum_perfeito = true
 
-	# Dano corpo a corpo: uma vez só, no momento do impacto
+		if parry_feito:
+			_efeito_parry(algum_perfeito)
+
+	# Dano corpo a corpo: caixa própria, uma vez só no impacto
 	if not soco_impactou and tempo_desde_soco >= atraso_impacto_soco:
 		soco_impactou = true
 
 		var ja_atingidos: Array = []
 
-		for resultado in alvos:
+		for resultado in _consultar_area(forma_soco, alcance_soco):
 			var alvo = resultado["collider"]
 
 			if alvo == self or alvo in ja_atingidos:
@@ -450,15 +496,15 @@ func atualizar_soco(delta: float) -> void:
 		trocar_sprite_mao(0)
 
 
-func _consultar_area_soco() -> Array[Dictionary]:
+# Consulta genérica: caixa que começa na câmera e vai até o alcance.
+func _consultar_area(forma: BoxShape3D, alcance: float) -> Array[Dictionary]:
 	var base: Basis = camera.global_transform.basis.orthonormalized()
 	var frente: Vector3 = -base.z
 
-	# A caixa começa no jogador e vai até o alcance máximo
-	var centro: Vector3 = camera.global_position + frente * (alcance_soco * 0.5)
+	var centro: Vector3 = camera.global_position + frente * (alcance * 0.5)
 
 	var consulta := PhysicsShapeQueryParameters3D.new()
-	consulta.shape = forma_soco
+	consulta.shape = forma
 	consulta.transform = Transform3D(base, centro)
 	consulta.collide_with_areas = true
 	consulta.collide_with_bodies = true
@@ -467,13 +513,39 @@ func _consultar_area_soco() -> Array[Dictionary]:
 	return get_world_3d().direct_space_state.intersect_shape(consulta)
 
 
-func _efeito_parry() -> void:
-	print("PARRY!")
+func _efeito_parry(perfeito: bool = false) -> void:
+	var duracao := duracao_hitstop_perfeito if perfeito else duracao_hitstop
+
+	if perfeito:
+		print("CHAN!")
+		_flash_impacto()
+	else:
+		print("PARRY!")
 
 	# Hitstop: congela o jogo por um instante pra dar impacto
 	Engine.time_scale = 0.05
-	await get_tree().create_timer(duracao_hitstop, true, false, true).timeout
+	await get_tree().create_timer(duracao, true, false, true).timeout
 	Engine.time_scale = 1.0
+
+
+func criar_flash() -> void:
+	var camada := CanvasLayer.new()
+	camada.layer = 100
+
+	flash_rect = ColorRect.new()
+	flash_rect.color = Color.WHITE
+	flash_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
+	flash_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	flash_rect.visible = false
+
+	camada.add_child(flash_rect)
+	add_child(camada)
+
+
+func _flash_impacto() -> void:
+	flash_rect.visible = true
+	await get_tree().create_timer(duracao_flash, true, false, true).timeout
+	flash_rect.visible = false
 
 
 func _inimigo_morreu(alvo: Object) -> bool:
