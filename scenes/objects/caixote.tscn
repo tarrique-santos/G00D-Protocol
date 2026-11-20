@@ -1,5 +1,7 @@
 [gd_scene format=4 uid="uid://byjkn24m3v83"]
 
+[ext_resource type="Script" uid="uid://csjvedd0ebjyh" path="res://scripts/caixote.gd" id="1_tjcn8"]
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d8vav"]
 resource_name = "Wooden"
 vertex_color_use_as_albedo = true
@@ -107,6 +109,7 @@ size = Vector3(1.3349609, 1, 1)
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 0, 0, 0)
 mesh = SubResource("ArrayMesh_2shnv")
 skeleton = NodePath("")
+script = ExtResource("1_tjcn8")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1053456082]
 transform = Transform3D(0.0071223495, 0, 0, 0, 0.009551156, 4.440892e-16, 0, 3.330669e-16, -0.01049562, 0, 0, 0)

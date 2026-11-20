@@ -1,0 +1,47 @@
+[gd_scene format=3 uid="uid://bar6bih8qlmrx"]
+
+[ext_resource type="PackedScene" uid="uid://g7mki41q5e4s" path="res://models/nave/source/ShipEnvironment_Collection.fbx" id="1_ggswo"]
+
+[node name="ShipEnvironment_Collection" unique_id=985294529 instance=ExtResource("1_ggswo")]
+
+[node name="Catwalk_Floor_006" parent="." index="429" unique_id=1848795692]
+transform = Transform3D(1.1920929e-05, -100, -1.4901161e-05, -2.9802322e-06, -1.1920929e-05, 99.99999, -100, -5.9604645e-06, 0, -101.2037, 12.5, 56.5)
+
+[node name="Wall_CutoutStorage" parent="." index="476" unique_id=2116632613]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -29.58026, 40.303276, -29.977026)
+
+[node name="Wall_Flat_001" parent="." index="477" unique_id=1151674871]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 2.664135, 13.041071, 34.3)
+
+[node name="Floor_Storage" parent="." index="478" unique_id=1844353911]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -50.81083, 4.6410713, 33.75)
+
+[node name="Ceiling_Storage" parent="." index="479" unique_id=1630198625]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -50.81083, 21.44107, 33.75)
+
+[node name="StorageShelves" parent="." index="480" unique_id=1991080143]
+transform = Transform3D(100, 0, 0, 0, -1.1920928e-05, 99.99999, 0, -99.999985, -1.1920929e-05, -50.81083, 5.6410713, 5.5)
+
+[node name="StorageWallLights" parent="." index="481" unique_id=329586387]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -32.502533, 16.92107, 33.75)
+
+[node name="StorageWallLights_001" parent="." index="482" unique_id=1634725990]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -30.392532, 12.721071, 33.75)
+
+[node name="StorageWallLights_002" parent="." index="483" unique_id=1795525385]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -33.10253, 8.521071, 33.75)
+
+[node name="StorageWallLights_003" parent="." index="484" unique_id=1980631935]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -35.502533, 21.321072, 33.75)
+
+[node name="StorageWallLights_004" parent="." index="485" unique_id=139196703]
+transform = Transform3D(-100, 1.509958e-05, -1.4210855e-12, 0, 5.9604645e-06, 100, 1.509958e-05, 100, -1.1920929e-05, -69.04752, 16.92107, 33.75)
+
+[node name="StorageWallLights_005" parent="." index="486" unique_id=390477876]
+transform = Transform3D(-100, 1.509958e-05, -1.4210855e-12, 0, 5.9604645e-06, 100, 1.509958e-05, 100, -1.1920929e-05, -71.157524, 12.721071, 33.75)
+
+[node name="StorageWallLights_006" parent="." index="487" unique_id=1165524316]
+transform = Transform3D(-100, 1.509958e-05, -1.4210855e-12, 0, 5.9604645e-06, 100, 1.509958e-05, 100, -1.1920929e-05, -68.447525, 8.521071, 33.75)
+
+[node name="StorageWallLights_007" parent="." index="488" unique_id=1038787611]
+transform = Transform3D(-100, 1.509958e-05, -1.4210855e-12, 0, 5.9604645e-06, 100, 1.509958e-05, 100, -1.1920929e-05, -66.04752, 21.321072, 33.75)

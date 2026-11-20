@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cx4m2gjroybcm"]
 
-[ext_resource type="Texture2D" uid="uid://due1lrqrmglnf" path="res://imgs/metal/Rust_Metal_ambientOcclusion.jpg" id="1_y0g7e"]
+[ext_resource type="Texture2D" uid="uid://cgj8lc5kn3jit" path="res://models/nave/alien_objects_extended/metal_12.jpg" id="1_y0g7e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qs5p0"]
 albedo_texture = ExtResource("1_y0g7e")

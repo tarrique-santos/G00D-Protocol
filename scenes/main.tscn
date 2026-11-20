@@ -20,6 +20,10 @@
 [ext_resource type="PackedScene" uid="uid://ciu5gcjpjq4m4" path="res://scenes/objects/barricada.tscn" id="19_0ld40"]
 [ext_resource type="PackedScene" uid="uid://byjkn24m3v83" path="res://scenes/objects/caixote.tscn" id="19_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://bl71yfp6ew4oc" path="res://scenes/objects/nave/interior/mercadorias.tscn" id="20_gqmmt"]
+[ext_resource type="PackedScene" uid="uid://dme6aaod6j32q" path="res://models/others/corredor.tscn" id="21_jscy8"]
+[ext_resource type="PackedScene" uid="uid://uyxn1mrxdmox" path="res://scenes/corredor bonito.tscn" id="21_yc10j"]
+[ext_resource type="PackedScene" uid="uid://bbhfjjc88l6uh" path="res://models/others/fioDescapado.tscn" id="23_pm3ni"]
+[ext_resource type="PackedScene" uid="uid://h5dx5itfca5w" path="res://models/others/rampa.tscn" id="24_y6deb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
 shader = ExtResource("1_tefeu")
@@ -715,13 +719,31 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -14.978916, 10.802635, 151.38991)
 
 [node name="caixote4" parent="." unique_id=1744312944 instance=ExtResource("19_gqmmt")]
-transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -16.218658, 12.788002, 151.38991)
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 9.605653, -71.112686, 109.50583)
+
+[node name="caixote5" parent="." unique_id=414725754 instance=ExtResource("19_gqmmt")]
+transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, 11.917354, -71.112686, 109.50583)
 
 [node name="caixote3" parent="." unique_id=973911982 instance=ExtResource("19_gqmmt")]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -12.401046, 10.802635, 151.38991)
 
 [node name="PlayerTrue" parent="." unique_id=61202322 instance=ExtResource("6_tefeu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.5592575, 179.86394)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.26599, -69.005875, 100.61231)
 
 [node name="Mercadorias" parent="." unique_id=1211368670 instance=ExtResource("20_gqmmt")]
 transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, 0, 11.402504, -30.624859)
+
+[node name="Corredor" parent="." unique_id=828014708 instance=ExtResource("21_jscy8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.40352, -64.275024, 103.05441)
+
+[node name="Corredor2" parent="." unique_id=890914017 instance=ExtResource("21_jscy8")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 156.97906, -64.275024, 103.05597)
+
+[node name="Corredor ataliba" parent="." unique_id=854799525 instance=ExtResource("21_yc10j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.40352, 11.74987, 103.05441)
+
+[node name="FioDescapado" parent="." unique_id=184641207 instance=ExtResource("23_pm3ni")]
+transform = Transform3D(-0.35746375, 0, -0.933927, 0, 1, 0, 0.933927, 0, -0.35746375, 94.0414, -72.25943, 94.70048)
+
+[node name="Rampa" parent="." unique_id=21078554 instance=ExtResource("24_y6deb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.988777, -114.199974, 102.94687)

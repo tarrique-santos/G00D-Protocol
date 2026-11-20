@@ -1,0 +1,5 @@
+Spork Space Ship Bridge by Tuomo Untinen Licensed Under CC-BY-SA 3.0
+http://creativecommons.org/licenses/by-sa/3.0/
+
+This includes both blend file and images rendered from it.
+All included textures are under CC0.
