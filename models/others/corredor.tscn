@@ -162,6 +162,15 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_6ox8g")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_vxbvw"]
+size = Vector3(1, 0.001, 0.11187744)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jwxsj"]
+size = Vector3(1, 0.001, 0.11187744)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5t6cl"]
+size = Vector3(1, 0.138237, 0.001)
+
 [node name="Corredor" type="StaticBody3D" unique_id=72781291]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.849652, 0)
 
@@ -186,3 +195,15 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 material_override = SubResource("StandardMaterial3D_jwxsj")
 mesh = SubResource("ArrayMesh_5t6cl")
 skeleton = NodePath("")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="." unique_id=1573965247]
+transform = Transform3D(100.00006, 0, 0, 0, 58.97988, 80.75509, 0, -80.75509, 58.97988, 0, 4.9058924, -7.8614397)
+shape = SubResource("BoxShape3D_vxbvw")
+
+[node name="CollisionShape3D6" type="CollisionShape3D" parent="." unique_id=1062422607]
+transform = Transform3D(100.00006, 0, 0, 0, 58.919662, -80.799034, 0, 80.799034, 58.919662, 0, 4.906, 7.861)
+shape = SubResource("BoxShape3D_jwxsj")
+
+[node name="CollisionShape3D7" type="CollisionShape3D" parent="." unique_id=1017767813]
+transform = Transform3D(100.000046, 0, 0, 0, -1.1920934e-05, 100.00006, 0, -100.00006, -1.1920934e-05, 0, 9.606, 0)
+shape = SubResource("BoxShape3D_5t6cl")

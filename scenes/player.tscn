@@ -9,7 +9,8 @@
 [ext_resource type="Script" uid="uid://bsjjg3jbw26qg" path="res://scripts/hud.gd" id="5_4dwdy"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_w78q6"]
-radius = 0.5419922
+height = 2.822998
+radius = 0.59228516
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_kijgq"]
 direction = Vector3(0, 0, -1)
@@ -50,11 +51,11 @@ stream = ExtResource("2_2lcld")
 autoplay = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=213092385]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5337219, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94522095, 0)
 shape = SubResource("CylinderShape3D_w78q6")
 
 [node name="Head" type="Node3D" parent="." unique_id=567617020]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9241005, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.016137, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=1697254148]
 cull_mask = 1047553

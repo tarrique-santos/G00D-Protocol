@@ -1,0 +1,23 @@
+[gd_scene format=3 uid="uid://c1r4eadv1jckl"]
+
+[ext_resource type="Texture2D" uid="uid://cgj8lc5kn3jit" path="res://models/nave/alien_objects_extended/metal_12.jpg" id="1_nujs4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ajl7w"]
+albedo_texture = ExtResource("1_nujs4")
+uv1_scale = Vector3(0.02, 0.02, 0.02)
+uv1_triplanar = true
+uv1_world_triplanar = true
+uv2_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
+
+[node name="StaticBody3D" type="StaticBody3D" unique_id=37694550]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1157553648]
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1742078118]
+material_override = SubResource("StandardMaterial3D_ajl7w")
+mesh = SubResource("BoxMesh_g4v7s")

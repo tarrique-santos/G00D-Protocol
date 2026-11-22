@@ -22,8 +22,10 @@
 [ext_resource type="PackedScene" uid="uid://bl71yfp6ew4oc" path="res://scenes/objects/nave/interior/mercadorias.tscn" id="20_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://dme6aaod6j32q" path="res://models/others/corredor.tscn" id="21_jscy8"]
 [ext_resource type="PackedScene" uid="uid://uyxn1mrxdmox" path="res://scenes/corredor bonito.tscn" id="21_yc10j"]
+[ext_resource type="PackedScene" uid="uid://c1r4eadv1jckl" path="res://models/others/Bloco Destroço.tscn" id="22_2wyq8"]
 [ext_resource type="PackedScene" uid="uid://bbhfjjc88l6uh" path="res://models/others/fioDescapado.tscn" id="23_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://h5dx5itfca5w" path="res://models/others/rampa.tscn" id="24_y6deb"]
+[ext_resource type="PackedScene" uid="uid://dnmie37nsu76s" path="res://models/others/nave_de_pouso.tscn" id="25_og1vs"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
 shader = ExtResource("1_tefeu")
@@ -631,58 +633,67 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.3338684e-09, -112.24285, 6.
 light_energy = 5.0
 omni_range = 50.0
 
-[node name="UBCube" type="MeshInstance3D" parent="." unique_id=850263586]
-transform = Transform3D(1.0560001, 0, 0, 0, 1, 0, 0, 0, 5.862972, 0, -124.123, -42.161495)
+[node name="unibuilder" type="Node" parent="." unique_id=1917746540]
+
+[node name="UBCube" type="MeshInstance3D" parent="unibuilder" unique_id=850263586]
+transform = Transform3D(1.0560001, 0, 0, 0, 1, 0, 0, 0, 5.862972, 0, 0.00048065186, -42.161495)
 material_override = SubResource("StandardMaterial3D_3725h")
 mesh = SubResource("ArrayMesh_eb6dy")
+skeleton = NodePath("../..")
 script = ExtResource("10_eb6dy")
 mesh_data = SubResource("Resource_0ld40")
 collision_mode = 1
 
-[node name="UBDoor" type="MeshInstance3D" parent="." unique_id=184451433]
-transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, -123.348885, -10)
+[node name="UBDoor" type="MeshInstance3D" parent="unibuilder" unique_id=184451433]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 0, 0.77459717, -10)
 material_override = SubResource("StandardMaterial3D_qs5p0")
 mesh = SubResource("ArrayMesh_trceg")
+skeleton = NodePath("../..")
 script = ExtResource("10_eb6dy")
 mesh_data = SubResource("Resource_fuf3a")
 collision_mode = 2
 
-[node name="UBCube2" type="MeshInstance3D" parent="." unique_id=1483416148]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, -123.348885, 7)
+[node name="UBCube2" type="MeshInstance3D" parent="unibuilder" unique_id=1483416148]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15.5, 0.77459717, 7)
 material_override = SubResource("StandardMaterial3D_qs5p0")
 mesh = SubResource("ArrayMesh_pibwh")
+skeleton = NodePath("../..")
 script = ExtResource("10_eb6dy")
 mesh_data = SubResource("Resource_vchkt")
 collision_mode = 1
 
-[node name="UBCube3" type="MeshInstance3D" parent="." unique_id=1451013879]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, -123.348885, 7)
+[node name="UBCube3" type="MeshInstance3D" parent="unibuilder" unique_id=1451013879]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5, 0.77459717, 7)
 material_override = SubResource("StandardMaterial3D_qs5p0")
 mesh = SubResource("ArrayMesh_txyw0")
+skeleton = NodePath("../..")
 script = ExtResource("10_eb6dy")
 mesh_data = SubResource("Resource_o7ddy")
 collision_mode = 1
 
-[node name="UBCube4" type="MeshInstance3D" parent="." unique_id=638806273]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.5, -123.348885, 24)
+[node name="UBCube4" type="MeshInstance3D" parent="unibuilder" unique_id=638806273]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 0.5, 0.77459717, 24)
 material_override = SubResource("StandardMaterial3D_qs5p0")
 mesh = SubResource("ArrayMesh_0loja")
+skeleton = NodePath("../..")
 script = ExtResource("10_eb6dy")
 mesh_data = SubResource("Resource_t5ykj")
 collision_mode = 1
 
-[node name="UBCube5" type="MeshInstance3D" parent="." unique_id=1716350138]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.528052, 15.5, -123.348885, -37)
+[node name="UBCube5" type="MeshInstance3D" parent="unibuilder" unique_id=1716350138]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.528052, 15.5, 0.77459717, -37)
 material_override = SubResource("StandardMaterial3D_qs5p0")
 mesh = SubResource("ArrayMesh_a8y0u")
+skeleton = NodePath("../..")
 script = ExtResource("10_eb6dy")
 mesh_data = SubResource("Resource_xhfw6")
 collision_mode = 1
 
-[node name="UBCube6" type="MeshInstance3D" parent="." unique_id=45465018]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.528052, -14.5, -123.348885, -37)
+[node name="UBCube6" type="MeshInstance3D" parent="unibuilder" unique_id=45465018]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1.528052, -14.5, 0.77459717, -37)
 material_override = SubResource("StandardMaterial3D_qs5p0")
 mesh = SubResource("ArrayMesh_1epgm")
+skeleton = NodePath("../..")
 script = ExtResource("10_eb6dy")
 mesh_data = SubResource("Resource_kjtvk")
 collision_mode = 1
@@ -728,7 +739,7 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -12.401046, 10.802635, 151.38991)
 
 [node name="PlayerTrue" parent="." unique_id=61202322 instance=ExtResource("6_tefeu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.26599, -69.005875, 100.61231)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 173.40045, -68.33969, 100.61231)
 
 [node name="Mercadorias" parent="." unique_id=1211368670 instance=ExtResource("20_gqmmt")]
 transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, 0, 11.402504, -30.624859)
@@ -737,7 +748,10 @@ transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.40352, -64.275024, 103.05441)
 
 [node name="Corredor2" parent="." unique_id=890914017 instance=ExtResource("21_jscy8")]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 156.97906, -64.275024, 103.05597)
+transform = Transform3D(-1, 0, -1.509958e-07, 0, 1, 0, 1.509958e-07, 0, -1, 156.97906, -64.275024, 103.05597)
+
+[node name="StaticBody3D" parent="." unique_id=37694550 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(0.65628767, -4.723322, 3.6413603, 2.1218321, 3.6085756, 4.2983737, -5.5737896, 0.8175639, 2.0650606, 195.50423, -63.86264, 93.56263)
 
 [node name="Corredor ataliba" parent="." unique_id=854799525 instance=ExtResource("21_yc10j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.40352, 11.74987, 103.05441)
@@ -747,3 +761,45 @@ transform = Transform3D(-0.35746375, 0, -0.933927, 0, 1, 0, 0.933927, 0, -0.3574
 
 [node name="Rampa" parent="." unique_id=21078554 instance=ExtResource("24_y6deb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -43.988777, -114.199974, 102.94687)
+
+[node name="Nave de pouso" parent="." unique_id=701050838 instance=ExtResource("25_og1vs")]
+transform = Transform3D(1.5832719, -2.527941, -2.6651015, 1.9143653, -1.9090046, 2.9480345, -3.135037, -2.4423795, 0.45423225, 203.26196, -71.99757, 101.64319)
+
+[node name="StaticBody3D2" parent="Nave de pouso" unique_id=1432750200 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(1.0252066, -0.62999254, -0.8955796, -1.0176713, -0.095440775, -1.0978329, 0.40410128, 1.3579403, -0.49264732, -1.5669384, 2.3872566, 1.8937492)
+
+[node name="StaticBody3D3" parent="Nave de pouso" unique_id=671473845 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(0.66123724, -0.6751233, -2.3145137, 2.210504, -0.7883657, 0.86148214, -0.9625161, -2.2743547, 0.3884263, 2.409378, -0.7534981, 1.6306763)
+
+[node name="StaticBody3D4" parent="Nave de pouso" unique_id=465231379 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(0.22386849, -0.15541817, -2.4851012, 2.4317498, -0.52269787, 0.25175202, -0.53523386, -2.4398017, 0.104368985, 1.5381336, -2.902542, 2.9476051)
+
+[node name="StaticBody3D5" parent="Nave de pouso" unique_id=1658904744 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(-0.71254236, 0.5617736, -2.329527, 2.3957942, 0.21727139, -0.6804157, 0.04955957, -2.4263563, -0.6002834, -2.4385605, -0.43261337, 0.813282)
+
+[node name="StaticBody3D6" parent="Nave de pouso" unique_id=116816358 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(1.4109426, -0.19582902, 0.4699925, 0.49397907, 0.19091803, -1.4034013, 0.12339789, 1.4748565, 0.2440736, 0.1565113, 3.4533997, 1.8594437)
+
+[node name="StaticBody3D7" parent="Nave de pouso" unique_id=905059509 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(1.093762, -0.93270236, -0.42866266, -0.5123357, 0.046765983, -1.4090157, 0.88949305, 1.1738311, -0.28447014, -0.8080673, 3.0761986, 1.6442032)
+
+[node name="StaticBody3D8" parent="Nave de pouso" unique_id=2131254509 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(1.4203737, -0.46836466, 0.11477846, 0.14517707, 0.074858874, -1.49108, 0.4598515, 1.4230359, 0.11621599, 1.3629837, 2.7342224, 2.203205)
+
+[node name="StaticBody3D9" parent="Nave de pouso" unique_id=1695991639 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(1.4203737, -0.46836466, 0.11477846, 0.14517707, 0.074858874, -1.49108, 0.4598515, 1.4230359, 0.11621599, -1.6883678, 1.4545631, 1.3111496)
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="Nave de pouso" unique_id=1716156078]
+transform = Transform3D(0.0989545, 0.11964783, -0.19593981, -0.1579963, -0.1193128, -0.15264872, -0.16656885, 0.18425217, 0.028389521, -0.13746071, -1.9984016, 3.3999672)
+light_color = Color(0, 1, 0.07450981, 1)
+light_energy = 2.743
+omni_range = 33.232
+
+[node name="StaticBody3D10" parent="Nave de pouso" unique_id=956202226 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(0.77042305, -0.95124906, 0.8669339, 0.5504653, -0.6697677, -1.2240924, 1.1633738, 0.9468573, 0.0050842133, -1.5637321, -2.4230766, 1.9131031)
+
+[node name="StaticBody3D11" parent="Nave de pouso" unique_id=1930067836 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(0.14094023, -0.87012345, 1.2136819, 0.117475465, -1.2088385, -0.8802935, 1.4887381, 0.1777661, -0.045436624, 0.28950882, -3.263546, 2.1368332)
+
+[node name="StaticBody3D12" parent="Nave de pouso" unique_id=944589428 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(1.3050201, 0.53428173, -0.5113386, -0.23338908, -0.68660086, -1.3130538, -0.7017507, 1.2219347, -0.51422024, -1.1850357, 0.3294258, 0.9878769)
