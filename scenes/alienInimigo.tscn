@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://b00qwi8qd3a17" path="res://scripts/alien.gd" id="1_1plbo"]
 [ext_resource type="PackedScene" uid="uid://buonga0y04y24" path="res://scenes/alien.tscn" id="1_5axr7"]
+[ext_resource type="AudioStream" uid="uid://o8t4flnpcik5" path="res://sounds/alien.mp3" id="3_lkpkw"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_1plbo"]
 height = 4.7098236
@@ -25,3 +26,9 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -0.00040757656, 0.010298252, 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1895934664]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.9217095, 0.122810334)
 shape = SubResource("CapsuleShape3D_g4v7s")
+
+[node name="Voz" type="AudioStreamPlayer3D" parent="." unique_id=497436902]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.2985187, 0)
+stream = ExtResource("3_lkpkw")
+unit_size = 20.0
+autoplay = true

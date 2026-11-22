@@ -46,9 +46,12 @@ largura_parry_perfeito = 1.0
 altura_parry_perfeito = 1.0
 inclinacao_recuo = 5.0
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1171450681]
+[node name="soundtrack" type="AudioStreamPlayer3D" parent="." unique_id=1171450681]
 stream = ExtResource("2_2lcld")
+unit_size = 8.0
+max_db = 1.5
 autoplay = true
+stream_paused = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=213092385]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.94522095, 0)

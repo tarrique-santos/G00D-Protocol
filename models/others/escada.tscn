@@ -2,6 +2,9 @@
 
 [ext_resource type="Texture2D" uid="uid://37ac3mto5baw" path="res://models/nave/source/ShipEnvironment_Collection_28.png" id="1_3uysp"]
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(1.5480347, 0.001, 6.8015747)
+
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3063w"]
 resource_name = "Catwalks"
 transparency = 4
@@ -43,8 +46,8 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_om1qf")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
-size = Vector3(1.5480347, 0.001, 6.8015747)
+[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
+size = Vector3(0.17068481, 0.4340191, 0.001)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6c4md"]
 resource_name = "Glass"
@@ -108,27 +111,24 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_lrjk4")
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
-size = Vector3(0.17068481, 0.4340191, 0.001)
-
 [node name="Escada" type="StaticBody3D" unique_id=424297937]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.7763696, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=45057012]
+transform = Transform3D(1.0000001, 0, 0, 0, 0.7682901, -0.64010197, 0, 0.64010197, 0.7682901, -0.03746671, -1.9349338, 2.7840075)
+shape = SubResource("BoxShape3D_g4v7s")
 
 [node name="escada" type="MeshInstance3D" parent="." unique_id=312405745]
 transform = Transform3D(100, 0, 0, 0, -4.3711384e-06, 99.99999, 0, -99.99999, -4.3711384e-06, 0, 0, 0)
 mesh = SubResource("ArrayMesh_7r8ie")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="escada" unique_id=45057012]
-transform = Transform3D(0.010000001, 0, 0, 0, -0.006401021, -0.0076829013, 0, 0.0076829013, -0.006401021, -0.00037466708, -0.027840078, -0.01934934)
-shape = SubResource("BoxShape3D_g4v7s")
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1694495050]
+transform = Transform3D(-25.000011, -5.315873e-06, -3.1716695e-14, -2.2869888e-18, -2.6580306e-06, 8.300003, -2.1855706e-06, 60.80656, 3.6279863e-07, -0.11460922, 0.18310308, -12.952885)
+shape = SubResource("BoxShape3D_yf5fn")
+debug_color = Color(0.41960785, 0.49411765, 0.91764706, 0.9019608)
 
 [node name="ponte" type="MeshInstance3D" parent="." unique_id=182832468]
 transform = Transform3D(-100, -8.742278e-06, -3.8213706e-13, 0, -4.371139e-06, 99.99999, -8.742278e-06, 100, 4.3711384e-06, -0.228778, 0, -1.8196244)
 mesh = SubResource("ArrayMesh_oi2ti")
 skeleton = NodePath("")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="ponte" unique_id=1694495050]
-transform = Transform3D(0.25000012, -5.684342e-14, -1.7205357e-21, 0, 0.6080656, -5.995204e-14, -2.286989e-20, -9.130474e-13, 0.083000034, -0.0011416781, -0.1113326, 0.0018310249)
-shape = SubResource("BoxShape3D_yf5fn")
-debug_color = Color(0.41960785, 0.49411765, 0.91764706, 0.9019608)

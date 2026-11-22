@@ -13,7 +13,7 @@ uv2_world_triplanar = true
 
 [sub_resource type="BoxMesh" id="BoxMesh_g4v7s"]
 
-[node name="StaticBody3D" type="StaticBody3D" unique_id=37694550]
+[node name="bloco" type="StaticBody3D" unique_id=37694550]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1157553648]
 shape = SubResource("BoxShape3D_g4v7s")

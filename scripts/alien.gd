@@ -1,3 +1,4 @@
+
 class_name AlienInimigo
 extends CharacterBody3D
 
@@ -21,11 +22,13 @@ extends CharacterBody3D
 @export var alcance_tiro: float = 35.0
 @export var intervalo_tiro: float = 1.5
 @export var velocidade_laser: float = 25.0
-## Altura (a partir dos pés) de onde o laser sai.
 @export var altura_disparo: float = 3.8
-## Distância à frente da origem onde o laser nasce. Deve ficar fora da hitbox.
 @export var distancia_saida_laser: float = 1.5
 @export var tamanho_laser: float = 1.0
+
+
+@export_group("Voz")
+@export var intervalo_voz: float = 11.0
 
 
 @export_group("Animacoes")
@@ -54,13 +57,15 @@ extends CharacterBody3D
 
 var vida: float
 var tempo_tiro: float = 0.0
+var tempo_voz: float = 0.0
 var morto: bool = false
 var animacao_atual: String = ""
 
-# Referencias da barra de vida
 var barra_vida: Node3D
 var barra_preenchimento: MeshInstance3D
 var material_barra: StandardMaterial3D
+
+@onready var voz: AudioStreamPlayer3D = $Voz
 
 
 func _ready():
@@ -75,9 +80,13 @@ func _ready():
 	$Alien.rotation.y = deg_to_rad(rotacao_modelo)
 
 	criar_barra_vida()
-
 	configurar_animacoes()
 	trocar_animacao(animacao_parado)
+
+	# Iniciar voz do alien
+	if voz:
+		tempo_voz = 0.0
+		voz.play()
 
 
 # ==========================================
@@ -85,14 +94,12 @@ func _ready():
 # ==========================================
 
 func criar_barra_vida():
-	# No principal
 	barra_vida = Node3D.new()
 	barra_vida.name = "BarraVida"
 	barra_vida.position.y = altura_barra_vida
 
 	add_child(barra_vida)
 
-	# Barra colorida, sem fundo
 	barra_preenchimento = MeshInstance3D.new()
 	barra_preenchimento.name = "Preenchimento"
 
@@ -125,21 +132,16 @@ func atualizar_barra_vida():
 	if vida_maxima > 0.0:
 		porcentagem = clampf(vida / vida_maxima, 0.0, 1.0)
 
-	# Diminuir preenchimento
 	barra_preenchimento.scale.x = porcentagem
 
-	# Manter alinhamento a esquerda
 	barra_preenchimento.position.x = (
 		-(largura_barra_vida / 2.0) * (1.0 - porcentagem)
 	)
 
-	# Alterar cor conforme a vida
 	if porcentagem > 0.5:
 		material_barra.albedo_color = Color.GREEN
-
 	elif porcentagem > 0.25:
 		material_barra.albedo_color = Color.YELLOW
-
 	else:
 		material_barra.albedo_color = Color.RED
 
@@ -178,7 +180,6 @@ func configurar_animacoes():
 
 func remover_posicao_raiz(anim: Animation):
 	for i in range(anim.get_track_count()):
-
 		if anim.track_get_type(i) != Animation.TYPE_POSITION_3D:
 			continue
 
@@ -256,6 +257,15 @@ func _physics_process(delta):
 	if morto:
 		return
 
+	# Controle da voz: reinicia a cada 11 segundos
+	if voz:
+		tempo_voz += delta
+
+		if tempo_voz >= intervalo_voz:
+			tempo_voz = 0.0
+			voz.stop()
+			voz.play()
+
 	if jogador == null or not is_instance_valid(jogador):
 		jogador = get_tree().get_first_node_in_group("player")
 		return
@@ -287,7 +297,6 @@ func _physics_process(delta):
 		velocidade_desejada = velocidade_corrida
 
 		trocar_animacao(animacao_correr)
-
 	else:
 		movimento = Vector3.ZERO
 		velocidade_desejada = 0.0
@@ -295,7 +304,6 @@ func _physics_process(delta):
 
 		trocar_animacao(animacao_parado)
 
-	# Movimento horizontal
 	var velocidade_atual = Vector3(
 		velocity.x,
 		0,
@@ -314,7 +322,6 @@ func _physics_process(delta):
 	velocity.x = velocidade_atual.x
 	velocity.z = velocidade_atual.z
 
-	# Gravidade
 	if not is_on_floor():
 		velocity.y -= gravidade * delta
 	else:
@@ -322,7 +329,6 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-	# Atirar quando estiver parado
 	if esta_parado and distancia <= alcance_tiro and tempo_tiro <= 0.0:
 		atirar()
 
@@ -375,7 +381,10 @@ func morrer():
 	morto = true
 	velocity = Vector3.ZERO
 
-	# Desabilitar colisoes
+	# Parar a voz
+	if voz:
+		voz.stop()
+
 	collision_layer = 0
 	collision_mask = 0
 
@@ -384,11 +393,9 @@ func morrer():
 	if colisao:
 		colisao.set_deferred("disabled", true)
 
-	# Esconder barra de vida
 	if barra_vida:
 		barra_vida.visible = false
 
-	# Executar animacao de morte
 	if animation_player:
 		animacao_atual = ""
 
