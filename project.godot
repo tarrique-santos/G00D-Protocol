@@ -21,6 +21,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 [autoload]
 
 Mensagem="*uid://da3476xrqavig"
+Progresso="*uid://cauv6tymrbay0"
 
 [display]
 

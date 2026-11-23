@@ -1,6 +1,7 @@
 
 class_name AlienInimigo
 extends CharacterBody3D
+enum Visao { LIVRE, ALIADO, PAREDE }
 
 
 @export_group("Atributos")
@@ -25,6 +26,11 @@ extends CharacterBody3D
 @export var altura_disparo: float = 3.8
 @export var distancia_saida_laser: float = 1.5
 @export var tamanho_laser: float = 1.0
+## Velocidade ao andar de lado pra liberar a linha de tiro.
+@export var velocidade_strafe: float = 4.0
+## Usada só se o player não tiver o nó "camera". Ajuste se o tiro ainda sair baixo.
+@export var altura_mira: float = 1.6
+
 
 
 @export_group("Voz")
@@ -60,13 +66,15 @@ var tempo_tiro: float = 0.0
 var tempo_voz: float = 0.0
 var morto: bool = false
 var animacao_atual: String = ""
+var lado_strafe: float = 1.0
+
 
 var barra_vida: Node3D
 var barra_preenchimento: MeshInstance3D
 var material_barra: StandardMaterial3D
 
 @onready var voz: AudioStreamPlayer3D = $Voz
-
+@onready var agente_nav: NavigationAgent3D = $NavigationAgent3D
 
 func _ready():
 	vida = vida_maxima
@@ -257,53 +265,62 @@ func _physics_process(delta):
 	if morto:
 		return
 
-	# Controle da voz: reinicia a cada 11 segundos
-	if voz:
-		tempo_voz += delta
-
-		if tempo_voz >= intervalo_voz:
-			tempo_voz = 0.0
-			voz.stop()
-			voz.play()
-
 	if jogador == null or not is_instance_valid(jogador):
 		jogador = get_tree().get_first_node_in_group("player")
 		return
 
 	tempo_tiro -= delta
 
-	var direcao = jogador.global_position - global_position
-	direcao.y = 0
+	var direcao_reta = jogador.global_position - global_position
+	direcao_reta.y = 0
 
-	var distancia = direcao.length()
+	var distancia = direcao_reta.length()
 
+	# Sempre olha pro jogador
 	if distancia > 0.1:
-		direcao = direcao.normalized()
-
-		var alvo = Vector3(
+		var alvo_olhar = Vector3(
 			jogador.global_position.x,
 			global_position.y,
 			jogador.global_position.z
 		)
 
-		look_at(alvo, Vector3.UP)
+		look_at(alvo_olhar, Vector3.UP)
+
+	var visao := checar_visao()
 
 	var movimento = Vector3.ZERO
 	var velocidade_desejada = 0.0
-	var esta_parado = false
+	var pode_atirar = false
 
-	if distancia > distancia_parada:
-		movimento = direcao
+	if distancia > distancia_parada or visao == Visao.PAREDE:
+		# Longe, ou sem ver o jogador por causa de parede: segue o caminho
+		agente_nav.target_position = jogador.global_position
+
+		if not agente_nav.is_navigation_finished():
+			var proximo_ponto = agente_nav.get_next_path_position()
+			var direcao_caminho = proximo_ponto - global_position
+			direcao_caminho.y = 0
+
+			if direcao_caminho.length() > 0.05:
+				movimento = direcao_caminho.normalized()
+
 		velocidade_desejada = velocidade_corrida
-
 		trocar_animacao(animacao_correr)
-	else:
-		movimento = Vector3.ZERO
-		velocidade_desejada = 0.0
-		esta_parado = true
 
+	elif visao == Visao.ALIADO:
+		# Outro inimigo na frente: anda de lado pra liberar o tiro
+		var lado = direcao_reta.normalized().cross(Vector3.UP) * lado_strafe
+
+		movimento = lado
+		velocidade_desejada = velocidade_strafe
+		trocar_animacao(animacao_andar)
+
+	else:
+		# Linha de tiro livre: para e atira
+		pode_atirar = true
 		trocar_animacao(animacao_parado)
 
+	# Movimento horizontal
 	var velocidade_atual = Vector3(
 		velocity.x,
 		0,
@@ -322,6 +339,7 @@ func _physics_process(delta):
 	velocity.x = velocidade_atual.x
 	velocity.z = velocidade_atual.z
 
+	# Gravidade
 	if not is_on_floor():
 		velocity.y -= gravidade * delta
 	else:
@@ -329,7 +347,11 @@ func _physics_process(delta):
 
 	move_and_slide()
 
-	if esta_parado and distancia <= alcance_tiro and tempo_tiro <= 0.0:
+	# Bateu em algo andando de lado: troca de lado
+	if visao == Visao.ALIADO and is_on_wall():
+		lado_strafe *= -1.0
+
+	if pode_atirar and distancia <= alcance_tiro and tempo_tiro <= 0.0:
 		atirar()
 
 
@@ -344,7 +366,7 @@ func atirar():
 	tempo_tiro = intervalo_tiro
 
 	var origem = global_position + Vector3(0, altura_disparo, 0)
-	var destino = jogador.global_position + Vector3(0, 1.0, 0)
+	var destino = obter_ponto_mira()
 
 	var direcao = (destino - origem).normalized()
 
@@ -353,7 +375,42 @@ func atirar():
 	get_tree().current_scene.add_child(laser)
 
 	laser.global_position = origem + direcao * distancia_saida_laser
-	laser.configurar(direcao, velocidade_laser, dano, self, tamanho_laser)
+	laser.configurar(direcao, velocidade_laser, dano, self)
+
+
+func obter_ponto_mira() -> Vector3:
+	# Mira na altura da câmera do player (a "cara" dele)
+	var cam = jogador.get("camera")
+
+	if cam != null and is_instance_valid(cam):
+		return cam.global_position
+
+	return jogador.global_position + Vector3(0, altura_mira, 0)
+
+
+func checar_visao() -> Visao:
+	var origem = global_position + Vector3(0, altura_disparo, 0)
+	var destino = obter_ponto_mira()
+
+	var consulta = PhysicsRayQueryParameters3D.create(origem, destino)
+	consulta.exclude = [get_rid()]
+
+	var resultado = get_world_3d().direct_space_state.intersect_ray(consulta)
+
+	if resultado.is_empty():
+		return Visao.LIVRE
+
+	var alvo = resultado["collider"]
+
+	if alvo.is_in_group("player"):
+		return Visao.LIVRE
+
+	# Outro inimigo na frente
+	if alvo.has_method("receber_dano"):
+		return Visao.ALIADO
+
+	# Parede ou cenário
+	return Visao.PAREDE
 
 
 func receber_dano(valor: float):

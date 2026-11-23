@@ -121,6 +121,7 @@ height = 0.001
 
 [node name="Som" type="AudioStreamPlayer3D" parent="CollisionShape3D" unique_id=1077654503]
 stream = ExtResource("4_a3upo")
+volume_db = -10.0
 autoplay = true
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1875645633]
@@ -135,4 +136,5 @@ height = 0.001
 
 [node name="Som" type="AudioStreamPlayer3D" parent="CollisionShape3D2" unique_id=1508612184]
 stream = ExtResource("4_a3upo")
+volume_db = -10.0
 autoplay = true

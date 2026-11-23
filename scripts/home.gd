@@ -618,6 +618,9 @@ func fechar_painel_extra() -> void:
 
 func iniciar_jogo() -> void:
 
+	# Partida nova começa do zero, sem checkpoint da anterior
+	Progresso.resetar()
+
 	if ResourceLoader.exists(cena_jogo):
 		get_tree().change_scene_to_file(cena_jogo)
 	else:

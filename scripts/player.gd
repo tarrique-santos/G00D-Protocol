@@ -256,6 +256,12 @@ func _ready() -> void:
 
 	# Flash branco do parry perfeito
 	criar_flash()
+	
+	# Renasce no último checkpoint, se houver
+	if Progresso.tem_checkpoint():
+		global_position = Progresso.posicao_checkpoint
+		rotation.y = Progresso.rotacao_checkpoint
+
 
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
@@ -460,10 +466,12 @@ func atualizar_soco(delta: float) -> void:
 			var alvo = resultado["collider"]
 
 			if alvo.is_in_group("projetil") and alvo.has_method("parry"):
-				alvo.parry(-camera.global_transform.basis.z)
+				var perfeito: bool = alvo in alvos_perfeitos
+
+				alvo.parry(-camera.global_transform.basis.z, perfeito)
 				parry_feito = true
 
-				if alvo in alvos_perfeitos:
+				if perfeito:
 					algum_perfeito = true
 
 		if parry_feito:
@@ -526,6 +534,21 @@ func _efeito_parry(perfeito: bool = false) -> void:
 	Engine.time_scale = 0.05
 	await get_tree().create_timer(duracao, true, false, true).timeout
 	Engine.time_scale = 1.0
+
+# Chamada pelo projétil quando encosta no player. Retorna true se virou parry.
+func tentar_parry_em_cima(projetil: Node) -> bool:
+	if morto or not soco_ativo or tempo_desde_soco > janela_parry:
+		return false
+
+	if not projetil.has_method("parry"):
+		return false
+
+	var perfeito := tempo_desde_soco <= janela_parry_perfeito
+
+	projetil.parry(-camera.global_transform.basis.z, perfeito)
+	_efeito_parry(perfeito)
+
+	return true
 
 
 func criar_flash() -> void:
