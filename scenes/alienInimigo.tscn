@@ -6,7 +6,7 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_vxglm"]
 radius = 0.65527344
-height = 4.7713623
+height = 4.279022
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_g4v7s"]
 radius = 0.3251953
@@ -18,7 +18,7 @@ script = ExtResource("1_1plbo")
 dano = 20.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1202946498]
-transform = Transform3D(1.1919124, 0, 0, 0, 1, 0, 0, 0, 1.6384828, 2.910383e-11, 2.2865744, 0.0741086)
+transform = Transform3D(1.1919124, 0, 0, 0, 1, 0, 0, 0, 1.6384828, 2.910383e-11, 2.5327444, 0.0741086)
 shape = SubResource("CapsuleShape3D_vxglm")
 
 [node name="Alien" parent="." unique_id=1424358570 instance=ExtResource("1_5axr7")]

@@ -16,17 +16,20 @@
 [ext_resource type="Texture2D" uid="uid://xnc3ohj4d2aa" path="res://models/tijolos/GBA Bowser Castle 3/kpa_blockA.png" id="13_trceg"]
 [ext_resource type="PackedScene" uid="uid://b7iygpymapwco" path="res://scenes/nave.tscn" id="16_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://da3476xrqavig" path="res://scenes/UI/mensagem.tscn" id="17_muem4"]
+[ext_resource type="PackedScene" uid="uid://cf71i4kwr5ant" path="res://scenes/zona_spawn.tscn" id="18_2f3dj"]
 [ext_resource type="PackedScene" uid="uid://ciu5gcjpjq4m4" path="res://scenes/objects/barricada.tscn" id="19_0ld40"]
 [ext_resource type="PackedScene" uid="uid://byjkn24m3v83" path="res://scenes/objects/caixote.tscn" id="19_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://bl71yfp6ew4oc" path="res://scenes/objects/nave/interior/mercadorias.tscn" id="20_gqmmt"]
 [ext_resource type="PackedScene" uid="uid://dme6aaod6j32q" path="res://models/others/corredor.tscn" id="21_jscy8"]
 [ext_resource type="PackedScene" uid="uid://uyxn1mrxdmox" path="res://scenes/corredor bonito.tscn" id="21_yc10j"]
 [ext_resource type="PackedScene" uid="uid://c1r4eadv1jckl" path="res://models/others/Bloco.tscn" id="22_2wyq8"]
+[ext_resource type="PackedScene" uid="uid://bqk48lbgtox2e" path="res://scenes/PortaDupla.tscn" id="22_yq6so"]
 [ext_resource type="PackedScene" uid="uid://bbhfjjc88l6uh" path="res://models/others/fioDescapado.tscn" id="23_pm3ni"]
 [ext_resource type="PackedScene" uid="uid://h5dx5itfca5w" path="res://models/others/rampa.tscn" id="24_y6deb"]
 [ext_resource type="PackedScene" uid="uid://dnmie37nsu76s" path="res://models/others/nave_de_pouso.tscn" id="25_og1vs"]
 [ext_resource type="PackedScene" uid="uid://bw41dupvxlhmk" path="res://models/others/escada.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://cc0ldf5ug2fa1" path="res://models/others/ponte.tscn" id="27_2f3dj"]
+[ext_resource type="PackedScene" uid="uid://pi2ih8lmmqmn" path="res://scenes/checkpoint.tscn" id="28_fv21b"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
 shader = ExtResource("1_tefeu")
@@ -674,22 +677,11 @@ transform = Transform3D(-4.371139e-08, 0, 28.751743, 0, 15.209678, 0, -1, 0, -1.
 [node name="TijolosLindos4" parent="Spawn" unique_id=1271970336 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 62.583855, -4.792557, 142.8572, 81.577644)
 
-[node name="Minion" parent="." unique_id=1576257422 instance=ExtResource("5_tbgi4")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.987604, 14.675835, -28.098635)
-raio_perseguicao = 45.0
-velocidade_perseguicao = 12.0
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1798892686]
 transform = Transform3D(0.4306094, 0.8776404, 0.21052958, -0.3242519, -0.06725418, 0.943577, 0.84228045, -0.47457784, 0.2556163, 0, 25.883202, -3.5493736)
 light_indirect_energy = 100.0
 light_volumetric_fog_energy = 10.0
 light_angular_distance = 10.0
-
-[node name="AlienInimigo" parent="." unique_id=1533967044 instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -182.8896, -106.84152, 90.64563)
-
-[node name="AlienInimigo2" parent="." unique_id=221478426 instance=ExtResource("9_85g3d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -172.97461, -107.08522, 90.64563)
 
 [node name="Plataform2" parent="." unique_id=1047266936 instance=ExtResource("8_85g3d")]
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 56.753242, 9.011055, 120.192986)
@@ -803,7 +795,7 @@ transform = Transform3D(0.8219393, 0, -0.5695751, 0, 1, 0, 0.5695751, 0, 0.82193
 transform = Transform3D(0.5068451, 0, -0.86203706, 0, 1, 0, 0.86203706, 0, 0.5068451, 32.938362, 10.0744705, 163.79947)
 
 [node name="PlayerTrue" parent="." unique_id=61202322 instance=ExtResource("6_tefeu")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 166.14401, -70.41602, 103.69208)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 174.8394, -70.99523, 103.69208)
 tempo_imunidade = 0.5
 alcance_soco = 3.0
 largura_soco = 1.5
@@ -815,12 +807,47 @@ inclinacao_recuo = 2.0
 [node name="Mercadorias" parent="." unique_id=1211368670 instance=ExtResource("20_gqmmt")]
 transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, 0, 11.402504, -30.624859)
 
+[node name="ZonaSpawn1" parent="." unique_id=237510131 instance=ExtResource("18_2f3dj")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 37.85442, -65.35411, 102.62709)
+
+[node name="AlienInimigo" parent="ZonaSpawn1" unique_id=407290794 instance=ExtResource("9_85g3d")]
+transform = Transform3D(0.99846935, 0, 0.055308, 0, 1, 0, -0.055308, 0, 0.99846935, -2.423706, -41.50245, -142.82544)
+
+[node name="AlienInimigo2" parent="ZonaSpawn1" unique_id=550167800 instance=ExtResource("9_85g3d")]
+transform = Transform3D(0.99846935, 0, 0.055308, 0, 1, 0, -0.055308, 0, 0.99846935, 7.4760895, -41.746147, -143.37384)
+
+[node name="ZonaSpawn2" parent="." unique_id=244333988 node_paths=PackedStringArray("porta") instance=ExtResource("18_2f3dj")]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -96.18655, -102.06818, 102.94387)
+porta = NodePath("../Porta1")
+
+[node name="AlienInimigo" parent="ZonaSpawn2" unique_id=1533967044 instance=ExtResource("9_85g3d")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12.298241, -4.773346, -83.73479)
+
+[node name="AlienInimigo2" parent="ZonaSpawn2" unique_id=221478426 instance=ExtResource("9_85g3d")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 12.298241, -5.017044, -73.81981)
+
+[node name="AlienInimigo3" parent="ZonaSpawn2" unique_id=1898055059 instance=ExtResource("9_85g3d")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.6615448, -4.773346, -83.73477)
+
+[node name="AlienInimigo4" parent="ZonaSpawn2" unique_id=2007381169 instance=ExtResource("9_85g3d")]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 1.6615448, -5.017044, -73.81979)
+
+[node name="Enemy Flyer" parent="ZonaSpawn2" unique_id=1909309758 instance=ExtResource("5_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.493134, 0, -78.02774)
+
+[node name="Enemy Flyer2" parent="ZonaSpawn2" unique_id=1047771474 instance=ExtResource("5_tbgi4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.493126, 0, -86.02562)
+
+[node name="Porta1" parent="." unique_id=1698778248 instance=ExtResource("22_yq6so")]
+transform = Transform3D(-2.6226832e-07, 0, -6, 0, 6, 0, 6, 0, -2.6226832e-07, -139.97356, -108.40576, -75.95124)
+deslocamento = Vector3(0, 0, -1.5)
+
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1673783166]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.40352, -64.275024, 103.05441)
 navigation_mesh = SubResource("NavigationMesh_lkpkw")
 
 [node name="TijolosLindos5" parent="NavigationRegion3D" unique_id=1737643089 instance=ExtResource("3_o6xl0")]
-transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 186.4707, -151.00482, -34.76397, -103.89248)
+transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 194.0027, -151.00482, -34.76397, -105.32517)
 
 [node name="TijolosLindos10" parent="NavigationRegion3D" unique_id=815376504 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 101.99776, -151.00482, -34.76397, 59.79422)
@@ -829,7 +856,7 @@ transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 101.99776, -151.00482, -
 transform = Transform3D(1, 0, 0, 0, 20.696463, 0, 0, 0, 57.80648, -151.00482, -21.607677, 4.441269)
 
 [node name="Chão2" parent="NavigationRegion3D" unique_id=1639929931 instance=ExtResource("8_tipki")]
-transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 254.52193, -198.70981, -45.88276, -50.560356)
+transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 263.93845, -198.70981, -45.88276, -50.560356)
 
 [node name="Chão3" parent="NavigationRegion3D" unique_id=1701241738 instance=ExtResource("8_tipki")]
 transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 254.52193, -198.70981, -22.367363, -50.560356)
@@ -841,7 +868,7 @@ transform = Transform3D(103.456894, 0, 0, 0, 27.274458, 0, 0, 0, 0.12887643, -20
 transform = Transform3D(66.68061, 0, 0, 0, 27.274458, 0, 0, 0, 0.12887643, -184.95047, -37.392197, -18.242867)
 
 [node name="bloco5" parent="NavigationRegion3D" unique_id=21842431 instance=ExtResource("22_2wyq8")]
-transform = Transform3D(83.02423, 0, 0, 0, 27.274458, 0, 0, 0, 0.12887643, -211.16629, -37.392197, -177.87363)
+transform = Transform3D(39.428444, 0, 0, 0, 27.274458, 0, 0, 0, 0.12887643, -233.6463, -37.392197, -177.87363)
 
 [node name="bloco3" parent="NavigationRegion3D" unique_id=464608949 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(-2.914702e-06, 0, 0.12887643, 0, 27.274458, 0, -66.68061, 0, -5.633368e-09, -218.29189, -37.392197, 15.138359)
@@ -882,72 +909,93 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 [node name="caixote8" parent="NavigationRegion3D" unique_id=1545623851 instance=ExtResource("19_gqmmt")]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -153.81076, -43.174377, 9.62973)
 
+[node name="FioDescapado" parent="NavigationRegion3D" unique_id=184641207 instance=ExtResource("23_pm3ni")]
+transform = Transform3D(-1.0723913, 0, -2.801781, 0, 3, 0, 2.801781, 0, -1.0723913, 37.63788, -7.9844055, -6.697365)
+intervalo_dano = 0.25
+
+[node name="FioDescapado4" parent="NavigationRegion3D" unique_id=2116380969 instance=ExtResource("23_pm3ni")]
+transform = Transform3D(-1.0723913, 0, -2.801781, 0, 3, 0, 2.801781, 0, -1.0723913, 127.15596, -7.9844055, -6.697365)
+intervalo_dano = 0.25
+
+[node name="FioDescapado2" parent="NavigationRegion3D" unique_id=161649906 instance=ExtResource("23_pm3ni")]
+transform = Transform3D(0.19540888, 0, 2.9936287, 0, 3, 0, -2.9936287, 0, 0.19540888, 56.437347, -7.9844055, 6.547844)
+intervalo_dano = 0.25
+
+[node name="FioDescapado3" parent="NavigationRegion3D" unique_id=265488585 instance=ExtResource("23_pm3ni")]
+transform = Transform3D(0.19540888, 0, 2.9936287, 0, 3, 0, -2.9936287, 0, 0.19540888, 132.05412, -7.9844055, 6.547844)
+intervalo_dano = 0.25
+
+[node name="bloco6" parent="NavigationRegion3D" unique_id=1001546881 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(39.428444, 0, 0, 0, 27.274458, 0, 0, 0, 0.12887643, -156.7142, -37.392197, -177.87363)
+
+[node name="bloco7" parent="NavigationRegion3D" unique_id=81697015 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(39.428444, 0, 0, 0, 27.274458, 0, 0, 0, 0.12887643, -196.1975, -13.881668, -177.87363)
+
+[node name="bloco8" parent="NavigationRegion3D" unique_id=1381354189 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(21.091179, 23.044212, 0, -33.313126, 14.589731, 0, 0, 0, 0.12887642, -174.0433, -21.34967, -177.87363)
+
+[node name="bloco9" parent="NavigationRegion3D" unique_id=376827466 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(21.068684, -23.054056, 0, 33.32736, 14.574172, 0, 0, 0, 0.12887642, -217.86763, -21.34967, -177.87363)
+
+[node name="bloco10" parent="NavigationRegion3D" unique_id=1894028465 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(39.428, 0, 0, 0, 27.274, 0, 0, 0, 1.339, -233.6463, -46.65309, -87.89818)
+
+[node name="bloco11" parent="NavigationRegion3D" unique_id=1151134584 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(39.428, 0, 0, 0, 27.274, 0, 0, 0, 1.339, -157.27524, -46.65309, -87.89818)
+
 [node name="Corredor ataliba" parent="." unique_id=854799525 instance=ExtResource("21_yc10j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.40352, 11.74987, 103.05441)
 
-[node name="FioDescapado" parent="." unique_id=184641207 instance=ExtResource("23_pm3ni")]
-transform = Transform3D(-1.0723913, 0, -2.801781, 0, 3, 0, 2.801781, 0, -1.0723913, 94.0414, -72.25943, 96.35705)
-intervalo_dano = 0.25
-
-[node name="FioDescapado4" parent="." unique_id=2116380969 instance=ExtResource("23_pm3ni")]
-transform = Transform3D(-1.0723913, 0, -2.801781, 0, 3, 0, 2.801781, 0, -1.0723913, 183.55948, -72.25943, 96.35705)
-intervalo_dano = 0.25
-
-[node name="FioDescapado2" parent="." unique_id=161649906 instance=ExtResource("23_pm3ni")]
-transform = Transform3D(0.19540888, 0, 2.9936287, 0, 3, 0, -2.9936287, 0, 0.19540888, 112.840866, -72.25943, 109.60226)
-intervalo_dano = 0.25
-
-[node name="FioDescapado3" parent="." unique_id=265488585 instance=ExtResource("23_pm3ni")]
-transform = Transform3D(0.19540888, 0, 2.9936287, 0, 3, 0, -2.9936287, 0, 0.19540888, 188.45764, -72.25943, 109.60226)
-intervalo_dano = 0.25
-
-[node name="Nave de pouso" parent="." unique_id=701050838 instance=ExtResource("25_og1vs")]
+[node name="Nave de pouso(Spawn)" parent="." unique_id=701050838 instance=ExtResource("25_og1vs")]
 transform = Transform3D(1.5832719, -2.527941, -2.6651015, 1.9143653, -1.9090046, 2.9480345, -3.135037, -2.4423795, 0.45423225, 203.26196, -71.99757, 101.64319)
 
-[node name="StaticBody3D2" parent="Nave de pouso" unique_id=1432750200 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D2" parent="Nave de pouso(Spawn)" unique_id=1432750200 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(1.0252066, -0.62999254, -0.8955796, -1.0176713, -0.095440775, -1.0978329, 0.40410128, 1.3579403, -0.49264732, -1.5669384, 2.3872566, 1.8937492)
 
-[node name="StaticBody3D3" parent="Nave de pouso" unique_id=671473845 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D3" parent="Nave de pouso(Spawn)" unique_id=671473845 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(0.66123724, -0.6751233, -2.3145137, 2.210504, -0.7883657, 0.86148214, -0.9625161, -2.2743547, 0.3884263, 2.409378, -0.7534981, 1.6306763)
 
-[node name="StaticBody3D4" parent="Nave de pouso" unique_id=465231379 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D4" parent="Nave de pouso(Spawn)" unique_id=465231379 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(0.22386849, -0.15541817, -2.4851012, 2.4317498, -0.52269787, 0.25175202, -0.53523386, -2.4398017, 0.104368985, 1.5381336, -2.902542, 2.9476051)
 
-[node name="StaticBody3D5" parent="Nave de pouso" unique_id=1658904744 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D5" parent="Nave de pouso(Spawn)" unique_id=1658904744 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(-0.71254236, 0.5617736, -2.329527, 2.3957942, 0.21727139, -0.6804157, 0.04955957, -2.4263563, -0.6002834, -2.4385605, -0.43261337, 0.813282)
 
-[node name="StaticBody3D6" parent="Nave de pouso" unique_id=116816358 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D6" parent="Nave de pouso(Spawn)" unique_id=116816358 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(1.4109426, -0.19582902, 0.4699925, 0.49397907, 0.19091803, -1.4034013, 0.12339789, 1.4748565, 0.2440736, 0.1565113, 3.4533997, 1.8594437)
 
-[node name="StaticBody3D7" parent="Nave de pouso" unique_id=905059509 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D7" parent="Nave de pouso(Spawn)" unique_id=905059509 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(1.093762, -0.93270236, -0.42866266, -0.5123357, 0.046765983, -1.4090157, 0.88949305, 1.1738311, -0.28447014, -0.8080673, 3.0761986, 1.6442032)
 
-[node name="StaticBody3D8" parent="Nave de pouso" unique_id=2131254509 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D8" parent="Nave de pouso(Spawn)" unique_id=2131254509 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(1.4203737, -0.46836466, 0.11477846, 0.14517707, 0.074858874, -1.49108, 0.4598515, 1.4230359, 0.11621599, 1.3629837, 2.7342224, 2.203205)
 
-[node name="StaticBody3D9" parent="Nave de pouso" unique_id=1695991639 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D9" parent="Nave de pouso(Spawn)" unique_id=1695991639 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(1.4203737, -0.46836466, 0.11477846, 0.14517707, 0.074858874, -1.49108, 0.4598515, 1.4230359, 0.11621599, -1.6883678, 1.4545631, 1.3111496)
 
-[node name="OmniLight3D3" type="OmniLight3D" parent="Nave de pouso" unique_id=1716156078]
+[node name="OmniLight3D3" type="OmniLight3D" parent="Nave de pouso(Spawn)" unique_id=1716156078]
 transform = Transform3D(0.0989545, 0.11964783, -0.19593981, -0.1579963, -0.1193128, -0.15264872, -0.16656885, 0.18425217, 0.028389521, -0.13746071, -1.9984016, 3.3999672)
 light_color = Color(0, 1, 0.07450981, 1)
 light_energy = 2.743
 omni_range = 33.232
 
-[node name="StaticBody3D10" parent="Nave de pouso" unique_id=956202226 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D10" parent="Nave de pouso(Spawn)" unique_id=956202226 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(0.77042305, -0.95124906, 0.8669339, 0.5504653, -0.6697677, -1.2240924, 1.1633738, 0.9468573, 0.0050842133, -1.5637321, -2.4230766, 1.9131031)
 
-[node name="StaticBody3D11" parent="Nave de pouso" unique_id=1930067836 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D11" parent="Nave de pouso(Spawn)" unique_id=1930067836 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(0.14094023, -0.87012345, 1.2136819, 0.117475465, -1.2088385, -0.8802935, 1.4887381, 0.1777661, -0.045436624, 0.28950882, -3.263546, 2.1368332)
 
-[node name="StaticBody3D12" parent="Nave de pouso" unique_id=944589428 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D12" parent="Nave de pouso(Spawn)" unique_id=944589428 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(1.3050201, 0.53428173, -0.5113386, -0.23338908, -0.68660086, -1.3130538, -0.7017507, 1.2219347, -0.51422024, -1.1850357, 0.3294258, 0.9878769)
 
-[node name="StaticBody3D" parent="Nave de pouso" unique_id=58972399 instance=ExtResource("22_2wyq8")]
+[node name="StaticBody3D" parent="Nave de pouso(Spawn)" unique_id=58972399 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(1.4109426, -0.19582902, 0.4699925, 0.49397907, 0.19091803, -1.4034013, 0.12339789, 1.4748565, 0.2440736, 1.788969, 1.4885788, 2.5616703)
 
 [node name="Corredor3" parent="." unique_id=72781291 instance=ExtResource("21_jscy8")]
-transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -104.19346, -100.59, -125.153)
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -139.97356, -100.59, -126.22604)
+
+[node name="Chckpoint" parent="Corredor3" unique_id=222720587 instance=ExtResource("28_fv21b")]
+transform = Transform3D(-2.0063528e-07, 0, 2, 0, 2.915, 0, -4.59, 0, -8.742278e-08, 34.201607, -2.6424103, 0)
 
 [node name="Escada" parent="." unique_id=424297937 instance=ExtResource("26_vxglm")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -165.132, -104.23, 82.978)

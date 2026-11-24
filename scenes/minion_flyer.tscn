@@ -24,6 +24,11 @@ height = 0.2
 
 [node name="Enemy Flyer" type="CharacterBody3D" unique_id=1909309758]
 script = ExtResource("1_dof2r")
+distancia_ideal = 20.0
+raio_separacao = 6.0
+forca_separacao = 3.0
+variacao_altura = 4.0
+distancia_tiro = 30.0
 dano_laser = 30.0
 tamanho_laser = 3.0
 

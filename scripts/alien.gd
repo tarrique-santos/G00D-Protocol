@@ -77,6 +77,7 @@ var material_barra: StandardMaterial3D
 @onready var agente_nav: NavigationAgent3D = $NavigationAgent3D
 
 func _ready():
+	add_to_group("inimigo")
 	vida = vida_maxima
 
 	if jogador == null:
