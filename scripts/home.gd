@@ -17,6 +17,15 @@ var grafo: Dictionary = {}
 var pulsos: Array[Dictionary] = []
 
 var velocidade_pulso := 0.42
+var segmento_hover := -1
+var posicao_mouse := Vector2.ZERO
+var tempo_hover := 0.0
+var particulas_hover: Array[Dictionary] = []
+
+# Nó AudioStreamPlayer filho direto do Control, chamado "soundtrack".
+@onready var soundtrack: AudioStreamPlayer = $soundtrack
+var tempo_soundtrack := 0.0
+const INTERVALO_SOUNDTRACK := 65.0
 
 # INTERFACE
 var painel_menu: PanelContainer
@@ -29,20 +38,85 @@ func _ready() -> void:
 	randomize()
 
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	mouse_filter = Control.MOUSE_FILTER_IGNORE
+	mouse_filter = Control.MOUSE_FILTER_PASS
 
 	criar_circuitos()
 	criar_interface()
 
-	for i in range(7):
+	for i in range(12):
 		criar_pulso()
+
+	if soundtrack:
+		soundtrack.play()
+		tempo_soundtrack = 0.0
+	else:
+		push_warning("Nó 'soundtrack' não encontrado. Adicione um AudioStreamPlayer como filho do Control.")
 
 	queue_redraw()
 
 
 func _process(delta: float) -> void:
 	animar_pulsos(delta)
+	animar_hover(delta)
+	animar_soundtrack(delta)
 	queue_redraw()
+
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion:
+		posicao_mouse = get_local_mouse_position()
+		atualizar_segmento_hover()
+
+
+func animar_soundtrack(delta: float) -> void:
+	if not soundtrack:
+		return
+
+	tempo_soundtrack += delta
+	if tempo_soundtrack >= INTERVALO_SOUNDTRACK:
+		tempo_soundtrack = 0.0
+		soundtrack.stop()
+		soundtrack.play()
+
+
+func atualizar_segmento_hover() -> void:
+	segmento_hover = -1
+	var menor_distancia := 999999.0
+
+	for i in range(conexoes.size()):
+		var conexao := conexoes[i]
+		var inicio := pontos[conexao.x] * size
+		var fim := pontos[conexao.y] * size
+		var mais_proximo := Geometry2D.get_closest_point_to_segment(posicao_mouse, inicio, fim)
+		var distancia := posicao_mouse.distance_to(mais_proximo)
+
+		if distancia < 18.0 and distancia < menor_distancia:
+			menor_distancia = distancia
+			segmento_hover = i
+
+	if segmento_hover >= 0:
+		tempo_hover = 0.0
+		for i in range(3):
+			particulas_hover.append({
+				"posicao": posicao_mouse + Vector2(randf_range(-8, 8), randf_range(-8, 8)),
+				"velocidade": Vector2(randf_range(-55, 55), randf_range(-55, 55)),
+				"vida": randf_range(0.18, 0.4)
+			})
+
+
+func animar_hover(delta: float) -> void:
+	tempo_hover += delta
+
+	for i in range(particulas_hover.size() - 1, -1, -1):
+		var particula: Dictionary = particulas_hover[i]
+		particula["vida"] -= delta
+		particula["posicao"] += particula["velocidade"] * delta
+		particula["velocidade"] *= 0.94
+		if particula["vida"] <= 0.0:
+			particulas_hover.remove_at(i)
+
+	if particulas_hover.size() > 45:
+		particulas_hover = particulas_hover.slice(particulas_hover.size() - 45)
 
 
 func _notification(what: int) -> void:
@@ -55,7 +129,6 @@ func _notification(what: int) -> void:
 # --------------------------------------------------
 
 func criar_circuitos() -> void:
-
 	pontos = [
 		Vector2(0.04, 0.15),
 		Vector2(0.16, 0.15),
@@ -100,72 +173,56 @@ func criar_circuitos() -> void:
 	]
 
 	conexoes = [
-		Vector2i(0, 1),
-		Vector2i(1, 2),
-		Vector2i(2, 3),
-		Vector2i(3, 4),
-		Vector2i(4, 5),
-		Vector2i(5, 6),
-		Vector2i(6, 7),
-		Vector2i(7, 8),
-		Vector2i(8, 9),
-		Vector2i(9, 10),
-		Vector2i(10, 11),
-		Vector2i(11, 12),
+		Vector2i(0, 1), Vector2i(1, 2), Vector2i(2, 3), Vector2i(3, 4),
+		Vector2i(4, 5), Vector2i(5, 6), Vector2i(6, 7), Vector2i(7, 8),
+		Vector2i(8, 9), Vector2i(9, 10), Vector2i(10, 11), Vector2i(11, 12),
 
-		Vector2i(13, 14),
-		Vector2i(14, 15),
-		Vector2i(15, 16),
-		Vector2i(16, 17),
-		Vector2i(17, 18),
-		Vector2i(18, 19),
-		Vector2i(19, 20),
-		Vector2i(20, 21),
-		Vector2i(21, 22),
-		Vector2i(22, 23),
-		Vector2i(23, 24),
-		Vector2i(24, 25),
+		Vector2i(13, 14), Vector2i(14, 15), Vector2i(15, 16), Vector2i(16, 17),
+		Vector2i(17, 18), Vector2i(18, 19), Vector2i(19, 20), Vector2i(20, 21),
+		Vector2i(21, 22), Vector2i(22, 23), Vector2i(23, 24), Vector2i(24, 25),
 
-		Vector2i(26, 27),
-		Vector2i(27, 28),
-		Vector2i(28, 29),
-		Vector2i(29, 30),
-		Vector2i(30, 31),
-		Vector2i(31, 32),
-		Vector2i(32, 33),
-		Vector2i(33, 34),
-		Vector2i(34, 35),
-		Vector2i(35, 36),
-		Vector2i(36, 37),
+		Vector2i(26, 27), Vector2i(27, 28), Vector2i(28, 29), Vector2i(29, 30),
+		Vector2i(30, 31), Vector2i(31, 32), Vector2i(32, 33), Vector2i(33, 34),
+		Vector2i(34, 35), Vector2i(35, 36), Vector2i(36, 37),
 
-		# CONEXOES ENTRE AS TRILHAS
-		Vector2i(2, 14),
-		Vector2i(6, 18),
-		Vector2i(10, 22),
-		Vector2i(15, 28),
-		Vector2i(19, 32),
-		Vector2i(23, 36)
+		# Ramificações entre as trilhas, mantendo o desenho original.
+		Vector2i(2, 14), Vector2i(6, 18), Vector2i(10, 22),
+		Vector2i(15, 28), Vector2i(19, 32), Vector2i(23, 36),
+
 	]
 
-	# CRIAR GRAFO
 	grafo.clear()
-
 	for i in range(pontos.size()):
 		grafo[i] = []
 
-	# CONECTAR OS PONTOS
 	for conexao in conexoes:
-
 		if conexao.x < 0 or conexao.y < 0:
 			continue
-
 		if conexao.x >= pontos.size() or conexao.y >= pontos.size():
-			push_warning("Conexão inválida: %s -> %s" % [conexao.x, conexao.y])
 			continue
-
 		grafo[conexao.x].append(conexao.y)
 		grafo[conexao.y].append(conexao.x)
 
+
+func proximo_ponto_carrossel(atual: int, anterior: int) -> int:
+	var opcoes: Array[int] = []
+	for vizinho in grafo[atual]:
+		var indice_vizinho: int = int(vizinho)
+		if indice_vizinho == anterior:
+			continue
+		if indice_vizinho > atual:
+			opcoes.append(indice_vizinho)
+
+	if opcoes.is_empty():
+		for vizinho in grafo[atual]:
+			var indice_vizinho: int = int(vizinho)
+			if indice_vizinho != anterior:
+				opcoes.append(indice_vizinho)
+
+	if opcoes.is_empty():
+		return anterior
+
+	return opcoes[randi_range(0, opcoes.size() - 1)]
 
 # --------------------------------------------------
 # PULSOS DE ENERGIA
@@ -176,7 +233,13 @@ func criar_pulso() -> void:
 	if pontos.is_empty() or grafo.is_empty():
 		return
 
-	var inicio := randi_range(0, pontos.size() - 1)
+	var inicio: int = randi_range(0, pontos.size() - 1)
+	if inicio == 12:
+		inicio = 13
+	elif inicio == 25:
+		inicio = 26
+	elif inicio == 37:
+		inicio = 0
 
 	if not grafo.has(inicio):
 		return
@@ -186,151 +249,159 @@ func criar_pulso() -> void:
 	if vizinhos.is_empty():
 		return
 
-	var destino: int = vizinhos[randi_range(0, vizinhos.size() - 1)]
+	var destino: int = proximo_ponto_carrossel(inicio, -1)
 
 	pulsos.append({
 		"origem": inicio,
 		"destino": destino,
 		"anterior": -1,
-		"progresso": randf()
+		"progresso": randf(),
+		"raio": 5.0,
+		"energia": 1.0
 	})
 
 
 func animar_pulsos(delta: float) -> void:
+	for i in range(pulsos.size()):
+		var pulso: Dictionary = pulsos[i]
+		var velocidade_atual := velocidade_pulso
 
-	for pulso in pulsos:
+		if segmento_hover >= 0:
+			var conexao_hover := conexoes[segmento_hover]
+			var esta_na_trilha_hover: bool = (
+				(pulso["origem"] == conexao_hover.x and pulso["destino"] == conexao_hover.y)
+				or (pulso["origem"] == conexao_hover.y and pulso["destino"] == conexao_hover.x)
+			)
+			if esta_na_trilha_hover:
+				velocidade_atual *= 3.2
 
-		pulso["progresso"] += delta * velocidade_pulso
+		pulso["progresso"] += delta * velocidade_atual
 
-		if pulso["progresso"] >= 1.0:
-
+		while pulso["progresso"] >= 1.0:
+			pulso["progresso"] -= 1.0
 			var anterior: int = pulso["origem"]
 			var atual: int = pulso["destino"]
-
 			pulso["anterior"] = anterior
 			pulso["origem"] = atual
-			pulso["progresso"] = 0.0
 
-			var vizinhos: Array = grafo[atual]
-			var opcoes: Array = []
+			# Ao alcançar a extremidade direita, reaparece imediatamente no início da próxima trilha.
+			if atual == 12:
+				pulso["origem"] = 13
+				pulso["destino"] = proximo_ponto_carrossel(13, -1)
+				pulso["anterior"] = -1
+			elif atual == 25:
+				pulso["origem"] = 26
+				pulso["destino"] = proximo_ponto_carrossel(26, -1)
+				pulso["anterior"] = -1
+			elif atual == 37:
+				pulso["origem"] = 0
+				pulso["destino"] = proximo_ponto_carrossel(0, -1)
+				pulso["anterior"] = -1
+			else:
+				var proximo: int = proximo_ponto_carrossel(atual, anterior)
+				if proximo != anterior:
+					pulso["destino"] = proximo
 
-			for vizinho in vizinhos:
-				if vizinho != anterior:
-					opcoes.append(vizinho)
+	# Quando duas esferas se encontram, uma absorve a outra.
+	var removidos: Array[int] = []
 
-			if opcoes.is_empty():
-				opcoes = vizinhos
+	for i in range(pulsos.size()):
+		if removidos.has(i):
+			continue
 
-			if not opcoes.is_empty():
-				pulso["destino"] = opcoes[randi_range(0, opcoes.size() - 1)]
+		var pos_a := _posicao_pulso(pulsos[i])
 
+		for j in range(i + 1, pulsos.size()):
+			if removidos.has(j):
+				continue
+
+			var pos_b := _posicao_pulso(pulsos[j])
+			if pos_a.distance_to(pos_b) < 13.0:
+				pulsos[i]["raio"] = minf(float(pulsos[i].get("raio", 5.0)) + 1.8, 10.0)
+				pulsos[i]["energia"] = minf(float(pulsos[i].get("energia", 1.0)) + 0.35, 3.0)
+				removidos.append(j)
+
+	for i in range(removidos.size() - 1, -1, -1):
+		pulsos.remove_at(removidos[i])
+
+	while pulsos.size() < 12:
+		criar_pulso()
+
+
+func _posicao_pulso(pulso: Dictionary) -> Vector2:
+	var inicio: Vector2 = pontos[pulso["origem"]] * size
+	var fim: Vector2 = pontos[pulso["destino"]] * size
+	return inicio.lerp(fim, float(pulso["progresso"]))
 
 # --------------------------------------------------
 # DESENHO DOS CIRCUITOS
 # --------------------------------------------------
 
 func desenhar_circuitos() -> void:
-
-	for conexao in conexoes:
-
+	for i in range(conexoes.size()):
+		var conexao := conexoes[i]
 		var inicio: Vector2 = pontos[conexao.x] * size
 		var fim: Vector2 = pontos[conexao.y] * size
+		var esta_em_hover := i == segmento_hover
 
+		# Halo da trilha.
 		draw_line(
 			inicio,
 			fim,
-			Color(0.0, 0.55, 0.75, 0.10),
-			7.0,
+			Color(0.0, 0.55, 0.95, 0.35 if esta_em_hover else 0.12),
+			10.0 if esta_em_hover else 6.0,
 			true
 		)
 
+		# Linha principal.
 		draw_line(
 			inicio,
 			fim,
-			Color(0.02, 0.35, 0.48, 0.55),
-			1.5,
+			CIANO if esta_em_hover else Color(0.02, 0.35, 0.48, 0.72),
+			2.4 if esta_em_hover else 1.5,
 			true
 		)
 
-	# TERMINAIS
+		if esta_em_hover:
+			for marca in range(1, 5):
+				var ponto_marca := inicio.lerp(fim, float(marca) / 5.0)
+				var brilho := 0.5 + 0.5 * sin(tempo_hover * 18.0 + marca)
+				draw_circle(ponto_marca, 3.0 + brilho * 2.0, Color(0.5, 0.95, 1.0, 0.8))
+
+	# Terminais.
 	for i in range(pontos.size()):
-
 		var posicao: Vector2 = pontos[i] * size
+		draw_circle(posicao, 5.0, Color(0.0, 0.75, 1.0, 0.15))
+		draw_circle(posicao, 2.4, CIANO)
 
-		draw_circle(
-			posicao,
-			3.0,
-			Color(0.0, 0.75, 1.0, 0.35)
-		)
-
-	# PULSOS
+	# Pulsos de energia.
 	for pulso in pulsos:
+		var posicao := _posicao_pulso(pulso)
+		var raio := float(pulso.get("raio", 5.0))
+		var energia := float(pulso.get("energia", 1.0))
 
-		var inicio: Vector2 = pontos[pulso["origem"]] * size
-		var fim: Vector2 = pontos[pulso["destino"]] * size
+		draw_circle(posicao, raio * 2.2, Color(0.0, 0.8, 1.0, 0.10 * energia))
+		draw_circle(posicao, raio, Color(0.0, 0.85, 1.0, 0.85))
+		draw_circle(posicao, maxf(2.0, raio * 0.42), Color.WHITE)
 
-		var posicao: Vector2 = inicio.lerp(
-			fim,
-			pulso["progresso"]
-		)
-
-		draw_line(
-			inicio,
-			posicao,
-			Color(0.0, 0.85, 1.0, 0.35),
-			5.0,
-			true
-		)
-
-		draw_circle(
-			posicao,
-			10.0,
-			Color(0.0, 0.8, 1.0, 0.12)
-		)
-
-		draw_circle(
-			posicao,
-			5.0,
-			CIANO
-		)
-
-		draw_circle(
-			posicao,
-			2.0,
-			Color.WHITE
-		)
+	# Faíscas que saltam quando o mouse toca numa trilha.
+	for particula in particulas_hover:
+		var alpha := clampf(float(particula["vida"]) / 0.4, 0.0, 1.0)
+		draw_circle(particula["posicao"], 2.0, Color(0.55, 0.95, 1.0, alpha))
 
 
 func _draw() -> void:
-
-	draw_rect(
-		Rect2(Vector2.ZERO, size),
-		FUNDO
-	)
-
+	draw_rect(Rect2(Vector2.ZERO, size), FUNDO)
 	desenhar_circuitos()
 
-	# TERMINAIS VERMELHOS
-	var terminais := [0, 12, 13, 25, 26, 37]
+	# Terminais de entrada e saída em ambos os lados.
+	var terminais: Array[int] = [0, 12, 13, 25, 26, 37]
 
 	for indice in terminais:
-
 		if indice >= 0 and indice < pontos.size():
-
 			var posicao: Vector2 = pontos[indice] * size
-
-			draw_circle(
-				posicao,
-				5.0,
-				Color(VERMELHO, 0.25)
-			)
-
-			draw_circle(
-				posicao,
-				2.0,
-				VERMELHO
-			)
-
+			draw_circle(posicao, 7.0, Color(VERMELHO, 0.12))
+			draw_circle(posicao, 2.8, VERMELHO)
 
 # --------------------------------------------------
 # INTERFACE PRINCIPAL
@@ -599,8 +670,7 @@ func abrir_creditos() -> void:
 
 	titulo_extra.text = "CRÉDITOS"
 
-	texto_extra.text = "G00D-PROTOCOL\n\nDesenvolvimento por:\n\n Tarrique Santos(Tanque), Ataliba(Anibal) e
-	 Victória(Vitrola)\n"
+	texto_extra.text = "G00D-PROTOCOL\n\nDesenvolvimento por:\n\nTarrique Santos (Tanque), Ataliba (Anibal) e Victória (Vitrola)\n"
 
 	painel_extra.visible = true
 	painel_menu.visible = false

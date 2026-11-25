@@ -1,4 +1,3 @@
-
 extends Control
 
 @export_file("*.tscn") var cena_retorno: String = "res://scenes/UI/home.tscn"
@@ -17,6 +16,7 @@ var configuracao := ConfigFile.new()
 var resolucao: OptionButton
 var modo_tela: OptionButton
 var vsync: OptionButton
+var mostrar_fps: CheckButton
 
 var volume_geral: HSlider
 var volume_musica: HSlider
@@ -103,6 +103,7 @@ func carregar_configuracoes() -> void:
 		configuracao.set_value("video", "altura", 1080)
 		configuracao.set_value("video", "modo", 1)
 		configuracao.set_value("video", "vsync", 1)
+		configuracao.set_value("video", "mostrar_fps", false)
 
 		configuracao.set_value("audio", "geral", 100.0)
 		configuracao.set_value("audio", "musica", 80.0)
@@ -135,6 +136,12 @@ func salvar_configuracoes() -> void:
 		"video",
 		"vsync",
 		vsync.get_selected_id()
+	)
+
+	configuracao.set_value(
+		"video",
+		"mostrar_fps",
+		mostrar_fps.button_pressed
 	)
 
 	configuracao.set_value("audio", "geral", volume_geral.value)
@@ -358,6 +365,19 @@ func criar_secao_video(container: VBoxContainer) -> void:
 	)
 
 	adicionar_opcao(painel, "Sincronização vertical", vsync)
+
+	# Exibir FPS no HUD do jogador
+	mostrar_fps = CheckButton.new()
+	mostrar_fps.text = "Exibir FPS"
+	mostrar_fps.add_theme_color_override("font_color", BRANCO)
+
+	mostrar_fps.toggled.connect(
+		func(ligado: bool) -> void:
+			configuracao.set_value("video", "mostrar_fps", ligado)
+			get_tree().call_group("fps_label", "definir_visivel", ligado)
+	)
+
+	painel.add_child(mostrar_fps)
 
 
 func aplicar_video_atual() -> void:
@@ -621,6 +641,10 @@ func carregar_valores_interface() -> void:
 		int(configuracao.get_value("video", "vsync", 1))
 	)
 
+	mostrar_fps.set_pressed_no_signal(
+		bool(configuracao.get_value("video", "mostrar_fps", false))
+	)
+
 	volume_geral.value = float(
 		configuracao.get_value("audio", "geral", 100.0)
 	)
@@ -708,6 +732,7 @@ func restaurar_padrao() -> void:
 	configuracao.set_value("video", "altura", 1080)
 	configuracao.set_value("video", "modo", 1)
 	configuracao.set_value("video", "vsync", 1)
+	configuracao.set_value("video", "mostrar_fps", false)
 
 	configuracao.set_value("audio", "geral", 100.0)
 	configuracao.set_value("audio", "musica", 80.0)
@@ -718,6 +743,8 @@ func restaurar_padrao() -> void:
 
 	carregar_valores_interface()
 	aplicar_configuracoes()
+
+	get_tree().call_group("fps_label", "definir_visivel", false)
 
 	salvar_configuracoes()
 

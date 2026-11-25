@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://2drxek4uc2on"]
+
+[ext_resource type="Script" uid="uid://b37pupb50e1s5" path="res://scripts/vidro.gd" id="1_yhtwu"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_s7rff"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_yhtwu"]
+
+[node name="Vidro" type="Node3D" unique_id=780556319]
+script = ExtResource("1_yhtwu")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=816200851]
+mesh = SubResource("BoxMesh_s7rff")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=282354153]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=364212354]
+shape = SubResource("BoxShape3D_yhtwu")

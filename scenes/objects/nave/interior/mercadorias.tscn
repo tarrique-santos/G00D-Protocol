@@ -75,12 +75,12 @@ shadow_mesh = SubResource("ArrayMesh_o8el1")
 size = Vector3(1.0343018, 1, 1)
 
 [node name="Mercadorias" type="MeshInstance3D" unique_id=1211368670]
-transform = Transform3D(150, 0, 0, 0, -6.5567083e-06, 150, 0, -150, -6.5567083e-06, 0, 1.150502, 0)
+transform = Transform3D(250, 0, 0, 0, -1.0927847e-05, 250, 0, -250, -1.0927847e-05, 0, 1.150502, 0)
 mesh = SubResource("ArrayMesh_galxx")
 skeleton = NodePath("")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1251722083]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=321110731]
-transform = Transform3D(0.050849497, 0, 0, 0, 0.2271697, 2.3314684e-15, 0, 1.7763568e-15, -0.02495142, 0.0041168034, -0.0020952353, 0.0020957813)
+transform = Transform3D(0.050849494, 0, 0, 0, 0.22716969, 4.6629367e-15, 0, 2.6645353e-15, -0.047177527, 0.004116803, -0.0020952353, 0.0020957813)
 shape = SubResource("BoxShape3D_g4v7s")

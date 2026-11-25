@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://bw41dupvxlhmk" path="res://models/others/escada.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://cc0ldf5ug2fa1" path="res://models/others/ponte.tscn" id="27_2f3dj"]
 [ext_resource type="PackedScene" uid="uid://pi2ih8lmmqmn" path="res://scenes/checkpoint.tscn" id="28_fv21b"]
+[ext_resource type="PackedScene" uid="uid://2drxek4uc2on" path="res://scenes/objects/vidro.tscn" id="33_5q0nq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
 shader = ExtResource("1_tefeu")
@@ -687,7 +688,10 @@ light_angular_distance = 10.0
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 56.753242, 9.011055, 120.192986)
 
 [node name="Toolbox" parent="." unique_id=1516620327 instance=ExtResource("10_choun")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.845432, 9.86541, 52.52285)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101.11419, -108.27595, 86.27594)
+
+[node name="Toolbox2" parent="." unique_id=1848170618 instance=ExtResource("10_choun")]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -151.17323, -108.27595, 83.39994)
 
 [node name="Chão" parent="." unique_id=1831609030 instance=ExtResource("8_tipki")]
 transform = Transform3D(7.7969527, 0, 0, 0, 0.8818251, -32.783573, 0, 0.41565233, 69.55181, -9.207076, 16.595024, 94.68717)
@@ -786,13 +790,13 @@ transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 8.971123, 199.25536)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.0744705, 165.05734)
 
 [node name="Barricada2" parent="." unique_id=1821278106 instance=ExtResource("19_0ld40")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.447749, 10.0744705, 161.4068)
+transform = Transform3D(-0.8145331, 0, 0.58011717, 0, 1, 0, -0.58011717, 0, -0.8145331, -120.99822, -108.26921, 120.789474)
 
 [node name="Barricada3" parent="." unique_id=920381 instance=ExtResource("19_0ld40")]
 transform = Transform3D(0.8219393, 0, -0.5695751, 0, 1, 0, 0.5695751, 0, 0.8219393, 24.439047, 10.0744705, 161.4068)
 
 [node name="Barricada4" parent="." unique_id=1273047241 instance=ExtResource("19_0ld40")]
-transform = Transform3D(0.5068451, 0, -0.86203706, 0, 1, 0, 0.86203706, 0, 0.5068451, 32.938362, 10.0744705, 163.79947)
+transform = Transform3D(-0.7013356, 0, 0.71283114, 0, 1, 0, -0.71283114, 0, -0.7013356, -115.4495, -108.21154, 111.76981)
 
 [node name="PlayerTrue" parent="." unique_id=61202322 instance=ExtResource("6_tefeu")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 174.8394, -70.99523, 103.69208)
@@ -805,7 +809,7 @@ alcance_parry_perfeito = 0.6
 inclinacao_recuo = 2.0
 
 [node name="Mercadorias" parent="." unique_id=1211368670 instance=ExtResource("20_gqmmt")]
-transform = Transform3D(100, 0, 0, 0, -4.371139e-06, 100, 0, -100, -4.371139e-06, 0, 11.402504, -30.624859)
+transform = Transform3D(-1.6828884e-05, -385, -1.6828884e-05, 0, -1.6828884e-05, 385, -385, 1.6828884e-05, 7.356139e-13, -146.07216, -107.11392, 56.07237)
 
 [node name="ZonaSpawn1" parent="." unique_id=237510131 instance=ExtResource("18_2f3dj")]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 37.85442, -65.35411, 102.62709)
@@ -839,15 +843,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.493134, 0, -78.02774)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10.493126, 0, -86.02562)
 
 [node name="Porta1" parent="." unique_id=1698778248 instance=ExtResource("22_yq6so")]
-transform = Transform3D(-2.6226832e-07, 0, -6, 0, 6, 0, 6, 0, -2.6226832e-07, -139.97356, -108.40576, -75.95124)
+transform = Transform3D(-2.6226832e-07, 0, -6, 0, 6, 0, 6, 0, -2.6226832e-07, -139.97356, -108.59807, -75.95124)
 deslocamento = Vector3(0, 0, -1.5)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=1673783166]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 56.40352, -64.275024, 103.05441)
+transform = Transform3D(0.9978856, 0, 0, 0, 0.9978856, 0, 0, 0, 0.9978856, 56.40352, -64.275024, 103.05441)
 navigation_mesh = SubResource("NavigationMesh_lkpkw")
 
 [node name="TijolosLindos5" parent="NavigationRegion3D" unique_id=1737643089 instance=ExtResource("3_o6xl0")]
-transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 194.0027, -151.00482, -34.76397, -105.32517)
+transform = Transform3D(1, 0, 0, 0, 29.37152, 0, 0, 0, 212.7484, -151.00482, -34.76397, -114.862015)
 
 [node name="TijolosLindos10" parent="NavigationRegion3D" unique_id=815376504 instance=ExtResource("3_o6xl0")]
 transform = Transform3D(1, 0, 0, 0, 22.971989, 0, 0, 0, 101.99776, -151.00482, -34.76397, 59.79422)
@@ -859,7 +863,10 @@ transform = Transform3D(1, 0, 0, 0, 20.696463, 0, 0, 0, 57.80648, -151.00482, -2
 transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 263.93845, -198.70981, -45.88276, -50.560356)
 
 [node name="Chão3" parent="NavigationRegion3D" unique_id=1701241738 instance=ExtResource("8_tipki")]
-transform = Transform3D(95.85734, 0, 0, 0, 3, 0, 0, 0, 254.52193, -198.70981, -22.367363, -50.560356)
+transform = Transform3D(95.857376, 0, 0, 0, 3, 0, 0, 0, 105.39908, -198.70981, -22.367363, 24.603195)
+
+[node name="Chão4" parent="NavigationRegion3D" unique_id=1833078056 instance=ExtResource("8_tipki")]
+transform = Transform3D(95.85738, 0, 0, 0, 3, 0, 0, 0, 101.57557, -198.70981, -22.367363, -127.764)
 
 [node name="bloco" parent="NavigationRegion3D" unique_id=37694550 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(103.456894, 0, 0, 0, 27.274458, 0, 0, 0, 0.12887643, -203.21823, -37.392197, 76.637146)
@@ -913,7 +920,11 @@ transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1
 transform = Transform3D(-1.0723913, 0, -2.801781, 0, 3, 0, 2.801781, 0, -1.0723913, 37.63788, -7.9844055, -6.697365)
 intervalo_dano = 0.25
 
-[node name="FioDescapado4" parent="NavigationRegion3D" unique_id=2116380969 instance=ExtResource("23_pm3ni")]
+[node name="FioDescapado5" parent="NavigationRegion3D" unique_id=2116380969 instance=ExtResource("23_pm3ni")]
+transform = Transform3D(-1.0723913, 0, -2.801781, 0, 3, 0, 2.801781, 0, -1.0723913, 63.05423, -7.9844055, -6.697365)
+intervalo_dano = 0.25
+
+[node name="FioDescapado4" parent="NavigationRegion3D" unique_id=1652408252 instance=ExtResource("23_pm3ni")]
 transform = Transform3D(-1.0723913, 0, -2.801781, 0, 3, 0, 2.801781, 0, -1.0723913, 127.15596, -7.9844055, -6.697365)
 intervalo_dano = 0.25
 
@@ -1005,3 +1016,15 @@ transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -138
 
 [node name="Ponte2" parent="." unique_id=922675545 instance=ExtResource("27_2f3dj")]
 transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -112.69949, -104.23387, 82.97167)
+
+[node name="bloco" parent="." unique_id=1893756027 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(9.161934, 0, 0, 0, 8.901921, 0, 0, 0, -0.113054514, -132.65283, -106.29256, -176.60199)
+
+[node name="bloco2" parent="." unique_id=1404736313 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(9.161934, 0, 0, 0, 8.901921, 0, 0, 0, -0.113054514, -149.60408, -106.29256, -176.60199)
+
+[node name="Vidro" parent="." unique_id=780556319 instance=ExtResource("33_5q0nq")]
+transform = Transform3D(33.7445, 0, 0, 0, 2.9116006e-06, 0.11305449, 0, -66.60966, 4.9417688e-09, -142.27017, -85.17879, 48.403946)
+
+[node name="bloco3" parent="." unique_id=837491443 instance=ExtResource("22_2wyq8")]
+transform = Transform3D(19.802149, 0, 0, 0, 8.901921, 0, 0, 0, -0.113054514, -140.01875, -95.03093, -176.60199)

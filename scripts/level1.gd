@@ -6,8 +6,8 @@ func _ready() -> void:
 	Mensagem.mostrar_mensagem(
 	"SETOR DE CONTENÇÃO",
 	"ELIMINE TODAS AS AMEAÇAS",
-	"Sua nave realizou um pouso de emergência em uma estrutura ocupada por aliens e robôs. Elimine todos os inimigos para continuar sua jornada contra Evil.",
-	10.0
+	"Sua nave colidiu numa estrutura ocupada por aliens e robôs. Elimine todos os inimigos para continuar sua jornada contra Evil.",
+	8.5
 )
 	pass # Replace with function body.
 

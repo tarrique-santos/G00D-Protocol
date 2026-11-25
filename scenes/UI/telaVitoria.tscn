@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://boc5ltbk2n487"]
+
+[ext_resource type="Script" uid="uid://bt2nto2rji6b1" path="res://scripts/telaVitoria.gd" id="1_ncmuq"]
+[ext_resource type="AudioStream" uid="uid://cl712uwkdpt81" path="res://sounds/soundtracks/Mission_in_Space_LOOP.wav" id="2_6s1kh"]
+
+[node name="TelaVitoria" type="Control" unique_id=1102019840]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ncmuq")
+
+[node name="soundtrack" type="AudioStreamPlayer2D" parent="." unique_id=160820963]
+stream = ExtResource("2_6s1kh")

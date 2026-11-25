@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://c83gi8cccb1n6" path="res://scenes/toolbox2.tscn" id="1_i4si1"]
 [ext_resource type="Script" uid="uid://cf3h1vr541ydu" path="res://scripts/toolbox.gd" id="1_ys8or"]
+[ext_resource type="AudioStream" uid="uid://dy3qgynp4ahe1" path="res://sounds/heal.mp3" id="3_77ski"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
 size = Vector3(5.2976074, 2.37854, 2.4241943)
@@ -17,3 +18,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.336975, 0)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=635985858]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.014770508, -1.0270386, 0.023010254)
 shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="som" type="AudioStreamPlayer3D" parent="." unique_id=92955570]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8676584, 0)
+stream = ExtResource("3_77ski")
+autoplay = true

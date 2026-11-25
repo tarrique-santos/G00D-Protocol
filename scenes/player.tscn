@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bb5cfgyqgye6l" path="res://scripts/control.gd" id="4_kijgq"]
 [ext_resource type="AudioStream" uid="uid://d3bq6sg6y3jmo" path="res://sounds/tiro.mp3" id="5_2lcld"]
 [ext_resource type="Script" uid="uid://bsjjg3jbw26qg" path="res://scripts/hud.gd" id="5_4dwdy"]
+[ext_resource type="Script" uid="uid://b5mcf3ry45fsy" path="res://scripts/fps.gd" id="7_smehm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_2f3dj"]
 height = 3.0734863
@@ -153,6 +154,12 @@ offset_bottom = 359.0
 theme_override_font_sizes/font_size = 10
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="FPS" type="Label" parent="HUD/Control" unique_id=1009958304]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("7_smehm")
 
 [node name="SomTiro" type="AudioStreamPlayer" parent="." unique_id=1302678690]
 stream = ExtResource("5_2lcld")

@@ -167,7 +167,17 @@ func _ao_atingir(corpo: Node3D):
 
 		queue_free()
 		return
+		# Cenário destrutível (barricada, caixote): bloqueia o laser
+	if corpo.is_in_group("destrutivel"):
+		ativo = false
 
+		# Só o laser refletido no parry desgasta o cenário
+		if refletido and corpo.has_method("receber_dano"):
+			corpo.receber_dano(int(dano))
+
+		queue_free()
+		return
+		
 	# Atingiu um inimigo (qualquer um que tenha receber_dano)
 	if corpo.has_method("receber_dano"):
 		if not refletido:

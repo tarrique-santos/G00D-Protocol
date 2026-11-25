@@ -124,6 +124,11 @@ stream = ExtResource("4_a3upo")
 volume_db = -10.0
 autoplay = true
 
+[node name="OmniLight3D" type="OmniLight3D" parent="CollisionShape3D" unique_id=435325169]
+transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, -0.04780309, 0, 0.05878973)
+light_energy = 3.0
+omni_range = 1.5353761
+
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1875645633]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.4347243, 0.00050002337, -1.3921785)
 shape = SubResource("CylinderShape3D_g4v7s")
@@ -138,3 +143,8 @@ height = 0.001
 stream = ExtResource("4_a3upo")
 volume_db = -10.0
 autoplay = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="CollisionShape3D2" unique_id=710396981]
+transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0.054496646, 0, -0.050733328)
+light_energy = 3.0
+omni_range = 1.5353761

@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://dnpktuirhai74"]
+
+[ext_resource type="PackedScene" uid="uid://g7mki41q5e4s" path="res://models/nave/source/ShipEnvironment_Collection.fbx" id="1_bpgyd"]
+
+[node name="ShipEnvironment_Collection" unique_id=985294529 instance=ExtResource("1_bpgyd")]

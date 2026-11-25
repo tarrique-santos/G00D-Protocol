@@ -13,14 +13,13 @@ enum Visao { LIVRE, ALIADO, PAREDE }
 @export var velocidade_corrida: float = 8.5
 @export var velocidade_andar: float = 3.4
 @export var distancia_corrida: float = 40.0
-@export var distancia_parada: float = 30.0
+@export var distancia_parada: float = 45.0
 @export var aceleracao: float = 15.0
 @export var desaceleracao: float = 12.0
 @export var gravidade: float = 20.0
 
-
 @export_group("Combate")
-@export var alcance_tiro: float = 35.0
+@export var alcance_tiro: float = 48.0
 @export var intervalo_tiro: float = 1.5
 @export var velocidade_laser: float = 25.0
 @export var altura_disparo: float = 3.8
@@ -30,8 +29,6 @@ enum Visao { LIVRE, ALIADO, PAREDE }
 @export var velocidade_strafe: float = 4.0
 ## Usada só se o player não tiver o nó "camera". Ajuste se o tiro ainda sair baixo.
 @export var altura_mira: float = 1.6
-
-
 
 @export_group("Voz")
 @export var intervalo_voz: float = 11.0
@@ -405,7 +402,10 @@ func checar_visao() -> Visao:
 
 	if alvo.is_in_group("player"):
 		return Visao.LIVRE
-
+		# Barricada/caixote contam como parede, não como aliado
+	if alvo.is_in_group("destrutivel"):
+		return Visao.PAREDE
+		
 	# Outro inimigo na frente
 	if alvo.has_method("receber_dano"):
 		return Visao.ALIADO

@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://bxubi2cs4iigu"]
+
+[ext_resource type="PackedScene" uid="uid://21l8e4jaqurc" path="res://models/others/window.FBX" id="1_ysv4u"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xigps"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_27nvy"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uqgaw"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a3upo"]
+transparency = 1
+albedo_color = Color(1, 1, 1, 0.27058825)
+
+[node name="window" unique_id=539877378 instance=ExtResource("1_ysv4u")]
+
+[node name="Mesh30" parent="." index="0" unique_id=1548815434]
+material_override = SubResource("StandardMaterial3D_xigps")
+
+[node name="Mesh29" parent="." index="1" unique_id=460518698]
+material_override = SubResource("StandardMaterial3D_27nvy")
+
+[node name="Mesh27" parent="." index="3" unique_id=150817019]
+material_override = SubResource("StandardMaterial3D_uqgaw")
+
+[node name="Mesh26" parent="." index="4" unique_id=1948502470]
+material_override = SubResource("StandardMaterial3D_a3upo")
