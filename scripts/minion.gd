@@ -36,6 +36,8 @@ extends CharacterBody3D
 @export var forca_separacao: float = 1.5
 ## Variação de altura entre voadores, pra uns passarem por cima dos outros.
 @export var variacao_altura: float = 2.5
+## Folga lateral da checagem de caminho livre (evita raspar em quina).
+@export var folga_caminho: float = 0.8
 
 # --- DISPAROS ---
 
@@ -163,20 +165,8 @@ func atualizar_estado_perseguicao(jogador: Node3D) -> void:
 		parar_perseguicao()
 		return
 
-	# Sem patrulha: persegue o jogador de onde estiver
-	if sempre_perseguir:
-		perseguindo = true
-		return
-
-	var distancia := global_position.distance_to(jogador.global_position)
-
-	if not perseguindo:
-		# Percebeu o jogador (por distância ou pela Area3D)
-		if distancia <= raio_perseguicao or jogador_na_area:
-			perseguindo = true
-	elif distancia > raio_perseguicao * fator_perder_jogador and not jogador_na_area:
-		# O jogador fugiu longe demais: volta a patrulhar
-		parar_perseguicao()
+	# Sem patrulha e sem Area3D: persegue sempre
+	perseguindo = true
 
 
 func parar_perseguicao() -> void:
@@ -202,28 +192,30 @@ func perseguir(jogador: Node3D, delta: float) -> void:
 		+ lado
 	)
 
-	if distancia > distancia_ideal + margem_distancia:
+	var enxerga := enxerga_jogador(jogador)
+
+	# Perto demais E vendo o jogador: recua
+	if enxerga and distancia < distancia_ideal - margem_distancia:
+		velocidade_alvo = (
+			(global_position - jogador.global_position).normalized()
+			* velocidade_perseguicao * 0.6
+		)
+	# Longe, ou sem ver o jogador (parede no meio): aproxima
+	elif distancia > distancia_ideal + margem_distancia or not enxerga:
 		var destino: Vector3 = ponto_alvo
 
-		# Parede no meio: segue o caminho da malha de navegação
 		if not tem_linha_livre(ponto_alvo):
 			destino = proximo_ponto_caminho(jogador, delta)
 
 		velocidade_alvo = (
 			(destino - global_position).normalized() * velocidade_perseguicao
 		)
-	elif distancia < distancia_ideal - margem_distancia:
-		# Perto demais: recua devagar
-		velocidade_alvo = (
-			(global_position - jogador.global_position).normalized()
-			* velocidade_perseguicao * 0.6
-		)
 
 	# Afasta de quem estiver colado (voadores e aliens)
 	velocidade_alvo += calcular_separacao() * velocidade_perseguicao
 
 	velocity = velocity.move_toward(velocidade_alvo, aceleracao * delta)
-
+	
 func calcular_separacao() -> Vector3:
 	var empurrao := Vector3.ZERO
 
@@ -346,6 +338,7 @@ func atualizar_disparo(jogador: Node3D) -> void:
 	var pode_atirar := (
 		jogador != null
 		and global_position.distance_to(jogador.global_position) <= distancia_tiro
+		and enxerga_jogador(jogador)
 	)
 
 	if pode_atirar:
@@ -353,7 +346,20 @@ func atualizar_disparo(jogador: Node3D) -> void:
 			timer.start()
 	elif not timer.is_stopped():
 		timer.stop()
+		
+func enxerga_jogador(jogador: Node3D) -> bool:
+	var origem: Vector3 = marcador.global_position
+	var destino: Vector3 = jogador.global_position + Vector3(0, 1.0, 0)
 
+	var consulta := PhysicsRayQueryParameters3D.create(origem, destino)
+	consulta.exclude = [get_rid()]
+
+	var resultado := get_world_3d().direct_space_state.intersect_ray(consulta)
+
+	if resultado.is_empty():
+		return true
+
+	return resultado["collider"].is_in_group("player")
 
 func atirar() -> void:
 	if morto:
@@ -362,6 +368,9 @@ func atirar() -> void:
 	var jogador = get_tree().get_first_node_in_group("player")
 
 	if jogador == null:
+		return
+		
+	if not enxerga_jogador(jogador):
 		return
 
 	var origem: Vector3 = marcador.global_position
@@ -440,10 +449,18 @@ func morrer() -> void:
 	queue_free()
 	
 func tem_linha_livre(destino: Vector3) -> bool:
+	# 1) Raio até o destino: pega parede em qualquer distância
 	var consulta := PhysicsRayQueryParameters3D.create(global_position, destino)
 	consulta.exclude = [get_rid()]
+	var resultado := get_world_3d().direct_space_state.intersect_ray(consulta)
 
-	return get_world_3d().direct_space_state.intersect_ray(consulta).is_empty()
+	if not resultado.is_empty() and not resultado["collider"].is_in_group("player"):
+		return false
+
+	# 2) Corpo inteiro nos primeiros metros: pega quina raspando no braço
+	var passo: Vector3 = (destino - global_position).limit_length(6.0)
+
+	return not test_move(global_transform, passo)
 
 
 func proximo_ponto_caminho(jogador: Node3D, delta: float) -> Vector3:

@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://bqk48lbgtox2e"]
 
-[ext_resource type="Script" uid="uid://dsjt8kirlg1f0" path="res://porta_dupla.gd" id="1_xf7km"]
+[ext_resource type="Script" uid="uid://dsjt8kirlg1f0" path="res://scripts/porta_dupla.gd" id="1_xf7km"]
 [ext_resource type="Texture2D" uid="uid://yguwyl36acok" path="res://models/nave/source/ShipEnvironment_Collection_12.png" id="2_fsggj"]
 [ext_resource type="Texture2D" uid="uid://bhqk6k878d78h" path="res://models/nave/source/ShipEnvironment_Collection_13.png" id="3_rw2sv"]
 
@@ -142,6 +142,9 @@ shadow_mesh = SubResource("ArrayMesh_bhd50")
 [sub_resource type="BoxShape3D" id="BoxShape3D_yf5fn"]
 size = Vector3(0.2861328, 2.107544, 2.5905762)
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_g4v7s"]
+radius = 8.014566
+
 [node name="Porta" type="StaticBody3D" unique_id=1698778248]
 script = ExtResource("1_xf7km")
 deslocamento = Vector3(0, 0, -3)
@@ -184,3 +187,8 @@ skeleton = NodePath("")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="PortaDireita" unique_id=1242654437]
 transform = Transform3D(-1.0000001, -6.6002374e-15, -8.7422784e-08, 0, 1.0000001, -7.549792e-08, 8.7422784e-08, -7.549792e-08, -1.0000001, -0.02264022, 1.1946883, -1.2579086)
 shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="Sensor" type="Area3D" parent="." unique_id=1596629329]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Sensor" unique_id=1242326805]
+shape = SubResource("SphereShape3D_g4v7s")

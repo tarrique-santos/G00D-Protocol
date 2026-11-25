@@ -29,6 +29,13 @@ enum Visao { LIVRE, ALIADO, PAREDE }
 @export var velocidade_strafe: float = 4.0
 ## Usada só se o player não tiver o nó "camera". Ajuste se o tiro ainda sair baixo.
 @export var altura_mira: float = 1.6
+## Distância em que ele começa a se afastar de outros inimigos.
+@export var raio_separacao: float = 3.0
+## Força do afastamento.
+@export var forca_separacao: float = 1.2
+## Folga lateral da checagem de visão (evita enxergar por quina).
+@export var folga_visao: float = 0.5
+
 
 @export_group("Voz")
 @export var intervalo_voz: float = 11.0
@@ -326,6 +333,7 @@ func _physics_process(delta):
 	)
 
 	var velocidade_alvo = movimento * velocidade_desejada
+	velocidade_alvo += calcular_separacao() * velocidade_corrida
 
 	var taxa = aceleracao if velocidade_desejada > 0.0 else desaceleracao
 
@@ -390,29 +398,52 @@ func checar_visao() -> Visao:
 	var origem = global_position + Vector3(0, altura_disparo, 0)
 	var destino = obter_ponto_mira()
 
-	var consulta = PhysicsRayQueryParameters3D.create(origem, destino)
-	consulta.exclude = [get_rid()]
+	var frente: Vector3 = (destino - origem).normalized()
+	var lado: Vector3 = frente.cross(Vector3.UP).normalized() * folga_visao
 
-	var resultado = get_world_3d().direct_space_state.intersect_ray(consulta)
+	var pior := Visao.LIVRE
 
-	if resultado.is_empty():
-		return Visao.LIVRE
+	# Centro, esquerda e direita: todos precisam passar
+	for deslocamento in [Vector3.ZERO, lado, -lado]:
+		var consulta = PhysicsRayQueryParameters3D.create(
+			origem + deslocamento, destino
+		)
+		consulta.exclude = [get_rid()]
 
-	var alvo = resultado["collider"]
+		var resultado = get_world_3d().direct_space_state.intersect_ray(consulta)
 
-	if alvo.is_in_group("player"):
-		return Visao.LIVRE
-		# Barricada/caixote contam como parede, não como aliado
-	if alvo.is_in_group("destrutivel"):
-		return Visao.PAREDE
-		
-	# Outro inimigo na frente
-	if alvo.has_method("receber_dano"):
-		return Visao.ALIADO
+		if resultado.is_empty():
+			continue
 
-	# Parede ou cenário
-	return Visao.PAREDE
+		var alvo = resultado["collider"]
 
+		if alvo.is_in_group("player"):
+			continue
+
+		if alvo.has_method("receber_dano"):
+			if pior == Visao.LIVRE:
+				pior = Visao.ALIADO
+		else:
+			return Visao.PAREDE
+
+	return pior
+
+
+func calcular_separacao() -> Vector3:
+	var empurrao := Vector3.ZERO
+
+	for outro in get_tree().get_nodes_in_group("inimigo"):
+		if outro == self or not is_instance_valid(outro) or not (outro is Node3D):
+			continue
+
+		var diferenca: Vector3 = global_position - outro.global_position
+		diferenca.y = 0.0
+		var dist := diferenca.length()
+
+		if dist > 0.01 and dist < raio_separacao:
+			empurrao += diferenca.normalized() * (1.0 - dist / raio_separacao)
+
+	return empurrao * forca_separacao
 
 func receber_dano(valor: float):
 	if morto:

@@ -4,7 +4,7 @@
 [ext_resource type="ArrayMesh" uid="uid://dqvaswrlgliw3" path="res://models/minion/MM-AC_AND_HERO_Andy_Mecha_Boy/MM-AC_AND_HERO_Andy_Mecha_Boy.obj" id="2_8w5l0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7o0mq"]
-size = Vector3(1, 1.9368286, 1)
+size = Vector3(4, 4, 2)
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_mlsxe"]
 radius = 40.0
@@ -24,10 +24,13 @@ height = 0.2
 
 [node name="Enemy Flyer" type="CharacterBody3D" unique_id=1909309758]
 script = ExtResource("1_dof2r")
+velocidade_perseguicao = 10.0
 distancia_ideal = 20.0
-raio_separacao = 6.0
+altura_voo_nav = 6.0
+raio_separacao = 8.0
 forca_separacao = 3.0
 variacao_altura = 4.0
+folga_caminho = 2.5
 distancia_tiro = 30.0
 dano_laser = 30.0
 tamanho_laser = 3.0
@@ -37,7 +40,7 @@ transform = Transform3D(-2, 0, -3.019916e-07, 0, 2, 0, 3.019916e-07, 0, -2, 0, 0
 mesh = ExtResource("2_8w5l0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1297861607]
-transform = Transform3D(3.9357214, 0, 0, 0, 1.8865889, 0, 0, 0, 1.2771163, 0, 1.7578788, -0.036548793)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.9333646, 0)
 shape = SubResource("BoxShape3D_7o0mq")
 
 [node name="Marker3D" type="Marker3D" parent="." unique_id=1272416467]

@@ -167,17 +167,7 @@ func _ao_atingir(corpo: Node3D):
 
 		queue_free()
 		return
-		# Cenário destrutível (barricada, caixote): bloqueia o laser
-	if corpo.is_in_group("destrutivel"):
-		ativo = false
 
-		# Só o laser refletido no parry desgasta o cenário
-		if refletido and corpo.has_method("receber_dano"):
-			corpo.receber_dano(int(dano))
-
-		queue_free()
-		return
-		
 	# Atingiu um inimigo (qualquer um que tenha receber_dano)
 	if corpo.has_method("receber_dano"):
 		if not refletido:
@@ -188,7 +178,7 @@ func _ao_atingir(corpo: Node3D):
 		if explosivo:
 			_explodir()
 		else:
-			corpo.receber_dano(int(dano))
+			_causar_dano(corpo, int(dano))
 
 		queue_free()
 		return
@@ -224,9 +214,16 @@ func _explodir() -> void:
 
 		if alvo.has_method("receber_dano"):
 			atingidos.append(alvo)
-			alvo.receber_dano(int(dano))
+			_causar_dano(alvo, int(dano))
 
 	_criar_efeito_explosao(cena, centro)
+	
+# Se o alvo tem um dano exclusivo de parry, usa ele. Senão, o dano normal.
+func _causar_dano(alvo: Node, valor: int) -> void:
+	if alvo.has_method("receber_dano_parry"):
+		alvo.receber_dano_parry(valor)
+	elif alvo.has_method("receber_dano"):
+		alvo.receber_dano(valor)
 
 
 func _criar_efeito_explosao(cena: Node, centro: Vector3) -> void:
