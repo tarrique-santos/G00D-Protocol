@@ -30,6 +30,7 @@
 [ext_resource type="PackedScene" uid="uid://bw41dupvxlhmk" path="res://models/others/escada.tscn" id="26_vxglm"]
 [ext_resource type="PackedScene" uid="uid://cc0ldf5ug2fa1" path="res://models/others/ponte.tscn" id="27_2f3dj"]
 [ext_resource type="PackedScene" uid="uid://pi2ih8lmmqmn" path="res://scenes/checkpoint.tscn" id="28_fv21b"]
+[ext_resource type="PackedScene" uid="uid://8jyedmgwgej2" path="res://scenes/triggerInstrucao.tscn" id="32_qkpxi"]
 [ext_resource type="PackedScene" uid="uid://2drxek4uc2on" path="res://scenes/objects/vidro.tscn" id="33_5q0nq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3gngh"]
@@ -688,7 +689,7 @@ light_angular_distance = 10.0
 transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 56.753242, 9.011055, 120.192986)
 
 [node name="Toolbox" parent="." unique_id=1516620327 instance=ExtResource("10_choun")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -101.11419, -108.27595, 86.27594)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -158.30136, -108.27595, 86.27594)
 
 [node name="Toolbox2" parent="." unique_id=1848170618 instance=ExtResource("10_choun")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -151.17323, -108.27595, 83.39994)
@@ -1028,3 +1029,30 @@ transform = Transform3D(33.7445, 0, 0, 0, 2.9116006e-06, 0.11305449, 0, -66.6096
 
 [node name="bloco3" parent="." unique_id=837491443 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(19.802149, 0, 0, 0, 8.901921, 0, 0, 0, -0.113054514, -140.01875, -95.03093, -176.60199)
+
+[node name="TriggerInstrucao" parent="." unique_id=1548486712 instance=ExtResource("32_qkpxi")]
+transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 170.97299, -67.813034, 102.26244)
+tipo_instrucao = 0
+
+[node name="TriggerInstrucao2" parent="." unique_id=1208916303 instance=ExtResource("32_qkpxi")]
+transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, 128.09793, -67.813034, 102.26244)
+
+[node name="TriggerInstrucao3" parent="." unique_id=706285962 instance=ExtResource("32_qkpxi")]
+transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, -3.2097943, -69.5403, 102.26244)
+tipo_instrucao = 2
+tempo_exibicao = 6.0
+
+[node name="TriggerInstrucao4" parent="." unique_id=1467195230 instance=ExtResource("32_qkpxi")]
+transform = Transform3D(-6.556708e-08, 0, 1.5, 0, 1.5, 0, -1.5, 0, -6.556708e-08, -114.23958, -104.676674, 102.26244)
+tipo_instrucao = 6
+tempo_exibicao = 6.0
+
+[node name="TriggerInstrucao6" parent="." unique_id=777623606 instance=ExtResource("32_qkpxi")]
+transform = Transform3D(-1.09278474e-07, 0, 2.5, 0, 2.5, 0, -2.5, 0, -1.09278474e-07, -156.14821, -100.77317, 168.70627)
+tipo_instrucao = 6
+tempo_exibicao = 6.0
+
+[node name="TriggerInstrucao5" parent="." unique_id=342705282 instance=ExtResource("32_qkpxi")]
+transform = Transform3D(1.0606601, 0, 1.0606601, 0, 1.5, 0, -1.0606601, 0, 1.0606601, -147.10999, -104.676674, 92.08452)
+tipo_instrucao = 5
+tempo_exibicao = 6.0
