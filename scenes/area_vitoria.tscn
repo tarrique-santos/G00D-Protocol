@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://uvrt76nvkr1d"]
+
+[ext_resource type="Script" uid="uid://b0q02be6euxr6" path="res://scenes/area_vitoria.gd" id="1_d4ssd"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ejsxc"]
+height = 6.538086
+radius = 1.6875
+
+[node name="AreaVitoria" type="Area3D" unique_id=156380952]
+script = ExtResource("1_d4ssd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1487768078]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.269043, 0)
+shape = SubResource("CylinderShape3D_ejsxc")
