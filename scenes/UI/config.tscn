@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://ccopkp7bgncbr"]
 
 [ext_resource type="Script" uid="uid://ialt6fpoh13p" path="res://scripts/config.gd" id="1_q65wk"]
+[ext_resource type="AudioStream" uid="uid://cbtksh5kgeajh" path="res://sounds/soundtracks/Chasm_Exploration_LOOP.wav" id="2_7ho4a"]
 
 [node name="Config" type="Control" unique_id=1406765617]
 layout_mode = 3
@@ -10,3 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_q65wk")
+
+[node name="Soudtrack" type="AudioStreamPlayer2D" parent="." unique_id=918287977]
+stream = ExtResource("2_7ho4a")
+autoplay = true

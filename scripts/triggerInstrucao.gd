@@ -1,4 +1,3 @@
-
 extends Area3D
 
 enum TipoInstrucao {
@@ -8,7 +7,8 @@ enum TipoInstrucao {
 	OBJETIVO,
 	PARRY,
 	CURA,
-	OBJETOS_DESTRUTIVEIS
+	OBJETOS_DESTRUTIVEIS,
+	BOSS
 }
 
 @export var tipo_instrucao: TipoInstrucao = TipoInstrucao.MOVIMENTACAO
@@ -90,3 +90,11 @@ func exibir_instrucao() -> void:
 				"Continue explorando a instalação. Elimine as ameaças que encontrar pelo caminho.",
 				tempo_exibicao
 			)
+			
+		TipoInstrucao.BOSS:
+			Mensagem.mostrar_mensagem(
+				"BOSS DETECTADO",
+				"OLHO GIGANTE",
+				"Uma entidade hostil de grande porte foi identificada. Prepare-se para o combate. Elimine a ameaça para continuar avançando pela instalação.",
+				tempo_exibicao
+	)

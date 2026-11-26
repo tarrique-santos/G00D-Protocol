@@ -2,6 +2,13 @@ extends Control
 
 @export_file("*.tscn") var cena_retorno: String = "res://scenes/UI/home.tscn"
 
+@export_group("Música")
+## Arraste aqui o MESMO arquivo de música usado na tela home.
+@export var musica: AudioStream
+@export var musica_volume_db: float = 0.0
+## Segundo em que a música volta ao início (1:05 = 65).
+@export var reiniciar_em: float = 65.0
+
 const ARQUIVO_CONFIG := "user://g00d_config.cfg"
 
 const FUNDO := Color("#050b14")
@@ -12,6 +19,9 @@ const VERMELHO := Color("#ff304f")
 const BRANCO := Color("#dcecf5")
 
 var configuracao := ConfigFile.new()
+
+var player_musica: AudioStreamPlayer
+var tempo_fundo: float = 0.0
 
 var resolucao: OptionButton
 var modo_tela: OptionButton
@@ -52,6 +62,120 @@ func _ready() -> void:
 
 	criar_interface()
 	aplicar_configuracoes()
+	iniciar_musica()
+
+
+# --------------------------------------------------
+# FUNDO ANIMADO (TRILHAS) E MUSICA
+# --------------------------------------------------
+
+func _process(delta: float) -> void:
+	tempo_fundo += delta * 0.45
+	queue_redraw()
+
+	# Volta ao início quando a música chega em "reiniciar_em" (1:05 = 65 s)
+	if player_musica != null and player_musica.playing:
+		if reiniciar_em > 0.0 and player_musica.get_playback_position() >= reiniciar_em:
+			player_musica.seek(0.0)
+
+
+func iniciar_musica() -> void:
+	# Sem arquivo definido, não toca nada (útil se a música vier de um autoload)
+	if musica == null:
+		return
+
+	player_musica = AudioStreamPlayer.new()
+	player_musica.name = "MusicaConfig"
+	player_musica.stream = musica
+	player_musica.bus = "Music"  # o slider "Música" controla este bus
+	player_musica.volume_db = musica_volume_db
+
+	# Se a música for mais curta que "reiniciar_em", recomeça quando acabar
+	player_musica.finished.connect(player_musica.play)
+
+	add_child(player_musica)
+	player_musica.play()
+
+
+func _draw() -> void:
+	var tamanho := get_viewport_rect().size
+
+	draw_rect(Rect2(Vector2.ZERO, tamanho), Color("#050B16"))
+
+	draw_circle(
+		tamanho / 2.0,
+		minf(tamanho.x, tamanho.y) * 0.32,
+		Color(0.0, 0.35, 0.65, 0.035)
+	)
+
+	var trilhas: Array[PackedVector2Array] = [
+		PackedVector2Array([
+			Vector2(0.0, 0.12), Vector2(0.12, 0.12), Vector2(0.16, 0.17),
+			Vector2(0.16, 0.30), Vector2(0.22, 0.36)
+		]),
+		PackedVector2Array([
+			Vector2(0.0, 0.83), Vector2(0.10, 0.83), Vector2(0.15, 0.78),
+			Vector2(0.15, 0.69), Vector2(0.22, 0.63)
+		]),
+		PackedVector2Array([
+			Vector2(1.0, 0.15), Vector2(0.88, 0.15), Vector2(0.84, 0.20),
+			Vector2(0.84, 0.32), Vector2(0.78, 0.38)
+		]),
+		PackedVector2Array([
+			Vector2(1.0, 0.85), Vector2(0.89, 0.85), Vector2(0.84, 0.80),
+			Vector2(0.84, 0.69), Vector2(0.78, 0.63)
+		]),
+		PackedVector2Array([
+			Vector2(0.0, 0.48), Vector2(0.08, 0.48), Vector2(0.12, 0.44),
+			Vector2(0.18, 0.44)
+		]),
+		PackedVector2Array([
+			Vector2(1.0, 0.52), Vector2(0.92, 0.52), Vector2(0.88, 0.56),
+			Vector2(0.82, 0.56)
+		]),
+	]
+
+	for i in range(trilhas.size()):
+		var pontos := PackedVector2Array()
+
+		for ponto in trilhas[i]:
+			pontos.append(Vector2(ponto.x * tamanho.x, ponto.y * tamanho.y))
+
+		desenhar_trilha(pontos, tempo_fundo + i * 0.19)
+
+
+func desenhar_trilha(pontos: PackedVector2Array, fase: float) -> void:
+	if pontos.size() < 2:
+		return
+
+	draw_polyline(pontos, Color(0.0, 0.55, 1.0, 0.10), 7.0, true)
+	draw_polyline(pontos, Color(0.0, 0.65, 1.0, 0.42), 1.5, true)
+
+	var comprimento_total := 0.0
+
+	for i in range(pontos.size() - 1):
+		comprimento_total += pontos[i].distance_to(pontos[i + 1])
+
+	if comprimento_total <= 0.0:
+		return
+
+	var distancia := fposmod(fase, 1.0) * comprimento_total
+	var percorrida := 0.0
+
+	for i in range(pontos.size() - 1):
+		var inicio := pontos[i]
+		var fim := pontos[i + 1]
+		var comprimento := inicio.distance_to(fim)
+
+		if distancia <= percorrida + comprimento:
+			var posicao := inicio.lerp(fim, (distancia - percorrida) / comprimento)
+
+			draw_circle(posicao, 7.0, Color(0.0, 0.7, 1.0, 0.12))
+			draw_circle(posicao, 3.0, Color(0.0, 0.85, 1.0, 0.85))
+			draw_circle(posicao, 1.5, Color.WHITE)
+			break
+
+		percorrida += comprimento
 
 
 # --------------------------------------------------
@@ -162,6 +286,12 @@ func salvar_configuracoes() -> void:
 	else:
 		print("Configurações salvas!")
 
+		# Avisa o autoload "Config" (se existir) para reaplicar tudo
+		var global := get_node_or_null("/root/Config")
+
+		if global != null:
+			global.recarregar()
+
 
 # --------------------------------------------------
 # APLICAR CONFIGURACOES
@@ -246,12 +376,6 @@ func aplicar_audio() -> void:
 # --------------------------------------------------
 
 func criar_interface() -> void:
-	var fundo := ColorRect.new()
-	fundo.color = FUNDO
-	fundo.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	fundo.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	add_child(fundo)
-
 	var margem := MarginContainer.new()
 	margem.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 

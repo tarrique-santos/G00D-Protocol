@@ -34,10 +34,11 @@ func _ready() -> void:
 		# Porta já nasce aberta, senão o jogador fica trancado
 		if porta != null and porta.has_method("abrir"):
 			porta.abrir(true)
-		return
+		
 		
 		if elevador != null and elevador.has_method("destravar"):
 			elevador.destravar()
+		return
 
 	# Guarda os inimigos (todo filho que não é a caixa de colisão) e esconde
 	for filho in get_children():

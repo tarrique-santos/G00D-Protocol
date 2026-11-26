@@ -34,7 +34,16 @@ var titulo_extra: Label
 var texto_extra: Label
 
 
+
 func _ready() -> void:
+	# Permite que o menu funcione mesmo se a árvore estiver pausada.
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
+	# Garante que o jogo não continue pausado ao retornar.
+	get_tree().paused = false
+
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+
 	randomize()
 
 	set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
@@ -47,12 +56,14 @@ func _ready() -> void:
 		criar_pulso()
 
 	if soundtrack:
+		soundtrack.process_mode = Node.PROCESS_MODE_ALWAYS
 		soundtrack.play()
 		tempo_soundtrack = 0.0
 	else:
 		push_warning("Nó 'soundtrack' não encontrado. Adicione um AudioStreamPlayer como filho do Control.")
 
 	queue_redraw()
+
 
 
 func _process(delta: float) -> void:
@@ -668,13 +679,7 @@ func abrir_configuracoes() -> void:
 
 func abrir_creditos() -> void:
 
-	titulo_extra.text = "CRÉDITOS"
-
-	texto_extra.text = "G00D-PROTOCOL\n\nDesenvolvimento por:\n\nTarrique Santos (Tanque), Ataliba (Anibal) e Victória (Vitrola)\n"
-
-	painel_extra.visible = true
-	painel_menu.visible = false
-
+	get_tree().change_scene_to_file("res://scenes/UI/creditos.tscn")
 
 func fechar_painel_extra() -> void:
 
@@ -686,13 +691,17 @@ func fechar_painel_extra() -> void:
 # ACOES DOS BOTOES
 # --------------------------------------------------
 
-func iniciar_jogo() -> void:
 
-	# Partida nova começa do zero, sem checkpoint da anterior
+func iniciar_jogo() -> void:
+	get_tree().paused = false
+
 	Progresso.resetar()
 
 	if ResourceLoader.exists(cena_jogo):
-		get_tree().change_scene_to_file(cena_jogo)
+		var erro := get_tree().change_scene_to_file(cena_jogo)
+
+		if erro != OK:
+			push_error("Erro ao iniciar o jogo: " + str(erro))
 	else:
 		push_error("Cena do jogo não encontrada: " + cena_jogo)
 

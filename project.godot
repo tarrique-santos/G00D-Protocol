@@ -22,6 +22,7 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 Mensagem="*uid://da3476xrqavig"
 Progresso="*uid://cauv6tymrbay0"
+Config="*uid://dth12cb5ybgcs"
 
 [display]
 

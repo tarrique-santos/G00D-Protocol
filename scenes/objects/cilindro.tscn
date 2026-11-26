@@ -115,6 +115,9 @@ top_radius = 0.95
 bottom_radius = 0.95
 height = 4.2006836
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
+size = Vector3(0.4932251, 1.0380859, 0.34765625)
+
 [node name="Cilindro" type="StaticBody3D" unique_id=1747410329]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 0, 0)
 
@@ -137,3 +140,15 @@ transform = Transform3D(0.33333334, 0, 0, 0, 0.33333334, 0, 0, 0, 0.33333334, 0,
 light_color = Color(0.7808215, 0.00047187388, 0.7808161, 1)
 light_energy = 2.0
 omni_range = 15.0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="." unique_id=1483608040]
+transform = Transform3D(0.8660253, 0, 0.49999997, 0, 1, 0, -0.49999997, 0, 0.8660253, 1.0754402, 0.5309994, -0.6382828)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=1988036940]
+transform = Transform3D(0.49999994, 0, 0.8660254, 0, 1, 0, -0.8660254, 0, 0.49999994, -1.1463702, 0.5309994, -0.6382828)
+shape = SubResource("BoxShape3D_g4v7s")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="." unique_id=380096855]
+transform = Transform3D(0.99999994, 0, 0, 0, 1, 0, 0, 0, 0.99999994, 0.052700244, 0.5309994, 1.2912114)
+shape = SubResource("BoxShape3D_g4v7s")

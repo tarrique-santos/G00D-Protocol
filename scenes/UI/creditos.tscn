@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://drutf0bf3gwth"]
+
+[ext_resource type="Script" uid="uid://dkhxl1ysm74u1" path="res://scripts/creditos.gd" id="1_golaf"]
+[ext_resource type="AudioStream" uid="uid://cbtksh5kgeajh" path="res://sounds/soundtracks/Chasm_Exploration_LOOP.wav" id="2_11lys"]
+
+[node name="Creditos" type="Control" unique_id=344858772]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_golaf")
+duracao_fade = 2.0
+
+[node name="Soudtrack" type="AudioStreamPlayer2D" parent="." unique_id=976556776]
+stream = ExtResource("2_11lys")
+autoplay = true
