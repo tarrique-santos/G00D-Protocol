@@ -32,6 +32,10 @@ var tempo_recarga: float = 0.0
 var tempo_recuperacao_dash: float = 0.0
 var direcao_dash: Vector3 = Vector3.ZERO
 var dashes_usados_no_ar: int = 0
+var impulso_externo: Vector3 = Vector3.ZERO
+@export var decaimento_impulso: float = 60.0
+## Quanto o controle do jogador é reduzido durante o empurrão (0 = nada, 1 = sem controle).
+@export_range(0.0, 1.0) var perda_controle_impulso: float = 0.85
 
 
 # --- SISTEMA DE VIDA ---
@@ -754,6 +758,16 @@ func _physics_process(delta: float) -> void:
 				velocidade
 			)
 
+	# Empurrão externo: reduz o controle e soma o impulso, perdendo força aos poucos
+	if impulso_externo.length() > 0.1:
+		var forca_relativa := clampf(impulso_externo.length() / 40.0, 0.0, 1.0)
+		var controle := 1.0 - perda_controle_impulso * forca_relativa
+
+		velocity.x = velocity.x * controle + impulso_externo.x
+		velocity.z = velocity.z * controle + impulso_externo.z
+
+		impulso_externo = impulso_externo.move_toward(Vector3.ZERO, decaimento_impulso * delta)
+
 	move_and_slide()
 
 	estava_no_chao = is_on_floor()
@@ -892,3 +906,9 @@ func atirar() -> void:
 	# Causa dano
 	if alvo.has_method("receber_dano"):
 		alvo.receber_dano(int(dano_tiro))
+
+
+# Empurrão externo (ex.: explosão do boss). Não é apagado pelo movimento.
+func empurrar(direcao: Vector3, forca: float) -> void:
+	impulso_externo = direcao.normalized() * forca
+	velocity.y = maxf(velocity.y, 6.0)

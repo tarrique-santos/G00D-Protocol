@@ -47,6 +47,7 @@ const W_POINTS: Array[Vector2] = [
 @export var laser_damage := 10.0
 @export var laser_size := 2.0
 
+
 @export_group("Ataques")
 @export var time_between_attacks := 2.5
 @export var windup_time := 0.6
@@ -54,6 +55,12 @@ const W_POINTS: Array[Vector2] = [
 @export_subgroup("Rajada reta")
 @export var burst_count := 5
 @export var burst_interval := 0.18
+## Espalhamento aleatório de cada tiro, em graus. 0 = tiros certinhos.
+@export var burst_spread := 6.0
+## Força da previsão de movimento (0 = mira onde o jogador está, 1 = perfeita).
+@export var burst_predicao := 0.6
+## Chance (0 a 1) de cada tiro ser previsto. O resto mira onde o jogador está agora.
+@export_range(0.0, 1.0) var burst_chance_predicao := 0.5
 
 @export_subgroup("Desenho W / M")
 ## Tamanho do desenho na altura do jogador.
@@ -64,6 +71,11 @@ const W_POINTS: Array[Vector2] = [
 ## Só usados se pattern_as_beam for false:
 @export var pattern_shots := 17
 @export var pattern_interval := 0.07
+## Chance (0 a 1) de ser W quando o ataque W/M é sorteado. O resto é M.
+@export_range(0.0, 1.0) var chance_w := 0.5
+## Quanto o feixe começa e termina fora do desenho, em múltiplos da meia-largura.
+## 0 = começa na borda do W/M. 1 = começa uma meia-largura além da borda.
+@export var beam_margem := 1.0
 
 @export_subgroup("Feixe contínuo (W / M)")
 ## Tempo com o feixe fino de aviso, antes de começar a varrer e causar dano.
@@ -76,6 +88,8 @@ const W_POINTS: Array[Vector2] = [
 ## Intervalo mínimo entre danos enquanto o feixe está no jogador.
 @export var beam_tick := 0.25
 @export var beam_color := Color(1.0, 0.1, 0.1)
+## Quão rápido o desenho acompanha o jogador enquanto varre (0 = não segue).
+@export var beam_seguir := 1.5
 
 @export_subgroup("Giro de 360° (jogador muito perto)")
 ## Se o jogador chegar a esta distância, o chefe faz o giro.
@@ -104,6 +118,20 @@ const W_POINTS: Array[Vector2] = [
 @export var sweep_damage := 25
 @export var sweep_color := Color(1.0, 0.1, 0.1)
 
+@export_group("Barreira (jogador colado)")
+## Distância em que o jogador conta como "colado".
+@export var barreira_raio_gatilho := 10.0
+## Quanto tempo o jogador precisa ficar colado antes da barreira.
+@export var barreira_tempo_perto := 2.0
+## Raio final da barreira e da explosão.
+@export var barreira_raio := 12.0
+## Tempo da barreira crescendo antes de explodir (dá pra fugir).
+@export var barreira_aviso := 1.2
+@export var barreira_dano := 30
+@export var barreira_empurrao := 40.0
+@export var barreira_cooldown := 8.0
+@export var barreira_cor := Color(1.0, 0.1, 0.1)
+
 @export_group("Proximidade")
 @export var contact_radius := 6.0
 @export var contact_damage := 20
@@ -124,6 +152,9 @@ var _spinning := false
 var _barra: BarraVidaBoss
 var _flash_mat: StandardMaterial3D
 var _ativo := false
+var _tempo_perto := 0.0
+var _barreira_cd := 0.0
+var _barreira_ativa := false
 
 
 func _ready() -> void:
@@ -157,19 +188,19 @@ func ativar() -> void:
 func _physics_process(delta: float) -> void:
 	if morto:
 		return
+
 	if not _ativo:
 		return
 
-	_spin_cd = maxf(_spin_cd - delta, 0.0)
+	_barreira_cd = maxf(_barreira_cd - delta, 0.0)
 
 	var p := _get_player()
 	if p == null:
 		return
 
-	# Durante o giro quem controla a rotação é o ataque, não o "olhar para o jogador"
-	if not _spinning:
-		_face(p.global_position + Vector3.UP * aim_height, delta)
+	_face(p.global_position + Vector3.UP * aim_height, delta)
 	_check_contact(p, delta)
+	_atualizar_gatilho_barreira(p, delta)
 
 
 # ---------------------------------------------------------------- Vida
@@ -276,18 +307,14 @@ func _attack_loop() -> void:
 		if _get_player() == null:
 			continue
 
-		# Jogador colado no chefe: giro de 360° (respeitando a recarga)
-		if _spin_cd <= 0.0 and _player_too_close():
-			last = "spin"
-		else:
-			var options: Array[String] = ["burst", "w", "m", "sweep"]
-			options.erase(last)  # não repete o mesmo ataque duas vezes seguidas
-			last = options.pick_random()
+		var options: Array[String] = ["burst", "wm", "sweep"]
+		options.erase(last)
+		last = options.pick_random()
 
-		attack_started.emit(last)  # use para som/animação de preparação
+		attack_started.emit(last)
 
-		# Giro e varredura já têm o próprio aviso (olho se erguendo / feixe fino)
-		if last != "spin" and last != "sweep":
+		# A varredura já tem o próprio aviso (feixe fino)
+		if last != "sweep":
 			await get_tree().create_timer(windup_time).timeout
 			if not is_inside_tree() or morto:
 				return
@@ -295,20 +322,14 @@ func _attack_loop() -> void:
 		match last:
 			"burst":
 				await _attack_burst()
-			"w":
+			"wm":
+				var invertido := randf() >= chance_w
 				if pattern_as_beam:
-					await _attack_beam(false)
+					await _attack_beam(invertido)
 				else:
-					await _attack_pattern(false)
-			"m":
-				if pattern_as_beam:
-					await _attack_beam(true)
-				else:
-					await _attack_pattern(true)
+					await _attack_pattern(invertido)
 			"sweep":
 				await _attack_sweep()
-			"spin":
-				await _attack_spin()
 
 
 ## Espera o intervalo entre ataques, mas sai mais cedo se o jogador colar no chefe.
@@ -319,8 +340,6 @@ func _wait_next_attack() -> void:
 		if not is_inside_tree():
 			return
 		t += 0.1
-		if t >= 0.6 and _spin_cd <= 0.0 and _player_too_close():
-			return
 
 
 func _attack_burst() -> void:
@@ -328,8 +347,35 @@ func _attack_burst() -> void:
 		var p := _get_player()
 		if p == null or not is_inside_tree() or morto:
 			return
+
 		var aim := p.global_position + Vector3.UP * aim_height
-		_fire((aim - muzzle.global_position).normalized())
+
+		# Cada tiro sorteia: previsto (pune quem anda) ou direto (pede parry/desvio)
+		var tiro_previsto := randf() < burst_chance_predicao
+
+		if tiro_previsto and p is CharacterBody3D:
+			var tempo_voo := muzzle.global_position.distance_to(aim) / laser_speed
+			aim += (p as CharacterBody3D).velocity * tempo_voo * burst_predicao
+
+		var dir := (aim - muzzle.global_position).normalized()
+
+		# Espalhamento: desvio aleatório dentro de um cone
+		if burst_spread > 0.0:
+			var eixo_x := dir.cross(Vector3.UP)
+			if eixo_x.length() < 0.01:
+				eixo_x = Vector3.RIGHT
+			eixo_x = eixo_x.normalized()
+			var eixo_y := eixo_x.cross(dir).normalized()
+
+			var max_rad := deg_to_rad(burst_spread)
+			var angulo := randf() * TAU
+			var desvio := sqrt(randf()) * max_rad
+
+			dir = dir.rotated(eixo_x, sin(angulo) * desvio)
+			dir = dir.rotated(eixo_y, cos(angulo) * desvio)
+			dir = dir.normalized()
+
+		_fire(dir)
 		await get_tree().create_timer(burst_interval).timeout
 
 
@@ -339,7 +385,6 @@ func _attack_beam(inverted: bool) -> void:
 	if p == null:
 		return
 
-	# O desenho é travado na posição do jogador no início: dá para desviar.
 	var center := p.global_position + Vector3.UP * aim_height
 	var forward := (center - muzzle.global_position).normalized()
 	var right := forward.cross(Vector3.UP)
@@ -353,63 +398,52 @@ func _attack_beam(inverted: bool) -> void:
 		pts.append(Vector2(v.x, -v.y if inverted else v.y))
 	var path := _sample_path(pts, 200)
 
-	var pose := func(t: float, _sweeping: bool) -> Array:
+	# Estende o caminho nas pontas, pra o feixe entrar de longe e sair de longe
+	if beam_margem > 0.0 and path.size() > 1:
+		var ini: Vector2 = path[0]
+		var fim: Vector2 = path[path.size() - 1]
+		var dir_ini := Vector2(sign(ini.x - path[1].x), 0.0)
+		var dir_fim := Vector2(sign(fim.x - path[path.size() - 2].x), 0.0)
+
+		if dir_ini == Vector2.ZERO:
+			dir_ini = Vector2(-1.0, 0.0)
+		if dir_fim == Vector2.ZERO:
+			dir_fim = Vector2(1.0, 0.0)
+
+		var extra_ini: Array[Vector2] = []
+		var extra_fim: Array[Vector2] = []
+		var passos := 30
+
+		for i in range(passos, 0, -1):
+			extra_ini.append(ini + dir_ini * beam_margem * float(i) / float(passos))
+		for i in range(1, passos + 1):
+			extra_fim.append(fim + dir_fim * beam_margem * float(i) / float(passos))
+
+		path = extra_ini + path + extra_fim
+
+	# Sorteia o lado de onde o feixe começa (esquerda ou direita)
+	if randf() < 0.5:
+		path.reverse()
+
+	# Dictionary é compartilhado com a função abaixo, então o centro persiste
+	var estado := {"centro": center}
+
+	var pose := func(t: float, sweeping: bool) -> Array:
+		# Enquanto varre, o centro do desenho persegue o jogador
+		var alvo_atual := _get_player()
+		if sweeping and alvo_atual != null and beam_seguir > 0.0:
+			var pos_jogador := alvo_atual.global_position + Vector3.UP * aim_height
+			var k := 1.0 - exp(-beam_seguir * get_physics_process_delta_time())
+			estado["centro"] = (estado["centro"] as Vector3).lerp(pos_jogador, k)
+
+		var c: Vector3 = estado["centro"]
 		var s := _path_at(path, t)
 		var origin := muzzle.global_position
-		var target := center + right * s.x * pattern_width * 0.5 + up * s.y * pattern_height * 0.5
+		var target := c + right * s.x * pattern_width * 0.5 + up * s.y * pattern_height * 0.5
 		return [origin, (target - origin).normalized()]
 
 	await _beam_loop(beam_windup, beam_duration, beam_damage, pose, beam_color, 1.0)
 
-
-## Giro de 360° para baixo quando o jogador está muito perto: o olho se ergue,
-## depois gira para a frente e para baixo soltando o feixe, num círculo completo
-## no plano vertical que passa pelo jogador. Dá para fugir saindo desse plano.
-func _attack_spin() -> void:
-	var p := _get_player()
-	if p == null:
-		return
-
-	_spin_cd = spin_cooldown
-	_spinning = true
-
-	# Plano vertical do giro: o que contém o chefe e o jogador
-	var f_h := p.global_position - global_position
-	f_h.y = 0.0
-	if f_h.length() < 0.01:
-		f_h = Vector3.FORWARD
-	f_h = f_h.normalized()
-	var axis := f_h.cross(Vector3.UP).normalized()
-
-	var base_basis := Basis.looking_at(f_h, Vector3.UP)
-	if model_faces_back:
-		base_basis = base_basis * Basis(Vector3.UP, PI)
-
-	var escala := global_basis.get_scale()
-	var inicio := global_basis.orthonormalized()
-	# Posição inicial do giro: olho apontando para cima
-	var erguido := Basis(axis, PI * 0.5) * base_basis
-
-	# 1) Olho se ergue (aviso)
-	var t_w := 0.0
-	while t_w < spin_windup and not morto:
-		await get_tree().physics_frame
-		if not is_inside_tree():
-			return
-		t_w += get_physics_process_delta_time()
-		var k := smoothstep(0.0, 1.0, clampf(t_w / spin_windup, 0.0, 1.0))
-		global_basis = inicio.slerp(erguido, k) * Basis.from_scale(escala)
-
-	# 2) Giro completo: cima -> frente (jogador) -> baixo -> trás -> cima
-	var pose := func(t: float, _sweeping: bool) -> Array:
-		var phi := PI * 0.5 - TAU * t
-		var rot := Basis(axis, phi)
-		global_basis = rot * base_basis * Basis.from_scale(escala)
-		return [muzzle.global_position, rot * f_h]
-
-	await _beam_loop(0.25, spin_duration, spin_damage, pose, beam_color, 1.3)
-
-	_spinning = false
 
 
 ## Feixe horizontal rente ao chão que gira em volta do chefe. O jogador precisa
@@ -650,3 +684,79 @@ func _make_debug_sphere(raio: float, cor: Color) -> void:
 	sphere.material = mat
 	mi.mesh = sphere
 	add_child(mi)
+
+func _atualizar_gatilho_barreira(p: Node3D, delta: float) -> void:
+	if _barreira_ativa or _barreira_cd > 0.0:
+		_tempo_perto = 0.0
+		return
+
+	var dist := global_position.distance_to(p.global_position)
+
+	if dist <= barreira_raio_gatilho:
+		_tempo_perto += delta
+	else:
+		_tempo_perto = maxf(_tempo_perto - delta, 0.0)
+
+	if _tempo_perto >= barreira_tempo_perto:
+		_tempo_perto = 0.0
+		_ataque_barreira()
+
+
+func _ataque_barreira() -> void:
+	_barreira_ativa = true
+	_barreira_cd = barreira_cooldown
+
+	var cena := get_tree().current_scene
+
+	# Esfera independente do boss (não herda a escala dele)
+	var esfera := MeshInstance3D.new()
+	var malha := SphereMesh.new()
+	malha.radius = 1.0
+	malha.height = 2.0
+
+	var mat := StandardMaterial3D.new()
+	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
+	mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+	mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+	mat.albedo_color = Color(barreira_cor, 0.15)
+	malha.material = mat
+	esfera.mesh = malha
+
+	cena.add_child(esfera)
+	esfera.global_position = global_position
+	esfera.scale = Vector3.ONE * 0.2
+
+	# Aviso: a barreira cresce e fica mais opaca
+	var tw := esfera.create_tween()
+	tw.set_parallel(true)
+	tw.tween_property(esfera, "scale", Vector3.ONE * barreira_raio, barreira_aviso)
+	tw.tween_property(mat, "albedo_color:a", 0.45, barreira_aviso)
+	await tw.finished
+
+	if not is_inside_tree() or morto:
+		if is_instance_valid(esfera):
+			esfera.queue_free()
+		_barreira_ativa = false
+		return
+
+	# Explosão: dano e empurrão em quem estiver dentro
+	var p := _get_player()
+	if p != null and global_position.distance_to(p.global_position) <= barreira_raio:
+		_hurt(p, barreira_dano)
+
+		if p.has_method("empurrar"):
+			var dir := p.global_position - global_position
+			dir.y = 0.0
+			if dir.length() < 0.01:
+				dir = Vector3.FORWARD
+			p.empurrar(dir.normalized(), barreira_empurrao)
+
+	# Flash final: expande um pouco e some
+	mat.albedo_color = Color(1.0, 0.6, 0.6, 0.8)
+	var tw2 := esfera.create_tween()
+	tw2.set_parallel(true)
+	tw2.tween_property(esfera, "scale", Vector3.ONE * barreira_raio * 1.15, 0.25)
+	tw2.tween_property(mat, "albedo_color:a", 0.0, 0.25)
+	tw2.chain().tween_callback(esfera.queue_free)
+
+	_barreira_ativa = false

@@ -6,6 +6,8 @@ extends Area3D
 @export var porta: Node
 ## Porta que fecha quando os inimigos aparecem (opcional).
 @export var porta_para_fechar: Node
+## Elevador que destrava quando todos os inimigos da zona morrerem (opcional).
+@export var elevador: Node
 
 @export_group("Efeito de Teleporte")
 @export var cor_teleporte: Color = Color(0.2, 0.6, 1.0)
@@ -33,6 +35,9 @@ func _ready() -> void:
 		if porta != null and porta.has_method("abrir"):
 			porta.abrir(true)
 		return
+		
+		if elevador != null and elevador.has_method("destravar"):
+			elevador.destravar()
 
 	# Guarda os inimigos (todo filho que não é a caixa de colisão) e esconde
 	for filho in get_children():
@@ -129,9 +134,12 @@ func _ao_mudar_checkpoint(indice: int) -> void:
 
 		if porta != null and porta.has_method("abrir"):
 			porta.abrir(true)
+			
+		if elevador != null and elevador.has_method("destravar"):
+			elevador.destravar()
 		
 func _physics_process(_delta: float) -> void:
-	if not ativada or porta == null:
+	if not ativada or (porta == null and elevador == null):
 		return
 
 	for inimigo in inimigos:
@@ -142,8 +150,11 @@ func _physics_process(_delta: float) -> void:
 		return  # ainda tem inimigo vivo
 
 	# Todos mortos
-	if porta.has_method("abrir"):
+	if porta != null and porta.has_method("abrir"):
 		porta.abrir()
+
+	if elevador != null and elevador.has_method("destravar"):
+		elevador.destravar()
 
 	set_physics_process(false)
 	

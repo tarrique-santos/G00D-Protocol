@@ -143,6 +143,8 @@ size = Vector3(2.2873535, 3.175537, 0.001)
 
 [node name="Elevador" type="AnimatableBody3D" unique_id=1589765641]
 script = ExtResource("1_jrvis")
+inverter_porta_a = true
+inverter_porta_b = true
 
 [node name="Elevator_Shell" type="MeshInstance3D" parent="." unique_id=1945071277]
 transform = Transform3D(100, 0, 0, 0, -1.1920929e-05, 99.99999, 0, -99.99999, -1.1920929e-05, -0.33703065, 1.5, 0.038415194)
@@ -186,3 +188,7 @@ shape = SubResource("BoxShape3D_yf5fn")
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="." unique_id=597154718]
 transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -1.524214, 1.5556731, 0.099443555)
 shape = SubResource("BoxShape3D_yf5fn")
+
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="." unique_id=225033321]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.31219482, 3.020896, -0.016448975)
+shape = SubResource("BoxShape3D_g4v7s")

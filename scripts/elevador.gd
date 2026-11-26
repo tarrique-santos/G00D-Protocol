@@ -21,6 +21,8 @@ signal viagem_concluida
 ## Tempo que o jogador precisa ficar dentro antes da partida.
 @export var atraso_partida: float = 0.8
 
+## Se ligado, o elevador nasce travado e só funciona depois de destravar().
+@export var comeca_travado: bool = false
 
 @export_group("Portas")
 
@@ -68,6 +70,8 @@ var _abertura_b: Vector3 = Vector3.ZERO
 var _em_cima: bool = false
 var _ocupado: bool = false
 var _jogador_dentro: bool = false
+var _travado: bool = false
+var _portas_abertas: bool = true
 
 
 # ==================================================
@@ -98,6 +102,8 @@ func _ready() -> void:
 	_definir_portas_instantaneo(comecar_com_portas_abertas)
 
 	_criar_gatilho()
+	
+	_travado = comeca_travado
 
 
 ## Calcula para onde cada porta vai ao abrir: uma se afasta da outra.
@@ -178,7 +184,7 @@ func _on_gatilho_saiu(corpo: Node3D) -> void:
 
 func _tentar_partir() -> void:
 
-	if _ocupado:
+	if _ocupado or _travado:
 		return
 
 	_ocupado = true
@@ -247,7 +253,7 @@ func _fechar_portas() -> void:
 
 
 func _animar_portas(abrir: bool) -> void:
-
+	_portas_abertas = abrir
 	if porta_a == null and porta_b == null:
 
 		await get_tree().create_timer(duracao_porta).timeout
@@ -282,6 +288,7 @@ func _definir_portas_instantaneo(abertas: bool) -> void:
 	if porta_b != null:
 		porta_b.position = _fechada_b + (_abertura_b if abertas else Vector3.ZERO)
 
+	_portas_abertas = abertas
 	_ligar_colisao_portas(not abertas)
 
 
@@ -295,3 +302,20 @@ func _ligar_colisao_portas(ativa: bool) -> void:
 
 		if colisao != null:
 			colisao.set_deferred("disabled", not ativa)
+
+func travar() -> void:
+	_travado = true
+
+
+func destravar() -> void:
+	_travado = false
+
+	# Estava travado com as portas fechadas: abre pra liberar a entrada
+	if not _portas_abertas:
+		_ocupado = true
+		await _abrir_portas()
+		_ocupado = false
+
+	# Se o jogador já estava dentro da cabine esperando, parte agora
+	if _jogador_dentro:
+		_tentar_partir()

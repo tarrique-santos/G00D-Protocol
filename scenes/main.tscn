@@ -986,6 +986,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_16nta")
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_2cjbq"]
+size = Vector3(11.395752, 5.5027466, 1)
+
 [node name="Main" type="Node3D" unique_id=669742024]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 124.12348, 0)
 script = ExtResource("1_dp3eg")
@@ -1132,7 +1135,7 @@ transform = Transform3D(-0.7013356, 0, 0.71283114, 0, 1, 0, -0.71283114, 0, -0.7
 transform = Transform3D(-2.5, 0, -3.774895e-07, 0, 2.5, 0, 3.774895e-07, 0, -2.5, -94.172, -85.143, -413.533)
 
 [node name="PlayerTrue" parent="." unique_id=61202322 instance=ExtResource("6_tefeu")]
-transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 176.67206, -71.26764, 103.69457)
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -15.770048, -83.0388, -266.83063)
 velocidade_dash = 40.0
 tempo_recarga_dash_chao = 1.0
 dash_no_chao_gasta_carga = true
@@ -1184,10 +1187,11 @@ transform = Transform3D(8.742276e-08, 7.6427436e-15, 2, 1.7484555e-07, -2, 0, 2,
 so_dano_de_parry = true
 alcance_tiro = 60.0
 
-[node name="ZonaSpawn3" parent="." unique_id=742979966 node_paths=PackedStringArray("porta_para_fechar") instance=ExtResource("18_2f3dj")]
+[node name="ZonaSpawn3" parent="." unique_id=742979966 node_paths=PackedStringArray("porta_para_fechar", "elevador") instance=ExtResource("18_2f3dj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -140.14119, -103.76007, -179.32011)
 secao = 2
 porta_para_fechar = NodePath("../mapa/Porta2")
+elevador = NodePath("../mapa/Elevador")
 
 [node name="AlienInimigo" parent="ZonaSpawn3" unique_id=265273950 instance=ExtResource("9_85g3d")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27.08554, -4.493307, -57.398224)
@@ -1581,7 +1585,10 @@ skeleton = NodePath("")
 
 [node name="Elevador" parent="mapa" unique_id=634984403 instance=ExtResource("34_pibwh")]
 transform = Transform3D(-2.000001, 0, -1.7484565e-07, 0, 2, 0, 1.7484565e-07, 0, -2.000001, -38.114594, -44.306465, -352.87366)
+comeca_travado = true
+distancia_abertura = 0.6
 eixo_manual = Vector3(0, 0, 1)
+comecar_com_portas_abertas = false
 
 [node name="Chão10" parent="mapa" unique_id=1978165916 instance=ExtResource("8_tipki")]
 transform = Transform3D(98.053345, 0, 0, 0, 3, 0, 0, 0, 81.89109, -74.165436, -22.367004, -397.37457)
@@ -1624,9 +1631,16 @@ transform = Transform3D(-36.190006, 0, -5.681973e-06, 0, 18.025, 0, 5.464539e-06
 [node name="bloco38" parent="mapa" unique_id=718880777 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(-36.190014, 0, -5.681974e-06, 0, 18.025, 0, 5.4645398e-06, 0, -37.63, -111.18208, -12.8403015, -420.4558)
 
+[node name="Chckpoint" parent="." unique_id=945791315 instance=ExtResource("28_fv21b")]
+transform = Transform3D(4.59, 0, 0, 0, 2.915, 0, 0, 0, 2, -139.97356, -103.23241, -92.02444)
+
 [node name="Chckpoint2" parent="." unique_id=222720587 instance=ExtResource("28_fv21b")]
-transform = Transform3D(9.68, 0, 0, 0, 2.77, 0, 0, 0, 1, -20.417196, -80.99487, -302.85052)
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, -20.417196, -80.99487, -302.85052)
 indice = 2
+
+[node name="CollisionShape3D" parent="Chckpoint2" index="0" unique_id=2034222331]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15195465, 0.9030504, 0)
+shape = SubResource("BoxShape3D_2cjbq")
 
 [node name="ZonaSpawn" parent="." unique_id=385079650 node_paths=PackedStringArray("porta_para_fechar") instance=ExtResource("18_2f3dj")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.611137, -82.68459, -341.87592)
@@ -1634,10 +1648,31 @@ secao = 3
 porta_para_fechar = NodePath("../mapa/Porta3")
 
 [node name="Olho" parent="ZonaSpawn" unique_id=2093689191 instance=ExtResource("38_2cjbq")]
-transform = Transform3D(-4.9708133, 0, 0.53946143, 0, 5, 0, -0.53946143, 0, -4.9708133, 0, 7.973671, -45.129333)
-time_between_attacks = 0.5
+transform = Transform3D(5.0000005, 0, 0, 0, -2.1855695e-07, 5.0000005, 0, -5, -2.1855696e-07, 0, 5.6283073, -45.129333)
+nome_chefe = "Z-010"
+vida_maxima = 2500
+turn_speed = 3.0
+laser_speed = 60.0
+laser_damage = 15.0
+laser_size = 3.0
+time_between_attacks = 0.3
+windup_time = 0.4
+burst_count = 30
+burst_interval = 0.03
+burst_predicao = 0.8
+burst_chance_predicao = 0.6
 pattern_shots = 25
 pattern_interval = 0.1
+beam_duration = 1.3
+beam_seguir = 2.0
+sweep_windup = 0.3
+sweep_duration = 1.5
+barreira_raio_gatilho = 20.0
+barreira_tempo_perto = 1.0
+barreira_raio = 20.0
+barreira_dano = 20
+barreira_empurrao = 60.0
+barreira_cooldown = 0.0
 
 [node name="Nave de pouso(Spawn)" parent="." unique_id=701050838 instance=ExtResource("25_og1vs")]
 transform = Transform3D(1.5832719, -2.527941, -2.6651015, 1.9143653, -1.9090046, 2.9480345, -3.135037, -2.4423795, 0.45423225, 203.26196, -71.99757, 101.64319)
@@ -1683,9 +1718,6 @@ transform = Transform3D(1.3050201, 0.53428173, -0.5113386, -0.23338908, -0.68660
 
 [node name="StaticBody3D" parent="Nave de pouso(Spawn)" unique_id=58972399 instance=ExtResource("22_2wyq8")]
 transform = Transform3D(1.4109426, -0.19582902, 0.4699925, 0.49397907, 0.19091803, -1.4034013, 0.12339789, 1.4748565, 0.2440736, 1.788969, 1.4885788, 2.5616703)
-
-[node name="Chckpoint" parent="." unique_id=945791315 instance=ExtResource("28_fv21b")]
-transform = Transform3D(4.59, 0, 0, 0, 2.915, 0, 0, 0, 2, -139.97356, -103.23241, -92.02444)
 
 [node name="TriggersTutorial" type="Node" parent="." unique_id=177172046]
 
@@ -1761,3 +1793,5 @@ transform = Transform3D(100.000084, 0, 0, 0, -1.1920939e-05, 100.00008, 0, -100.
 
 [node name="caixote23" parent="caixas2" unique_id=938192901 instance=ExtResource("19_gqmmt")]
 transform = Transform3D(100.000084, 0, 0, 0, -1.1920939e-05, 100.00008, 0, -100.00008, -1.1920939e-05, -53.004723, 1.3178883, -2.5567627)
+
+[editable path="Chckpoint2"]
