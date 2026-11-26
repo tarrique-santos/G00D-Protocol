@@ -37,8 +37,10 @@ bg_color = Color(0.30588236, 0.6901961, 0.9372549, 1)
 
 [node name="PlayerTrue" type="CharacterBody3D" unique_id=61202322 groups=["player"]]
 script = ExtResource("1_wpm2o")
+velocidade_dash = 50.0
+tempo_imunidade = 0.2
 dano_tiro = 30.0
-dano_soco = 50
+dano_soco = 30
 alcance_soco = 5.0
 largura_soco = 2.0
 altura_soco = 2.0

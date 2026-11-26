@@ -288,8 +288,8 @@ func criar_barra_vida():
 	# Sempre voltada para a câmera
 	material_barra.billboard_mode = BaseMaterial3D.BILLBOARD_ENABLED
 
-	# Não deixar o modelo esconder a barra
-	material_barra.no_depth_test = true
+	# Parede esconde a barra, como qualquer objeto normal
+	material_barra.no_depth_test = false
 
 	barra_preenchimento.material_override = material_barra
 
@@ -311,21 +311,19 @@ func atualizar_barra_vida():
 			1.0
 		)
 
-	# Reduzir a barra
-	barra_preenchimento.scale.x = porcentagem
+	var malha := barra_preenchimento.mesh as QuadMesh
+	var largura_atual := maxf(largura_barra_vida * porcentagem, 0.001)
 
-	# Manter alinhamento à esquerda
-	barra_preenchimento.position.x = (
-		-(largura_barra_vida / 2.0) * (1.0 - porcentagem)
+	malha.size = Vector2(largura_atual, espessura_barra_vida)
+	# Mantém a ponta esquerda fixa enquanto a barra encolhe
+	malha.center_offset = Vector3(
+		-(largura_barra_vida - largura_atual) / 2.0, 0.0, 0.0
 	)
 
-	# Alterar cor conforme a vida
 	if porcentagem > 0.5:
 		material_barra.albedo_color = Color.GREEN
-
 	elif porcentagem > 0.25:
 		material_barra.albedo_color = Color.YELLOW
-
 	else:
 		material_barra.albedo_color = Color.RED
 

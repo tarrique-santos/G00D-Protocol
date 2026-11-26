@@ -4,6 +4,8 @@ extends Area3D
 @export var secao: int = 1
 ## Porta que abre quando todos os inimigos da zona morrerem (opcional).
 @export var porta: Node
+## Porta que fecha quando os inimigos aparecem (opcional).
+@export var porta_para_fechar: Node
 
 @export_group("Efeito de Teleporte")
 @export var cor_teleporte: Color = Color(0.2, 0.6, 1.0)
@@ -60,6 +62,22 @@ func _desligar(inimigo: Node) -> void:
 		inimigo.visible = false
 
 	inimigo.process_mode = Node.PROCESS_MODE_DISABLED
+	_parar_filhos(inimigo)
+
+
+func _parar_filhos(no: Node) -> void:
+	for filho in no.get_children():
+		if filho is Timer:
+			filho.stop()
+		elif filho is AnimationPlayer:
+			filho.stop()
+		elif filho is GPUParticles3D:
+			filho.emitting = false
+
+		if filho.process_mode == Node.PROCESS_MODE_ALWAYS:
+			filho.process_mode = Node.PROCESS_MODE_INHERIT
+
+		_parar_filhos(filho)
 
 
 func _ligar(inimigo: Node) -> void:
@@ -78,6 +96,10 @@ func _ligar(inimigo: Node) -> void:
 
 	inimigo.process_mode = Node.PROCESS_MODE_INHERIT
 
+	# Boss e outros que precisam de ativação explícita
+	if inimigo.has_method("ativar"):
+		inimigo.ativar()
+
 
 func _ao_entrar(corpo: Node3D) -> void:
 	if ativada or not corpo.is_in_group("player"):
@@ -85,6 +107,10 @@ func _ao_entrar(corpo: Node3D) -> void:
 
 	ativada = true
 	set_deferred("monitoring", false)
+
+	# Tranca a porta assim que os inimigos começam a aparecer
+	if porta_para_fechar != null and porta_para_fechar.has_method("fechar"):
+		porta_para_fechar.fechar()
 
 	for inimigo in inimigos:
 		_ligar(inimigo)

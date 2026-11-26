@@ -194,6 +194,16 @@ func atualizar_hud() -> void:
 
 	var disponiveis = max_dash - usados
 
+	# Progresso da carga que está recarregando (0 a 1)
+	var progresso_recarga := 0.0
+
+	if usados > 0 and jogador.tempo_recarga_dash_chao > 0.0:
+		progresso_recarga = clampf(
+			1.0 - jogador.tempo_recuperacao_dash / jogador.tempo_recarga_dash_chao,
+			0.0,
+			1.0
+		)
+
 	# Vida
 	hp_bar.max_value = vida_maxima
 	hp_bar.value = vida_atual
@@ -217,11 +227,11 @@ func atualizar_hud() -> void:
 
 	hp_bar.add_theme_stylebox_override("fill", estilo_vida)
 
-	# Dash
+	# Dash: cargas cheias + progresso da que está voltando
 	barra_dash.max_value = max_dash
-	barra_dash.value = disponiveis
+	barra_dash.value = disponiveis + progresso_recarga
 
-	texto_dash.text = "PROPULSÃO    %d / %d CARGAS" % [
+	texto_dash.text = "PROPULSÃO    %d / %d" % [
 		disponiveis,
 		max_dash
 	]

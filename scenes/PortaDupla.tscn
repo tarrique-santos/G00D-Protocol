@@ -148,6 +148,7 @@ radius = 8.014566
 [node name="Porta" type="StaticBody3D" unique_id=1698778248]
 script = ExtResource("1_xf7km")
 deslocamento = Vector3(0, 0, -3)
+duracao = 0.2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1271623714]
 transform = Transform3D(1.0000001, 0, 0, 0, 0.81533515, 0.5790637, 0, -0.5790637, 0.81533515, 0, 1.4398583, 2.2604716)

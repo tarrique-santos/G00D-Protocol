@@ -35,27 +35,6 @@ func atualizar_vida() -> void:
 
 
 func atualizar_dash() -> void:
-	if jogador == null:
-		return
-
-	var maximo: int = jogador.max_dashes_no_ar
-	var usados: int = jogador.dashes_usados_no_ar
-	var restantes: int = maximo - usados
-
-	barra_dash.max_value = maximo
-
-	if usados > 0 and jogador.is_on_floor():
-		var intervalo: float = jogador.tempo_recarga_dash_chao
-
-		if intervalo > 0.0:
-			var progresso: float = 1.0 - (
-				jogador.tempo_recuperacao_dash / intervalo
-			)
-
-			barra_dash.value = restantes + clampf(progresso, 0.0, 1.0)
-		else:
-			barra_dash.value = restantes
-	else:
-		barra_dash.value = restantes
-
-	texto_dash.text = str(restantes) + " / " + str(maximo)
+	# A barra e o texto do dash são atualizados pelo script do HUD (CanvasLayer).
+	# Este script não mexe mais neles, pra não brigar pelo mesmo valor.
+	pass

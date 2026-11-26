@@ -1,6 +1,6 @@
 [gd_scene format=4 uid="uid://m3bt0ywcgkdq"]
 
-[ext_resource type="Script" uid="uid://cwpfjep6thjvf" path="res://torreta.gd" id="1_2rk5c"]
+[ext_resource type="Script" uid="uid://cwpfjep6thjvf" path="res://scripts/torreta.gd" id="1_2rk5c"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_g4v7s"]
 size = Vector3(1.5674438, 2.5486145, 1.5247803)

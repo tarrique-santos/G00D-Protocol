@@ -145,11 +145,21 @@ func atualizar_barra_vida():
 	if vida_maxima > 0.0:
 		porcentagem = clampf(vida / vida_maxima, 0.0, 1.0)
 
-	barra_preenchimento.scale.x = porcentagem
+	var malha := barra_preenchimento.mesh as QuadMesh
+	var largura_atual := maxf(largura_barra_vida * porcentagem, 0.001)
 
-	barra_preenchimento.position.x = (
-		-(largura_barra_vida / 2.0) * (1.0 - porcentagem)
+	malha.size = Vector2(largura_atual, espessura_barra_vida)
+	# Mantém a ponta esquerda fixa enquanto a barra encolhe
+	malha.center_offset = Vector3(
+		-(largura_barra_vida - largura_atual) / 2.0, 0.0, 0.0
 	)
+
+	if porcentagem > 0.5:
+		material_barra.albedo_color = Color.GREEN
+	elif porcentagem > 0.25:
+		material_barra.albedo_color = Color.YELLOW
+	else:
+		material_barra.albedo_color = Color.RED
 
 	if porcentagem > 0.5:
 		material_barra.albedo_color = Color.GREEN

@@ -24,6 +24,8 @@ var estava_no_chao: bool = false
 @export var recarga_dash: float = 0.25
 @export var max_dashes_no_ar: int = 3
 @export var tempo_recarga_dash_chao: float = 0.5
+## Se ligado, o dash no chão também gasta cargas, e elas recarregam sempre (chão ou ar).
+@export var dash_no_chao_gasta_carga: bool = false
 
 var tempo_dash: float = 0.0
 var tempo_recarga: float = 0.0
@@ -644,7 +646,19 @@ func _physics_process(delta: float) -> void:
 
 	# --- RECARGA GRADUAL DOS DASHES ---
 
-	if is_on_floor():
+	# --- RECARGA GRADUAL DOS DASHES ---
+
+	if dash_no_chao_gasta_carga:
+		# Recarga contínua: uma carga volta a cada tempo_recarga_dash_chao, no chão ou no ar
+		if dashes_usados_no_ar > 0:
+			tempo_recuperacao_dash -= delta
+
+			if tempo_recuperacao_dash <= 0.0:
+				dashes_usados_no_ar -= 1
+				tempo_recuperacao_dash = tempo_recarga_dash_chao
+		else:
+			tempo_recuperacao_dash = tempo_recarga_dash_chao
+	elif is_on_floor():
 		if dashes_usados_no_ar > 0:
 			tempo_recuperacao_dash -= delta
 
@@ -699,7 +713,10 @@ func _physics_process(delta: float) -> void:
 	):
 		var esta_no_ar: bool = not is_on_floor() or velocity.y > 0.0
 
-		if not esta_no_ar or dashes_usados_no_ar < max_dashes_no_ar:
+		var gasta_carga: bool = esta_no_ar or dash_no_chao_gasta_carga
+		var tem_carga: bool = dashes_usados_no_ar < max_dashes_no_ar
+
+		if not gasta_carga or tem_carga:
 			if direcao_movimento != Vector3.ZERO:
 				direcao_dash = direcao_movimento
 			else:
@@ -710,7 +727,7 @@ func _physics_process(delta: float) -> void:
 			tempo_dash = duracao_dash
 			tempo_recarga = recarga_dash
 
-			if esta_no_ar:
+			if gasta_carga:
 				dashes_usados_no_ar += 1
 
 	# --- EXECUTAR DASH ---

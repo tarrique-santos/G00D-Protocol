@@ -192,18 +192,31 @@ func criar_barra_vida() -> void:
 	atualizar_barra_vida()
 
 
-func atualizar_barra_vida() -> void:
+func atualizar_barra_vida():
 	if barra_preenchimento == null:
 		return
 
-	var p := clampf(float(vida_atual) / float(vida_maxima), 0.0, 1.0)
+	var porcentagem = 0.0
 
-	barra_preenchimento.scale.x = p
-	barra_preenchimento.position.x = -(largura_barra_vida / 2.0) * (1.0 - p)
+	if vida_maxima > 0:
+		porcentagem = clampf(
+			float(vida_atual) / float(vida_maxima),
+			0.0,
+			1.0
+		)
 
-	if p > 0.5:
+	var malha := barra_preenchimento.mesh as QuadMesh
+	var largura_atual := maxf(largura_barra_vida * porcentagem, 0.001)
+
+	malha.size = Vector2(largura_atual, espessura_barra_vida)
+	# Mantém a ponta esquerda fixa enquanto a barra encolhe
+	malha.center_offset = Vector3(
+		-(largura_barra_vida - largura_atual) / 2.0, 0.0, 0.0
+	)
+
+	if porcentagem > 0.5:
 		material_barra.albedo_color = Color.GREEN
-	elif p > 0.25:
+	elif porcentagem > 0.25:
 		material_barra.albedo_color = Color.YELLOW
 	else:
 		material_barra.albedo_color = Color.RED

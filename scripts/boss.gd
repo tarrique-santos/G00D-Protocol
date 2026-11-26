@@ -123,6 +123,7 @@ var _spin_cd := 0.0
 var _spinning := false
 var _barra: BarraVidaBoss
 var _flash_mat: StandardMaterial3D
+var _ativo := false
 
 
 func _ready() -> void:
@@ -136,6 +137,13 @@ func _ready() -> void:
 		_make_debug_sphere(contact_radius, Color(1.0, 0.2, 0.2, 0.15))
 		_make_debug_sphere(spin_trigger_radius, Color(1.0, 0.9, 0.2, 0.08))
 
+## Chamada pela zona de spawn quando o boss deve começar a agir.
+func ativar() -> void:
+	if _ativo or morto:
+		return
+
+	_ativo = true
+
 	if mostrar_barra:
 		_barra = BarraVidaBoss.new()
 		_barra.nome_boss = nome_chefe
@@ -146,9 +154,10 @@ func _ready() -> void:
 
 	_attack_loop()
 
-
 func _physics_process(delta: float) -> void:
 	if morto:
+		return
+	if not _ativo:
 		return
 
 	_spin_cd = maxf(_spin_cd - delta, 0.0)

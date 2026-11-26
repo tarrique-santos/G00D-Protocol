@@ -15,8 +15,8 @@ var esfera_colisao: SphereShape3D
 
 var explosivo: bool = false
 var raio_explosao: float = 10.0
-var multiplicador_velocidade_perfeito: float = 4.0
-var multiplicador_dano_perfeito: float = 5.0
+var multiplicador_velocidade_perfeito: float = 3.0
+var multiplicador_dano_perfeito: float = 4.0
 var rids_ignorados: Array[RID] = []
 
 func _ready():
